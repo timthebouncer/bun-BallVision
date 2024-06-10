@@ -1,0 +1,17 @@
+#root {
+  max-width: 1280px;
+  margin: 0 auto;
+  padding: 2rem;
+  text-align: center;
+}
+
+
+
+.lineThrough::before{
+  content: '';
+  left: 0;
+  right: 0;
+  position: absolute;
+  border: 1px solid #000;
+}
+
