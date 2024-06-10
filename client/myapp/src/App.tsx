@@ -1,13 +1,16 @@
 import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from 'react-router-dom';
 import Home from './pages/HomePage.tsx';
-
+import UploadVideo from './pages/UploadVideo.tsx';
 
 
 const router = createBrowserRouter(
     createRoutesFromElements(
         <Route path="/" >
             <Route index element={<Home />} />
+            <Route path="/upload" index element={<UploadVideo />} />
         </Route>
+        
+         
     )
 )
 

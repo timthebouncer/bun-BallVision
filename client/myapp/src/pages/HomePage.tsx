@@ -1,168 +1,135 @@
-import {useEffect, useMemo, useState} from 'react'
 import './App.css'
+import {useEffect, useState} from 'react'
+import { Pagination } from "antd";
+import Search from "antd/es/input/Search.js";
+import MenuComponent from "../components/Menu";
+import {
+	FacebookFilled,
+	InstagramFilled,
+	YoutubeFilled,
+} from "@ant-design/icons";
+import ballLogo from '../../public/ballLogo-round.png'
 
-interface Todo {
-    text: string;
-    done: number;
+type VIDEO = {
+    title: string;
+    intro: string;
+    videoUrl: string;
 }
 
-let id = 1
-let headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-    "Authorization": `Bearer 777`,
-}
+
 
 function HomePage() {
 
-    const [todos, setTodos] = useState<Todo[]>([]);
-    const [inputText, setInputText] = useState<string>('');
-    const [filterType, setFilterType] = useState<number>(0);
+    // const [inputText, setInputText] = useState<string>('');
+    const [videoList, setVideoList] = useState<VIDEO[]>([])
 
     useEffect(()=>{
-        onGetTodoList()
+        onGetVideoList()
     },[])
 
-    const onGetTodoList= async ()=>{
-        await fetch("http://localhost:3000/api/getTodoList")
+    const onGetVideoList= async ()=>{
+        await fetch("http://localhost:3000/api/getVideoList")
             .then(response=>response.json())
             .then(data=>{
-                setTodos(data)
+                setVideoList(data)
             })
             .catch(err=>{
                 console.log(err,'err')
             })
     }
 
-
-    const handleDeleteTodo = (id: number): void => {
-        const filteredTodos = todos.filter(todo => todo.id !== id);
-        setTodos(filteredTodos);
-
-        const params={
-            id: id
-        }
-
-        fetch('http://localhost:3000/api/deleteTodo', {
-            method: "DELETE",
-            headers: headers,
-            body: JSON.stringify(params)
-        })
-            .then( (response) => response.json())
-            .then( (json) => console.log(json));
-
-    };
-
-    const handleTodoStatus = async (id: number, done: number)=> {
-        const updatedTodos = todos.map(todo =>
-            todo.id === id ? { ...todo, done: done === 0 ? 1 : 0 } : todo
-        );
-        setTodos(updatedTodos);
-
-        const params ={
-            id: id,
-            done:  done === 0 ? 1 : 0
-        }
-
-
-        fetch('http://localhost:3000/api/toggleTodo', {
-            method: "PUT",
-            headers: headers,
-            body: JSON.stringify(params)
-        })
-            .then( (response) => response.json())
-            .then( (json) => console.log(json));
-    };
-
     
-    const handleFilter=(type: number)=>{
-        setFilterType(type)
-    }
-
-    const submit=async ()=>{
-
-        const params={
-            text: inputText
-        }
-
-        fetch('http://localhost:3000/api/addTodo', {
-            method: "POST",
-            headers: headers,
-            body: JSON.stringify(params)
-        })
-            .then( (response) => response.json())
-            .then( (json) => console.log(json));
-
-        if (inputText.trim() !== '') {
-            const newTodo: Todo = {
-                text: inputText,
-                done: 0,
-            };
-            setTodos([...todos, newTodo]);
-            setInputText('');
-        }
-    }
-
-    const filteredData = useMemo(() => {
-        let updatedTodos: Todo[] = [];
-        if (filterType === 0) {
-            updatedTodos = todos;
-        } else if (filterType === 1) {
-            updatedTodos = todos.filter(todo => todo.done === 1);
-        } else if (filterType === 2) {
-            updatedTodos = todos.filter(todo => todo.done === 0);
-        }
-        return updatedTodos
-    }, [filterType, todos]);
 
 
     return (
-        <div className="border py-4 px-8 flex flex-col justify-between" style={{width: 500, height: 400, borderRadius: '3%'}}>
-            <div className="flex mb-2">
-                <input className="border rounded-3xl border-amber-200 flex-1 mr-6"
-                       value={inputText}
-                       onChange={(e)=>setInputText(e.target.value)}
-                />
-                <button className="btn form__submit-btn" type="submit"  onClick={submit}>Add</button>
-            </div>
-            <div style={{overflow: "scroll", overflowX: 'hidden', flex: 1, marginBottom: 8, position: 'relative'}}>
-                {
-                    filteredData.map((item)=>{
-                        console.log(item,'www');
-                        
-                        return (
-                            <div key={item.id} className={"item flex justify-between items-center py-2" + " " +(item.done === 1 && " lineThrough")}>
-                                <button onClick={()=>handleTodoStatus(item.id, item.done)}>
-                                    {item.done === 1 ? 'V':'O'}
-                                </button>
-                                <div className="content">{item.text}</div>
-                                <button onClick={()=>handleDeleteTodo(item.id)}>Delete</button>
-                            </div>
-                        )
-                    })
-                }
-            </div>
-            <div className="flex justify-between">
-                <button
-                    className="btn filters__btn filters__btn--all"
-                    onClick={()=>handleFilter(0)}
-                >
-                    All
-                </button>
-                <button
-                    className="btn filters__btn filters__btn--complete"
-                    onClick={()=>handleFilter(1)}
-                >
-                    Complete
-                </button>
-                <button
-                    className="btn filters__btn filters__btn--incomplete"
-                    onClick={()=>handleFilter(2)}
-                >
-                    Incomplete
-                </button>
-            </div>
-        </div>
+        <>
+			<nav className="nav-wrapper">
+				<div className="title">
+					<MenuComponent />
+
+					<div className="logo-wrapper">
+						<a href="https://vitejs.dev">
+							<img src={ballLogo} className="logo" alt="Vite logo" />
+						</a>
+						<h2 className='text-white'>BBall_Vision</h2>
+					</div>
+				</div>
+			</nav>
+			<div className="header">
+				<Search
+					placeholder="請輸入想要觀看的球星影片關鍵字"
+					style={{ width: "20rem" }}
+				/>
+			</div>
+			<div className="container">
+				<div className="layout videoContainer">
+					{videoList.map((item:VIDEO) => {
+						return (
+							<div className="video-wrapper">
+								{/*<h3>{item.title}</h3>*/}
+								<div className="iframe-wrapper">
+									<iframe
+										style={{ border: "none" }}
+										id="inlineFrameExample"
+										title="Inline Frame Example"
+										width="100%"
+										height="500"
+										src={item.videoUrl}
+									></iframe>
+								</div>
+								<div
+									className={ "intro-text"}
+								>
+									{item.intro}
+								</div>
+							</div>
+						);
+					})}
+				</div>
+				{/*<div className="layout SideContainer">*/}
+				{/*    <div>推薦影片</div>*/}
+				{/*    <div>熱門影片</div>*/}
+				{/*</div>*/}
+				<div className="pagination">
+					<Pagination defaultCurrent={1} total={videoList.length} />
+				</div>
+			</div>
+			<div className="footer">
+				<div className="about">
+					<div className="footer-logo-wrapper">
+						<a href="https://vitejs.dev">
+							<img src={ballLogo} className="logo" alt="Vite logo" />
+						</a>
+						<h2 style={{ color: "#000" }}>BBall_Vision</h2>
+					</div>
+					<div className="service-wrapper">
+						<div>
+							收錄精華以及您不知道的NBA大小事
+							<h4>籃球傳教士 | NBA消息 | 球員報導</h4>
+						</div>
+						<div className="service-info">
+							<a href="">廣告合作</a>
+							<a href="">服務條款及隱私權政策</a>
+							<a href="">聯絡我們</a>
+						</div>
+					</div>
+				</div>
+				<div className="copyright">
+					<div>@_bball_vision 籃球視界 版權所有</div>
+					<div className="social-icon-wrapper">
+                        <a href="https://www.facebook.com/profile.php?id=100090875560321" className="social-icon">
+                            <FacebookFilled className="social-icon" />
+                        </a>
+                        <a href="https://www.instagram.com/_bball_vision/">
+                            <InstagramFilled className="social-icon" />
+                        </a>
+                        <a href="https://www.youtube.com/@_bball_vision">
+                            <YoutubeFilled className="social-icon" />
+                        </a>
+					</div>
+				</div>
+			</div>
+		</>
     )
 }
 
