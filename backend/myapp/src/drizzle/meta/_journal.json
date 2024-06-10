@@ -3,10 +3,10 @@
   "dialect": "sqlite",
   "entries": [
     {
-      "idx": 0,
+      "idx": 1,
       "version": "5",
-      "when": 1714550596991,
-      "tag": "0000_perpetual_thor_girl",
+      "when": 1718014403411,
+      "tag": "0001_glorious_amphibian",
       "breakpoints": true
     }
   ]

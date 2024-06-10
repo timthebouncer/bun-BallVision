@@ -1,10 +1,16 @@
 import { drizzle } from "drizzle-orm/bun-sqlite";
 import { Database } from "bun:sqlite";
-import {todos} from "./schema";
+import {videos} from "./schema";
 import { migrate } from "drizzle-orm/bun-sqlite/migrator";
 import { eq } from 'drizzle-orm';
 
-export class todosDatabase {
+type UploadVideoText = {
+    title: string
+    intro: string
+    videoUrl: string
+  }
+
+export class videosDatabase {
 
     db: any;
 
@@ -16,25 +22,25 @@ export class todosDatabase {
     }
 
     // Get TodoList
-    async getTodoList() {
-        return this.db.select().from(todos);
+    async getVideoList() {
+        return this.db.select().from(videos);
     }
 
     // Add a todo
-    async addTodo(text: String | Number) {
-        const aaa = await this.db.insert(todos).values({ text: text })
+    async addVideo(params: UploadVideoText) {
+        const aaa = await this.db.insert(videos).values({ ...params })
     }
 
     // Update a todo
     async toggleTodo(id: Number, done: Number) {
-        return this.db.update(todos)
+        return this.db.update(videos)
         .set({done: done})
-        .where(eq(todos.id, id))
+        .where(eq(videos.id, id))
     }
 
     // Delete a todo
     async deleteTodo(id: number) {
-        await this.db.delete(todos).where(eq(todos.id, id))
+        await this.db.delete(videos).where(eq(videos.id, id))
     }
 
 

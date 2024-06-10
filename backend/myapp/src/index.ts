@@ -1,25 +1,24 @@
 import { Elysia } from "elysia";
 import {cors} from '@elysiajs/cors'
-import {todos} from "./schema";
 // import { db } from "./db";
-import {todosDatabase} from './db'
+import {videosDatabase} from './db'
 
-interface types {
-  id: number;
-  text: string;
-  done: boolean | number;
+type UploadVideoText = {
+  title: string
+  intro: string
+  videoUrl: string
 }
 
-const app = new Elysia().decorate('db', new todosDatabase)
+const app = new Elysia().decorate('db', new videosDatabase)
       .use(cors())
-      .get('/api/getTodoList', async({db}) => {
-              const result = await db.getTodoList()
+      .get('/api/getVideoList', async({db}) => {
+              const result = await db.getVideoList()
               console.log(result,'result');
               return result
             })
-      .post('/api/addTodo', async ({body, db})=>{
-        const {text} = body
-        db.addTodo(text)
+      .post('/api/addVideo', async ({body, db})=>{
+        console.log(body,'bbb')
+        db.addVideo(body)
       })
       .put('/api/toggleTodo', async({body, db})=>{
           const {id, done} = body

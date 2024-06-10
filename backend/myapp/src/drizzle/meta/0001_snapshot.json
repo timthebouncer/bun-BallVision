@@ -1,33 +1,32 @@
 {
   "version": "5",
   "dialect": "sqlite",
-  "id": "1e16d057-46e1-4e78-90d8-4a3c62c0dcd1",
+  "id": "a4b2a89b-a3fa-4701-aea3-0fe02198963d",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "tables": {
-    "todo": {
-      "name": "todo",
+    "video": {
+      "name": "video",
       "columns": {
         "id": {
           "name": "id",
           "type": "integer",
           "primaryKey": true,
           "notNull": true,
-          "autoincrement": false
+          "autoincrement": true
         },
-        "text": {
-          "name": "text",
+        "videoUrl": {
+          "name": "videoUrl",
           "type": "text",
           "primaryKey": false,
           "notNull": true,
           "autoincrement": false
         },
-        "done": {
-          "name": "done",
-          "type": "integer",
+        "intro": {
+          "name": "intro",
+          "type": "text",
           "primaryKey": false,
           "notNull": true,
-          "autoincrement": false,
-          "default": 0
+          "autoincrement": false
         }
       },
       "indexes": {},
