@@ -1,6 +1,7 @@
 import Search from "antd/es/input/Search.js";
 import { Button } from "antd";
 import { ChangeEvent, useState } from "react";
+import axiosInstance from "../../utils/axiosInstance";
 
 type UploadVideoText = {
     title: string
@@ -29,21 +30,15 @@ const UploadVideo=()=>{
 
 
     const submit=async ()=>{
-        const params={
+        const payload={
             title: textParams.title,
             intro: textParams.intro,
             videoUrl: textParams.videoUrl,
         }
 
-        fetch('http://localhost:3000/api/addVideo', {
-            method: "POST",
-            headers: headers,
-            body: JSON.stringify(params)
-        })
-            .then( (response) => response.json())
-            .then( (json) => {
-                setTextParams({});
-            });
+        await axiosInstance.post('api/addVideo', payload)
+
+    
     }
 
     

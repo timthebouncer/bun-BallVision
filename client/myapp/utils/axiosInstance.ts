@@ -1,6 +1,10 @@
 import axios from 'axios'
 
-let headers = {}
+let headers = {
+    "Content-Type": "application/json",
+    "Accept": "application/json",
+    "Authorization": `Bearer 777`,
+}
 
 const axiosInstance = axios.create({
 	baseURL: 'http://localhost:3000',
