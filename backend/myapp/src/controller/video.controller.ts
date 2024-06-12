@@ -5,7 +5,7 @@
 // 返回直
 import {t} from "elysia";
 import {app} from "../constants";
-import {addVideo, getVideosByText} from "../service";
+import {addVideo, getVideosByText, updateVideo} from "../service";
 
 
 app.get('/api/getVideoList', async ({query}) => {
@@ -21,4 +21,7 @@ app.get('/api/getVideoList', async ({query}) => {
 }).post('/api/addVideo',({body})=>{
     console.log(body,'body')
     addVideo(body)
+}).put('/api/updateVideo',({body})=>{
+    console.log(body,'body')
+    updateVideo(body)
 })

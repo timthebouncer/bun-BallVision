@@ -1,5 +1,5 @@
 import {videos} from "../schema";
-import {eq} from "drizzle-orm";
+import {eq, like} from "drizzle-orm";
 import {db} from "../constants";
 
 //對應表的所有sql操作
@@ -10,11 +10,20 @@ type UploadVideoText = {
     videoUrl: string
 }
 
+type UpdateVideo = {
+    id: string
+    videoUrl: string
+}
+
 export class VideoDao {
 
     // Get TodoList
-    async getVideoList() {
-        return db.select().from(videos);
+    async getVideoList(text: String) {
+        if(text){
+            // return db.select().from(videos).where(like(videos.title, text))
+        } else {
+            return db.select().from(videos);
+        }
     }
 
     // Add a todo
@@ -23,9 +32,9 @@ export class VideoDao {
     }
 
     // Update a todo
-    async toggleTodo(id: Number, done: Number) {
+    async updateVideo({id, videoUrl}: UpdateVideo) {
         return db.update(videos)
-            .set({done: done})
+            .set({videoUrl})
             .where(eq(videos.id, id))
     }
 
