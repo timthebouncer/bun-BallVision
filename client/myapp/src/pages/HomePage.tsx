@@ -30,21 +30,12 @@ function HomePage() {
     },[inputText])
 
     const onGetVideoList= async ()=>{
-		console.log(inputText,'inputText')
-
-		const params ={
-			text: inputText,
-			aa: 'aaa'
-		}
 
 		const {data} = await axiosInstance.get(`api/getVideoList`, {params: {inputText}})
-		// const {data} = await axiosInstance.get(`api/getVideoList/${encodeURIComponent(JSON.stringify(params))}`)
 
 		console.log(data,'data')
 		setVideoList(data)
     }
-
-    
 
 
     return (
@@ -75,7 +66,6 @@ function HomePage() {
 					{videoList.map((item:VIDEO) => {
 						return (
 							<div className="video-wrapper">
-								{/*<h3>{item.title}</h3>*/}
 								<div className="iframe-wrapper">
 									<iframe
 										style={{ border: "none" }}
@@ -95,10 +85,6 @@ function HomePage() {
 						);
 					})}
 				</div>
-				{/*<div className="layout SideContainer">*/}
-				{/*    <div>推薦影片</div>*/}
-				{/*    <div>熱門影片</div>*/}
-				{/*</div>*/}
 				<div className="pagination">
 					<Pagination defaultCurrent={1} total={videoList.length} />
 				</div>
