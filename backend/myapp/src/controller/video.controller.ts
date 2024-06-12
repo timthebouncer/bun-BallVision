@@ -13,7 +13,7 @@ app.get('/api/getVideoList', async ({query}) => {
 
     const data = await getVideosByText(query.inputText)
     console.log(data,'ddddd')
-    return []
+    return data
 }, {
     query : t.Object({
         inputText : t.String()
