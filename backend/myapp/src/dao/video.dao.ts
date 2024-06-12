@@ -1,4 +1,4 @@
-import {videos} from "../model/video-model";
+import {videos} from "../schema";
 import {eq} from "drizzle-orm";
 import {db} from "../constants";
 
