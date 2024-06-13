@@ -3,11 +3,6 @@ import {useEffect, useState} from 'react'
 import { Pagination } from "antd";
 import Search from "antd/es/input/Search.js";
 import MenuComponent from "../components/Menu";
-import {
-	FacebookFilled,
-	InstagramFilled,
-	YoutubeFilled,
-} from "@ant-design/icons";
 import ballLogo from '../../public/ballLogo-round.png'
 import axiosInstance from '../../utils/axiosInstance'
 import Footer from "../components/footer/Footer.tsx";

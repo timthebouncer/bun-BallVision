@@ -1,14 +1,32 @@
 import './index.css'
 import ballLogo from "../../../public/ballLogo-round.png";
 import {FacebookFilled, InstagramFilled, YoutubeFilled} from "@ant-design/icons";
+import CustomModal from "../modal";
+import {useState} from "react";
 
 
 const Footer=()=>{
+
+    const [isModalOpen, setIsModalOpen] = useState(false);
+
+    const onOpenContactModal=()=>{
+        setIsModalOpen(true)
+    }
+
+    const modalCallback=(type:string, value: any)=>{
+        if(type === 'submit'){
+            console.log(value)
+        } else {
+            setIsModalOpen(false)
+        }
+    }
+
+
     return (
         <div className="footer">
             <div className="about sm:flex">
                 <div className="footer-logo-wrapper">
-                    <a href="https://vitejs.dev">
+                    <a href="">
                         <img src={ballLogo} className="logo" alt="Vite logo" />
                     </a>
                     <h2 style={{ color: "#000" }}>BBall_Vision</h2>
@@ -19,9 +37,8 @@ const Footer=()=>{
                         <h4>籃球傳教士 | NBA消息 | 球員報導</h4>
                     </div>
                     <div className="service-info sm:items-end">
-                        <a href="">廣告合作</a>
                         <a href="">服務條款及隱私權政策</a>
-                        <a href="">聯絡我們</a>
+                        <div onClick={onOpenContactModal}>聯絡我們</div>
                     </div>
                 </div>
             </div>
@@ -39,6 +56,11 @@ const Footer=()=>{
                     </a>
                 </div>
             </div>
+            <CustomModal
+                isModalOpen={isModalOpen}
+                modalCallback={modalCallback}
+                title={'聯絡我們'}
+            />
         </div>
     )
 }
