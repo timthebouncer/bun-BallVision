@@ -13,3 +13,11 @@ bun run dev
 ```
 
 Open http://localhost:3000/ with your browser to see the result.
+
+##更新DB
+更改schema後
+```bash
+bun drizzle-kit generate --config=drizzle.config.ts
+```
+接著執行migrate.ts，sql.db就會被更新
+
