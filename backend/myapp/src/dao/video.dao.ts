@@ -1,5 +1,5 @@
 import {videos} from "../schema";
-import {eq, like} from "drizzle-orm";
+import {asc, desc, eq, like} from "drizzle-orm";
 import {db} from "../constants";
 
 //對應表的所有sql操作
@@ -20,9 +20,9 @@ export class VideoDao {
     // Get TodoList
     async getVideoList(text: String) {
         if(text){
-            // return db.select().from(videos).where(like(videos.title, text))
+            return db.select().from(videos).where(like(videos.title, `%${text}%`)).orderBy(desc(videos.createTime))
         } else {
-            return db.select().from(videos);
+            return db.select().from(videos).limit(10).orderBy(desc(videos.createTime))
         }
     }
 

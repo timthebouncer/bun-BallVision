@@ -6,4 +6,7 @@ export const videos = sqliteTable("video", {
     videoUrl: text("videoUrl").notNull(),
     intro: text("intro").notNull(),
     createTime: text('createTime').notNull().default(sql`current_timestamp`),
+    title: text('title').notNull(),
+    category: text('category').notNull(),
+    clickCount: integer('clickCount')
 });

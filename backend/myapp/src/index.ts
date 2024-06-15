@@ -1,4 +1,4 @@
-import {Elysia, t} from "elysia";
+import {t} from "elysia";
 import {cors} from '@elysiajs/cors'
 
 
@@ -9,7 +9,7 @@ import './controller/video.controller'
 
 ;(async ()=>{
 
-  await migrate(db, { migrationsFolder: "./drizzle" });
+  await migrate(db, { migrationsFolder: "../drizzle" });
 
   app
       .use(cors())

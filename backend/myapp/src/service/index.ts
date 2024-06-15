@@ -14,19 +14,14 @@ export async function getVideosByText(text: String) {
     const list = await dao.getVideoList(text)
     console.log(list,'list')
     return list
-    // return list.filter(e => e.id === text)
 }
 
 export function addVideo(params: UploadVideoText) {
     const dao = new VideoDao()
     dao.addVideo(params)
-
-    // return list.filter(e => e.id === text)
 }
 
 export function updateVideo(params: UploadVideoText) {
     const dao = new VideoDao()
     dao.updateVideo(params)
-
-    // return list.filter(e => e.id === text)
 }
