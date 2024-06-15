@@ -1,5 +1,5 @@
 import './index.css'
-import React, { useState } from 'react';
+import React, {ChangeEvent, useState} from 'react';
 import {Button, Input, Modal} from 'antd';
 import TextArea from "antd/es/input/TextArea";
 
@@ -13,6 +13,11 @@ type modalCallback=(arg0: string, arg1: any)=>void
 const CustomModal = ({isModalOpen, modalCallback, title}:PropsType) => {
     const [loading, setLoading] = useState(false);
     const [modalContent, setModalContent] = useState({});
+
+    const onHandleChange=(type:string, e:ChangeEvent<HTMLInputElement>)=>{
+        const {value} = e.target
+        setModalContent({...modalContent, [type]: value})
+    }
 
 
     const handleOk = () => {
@@ -43,10 +48,18 @@ const CustomModal = ({isModalOpen, modalCallback, title}:PropsType) => {
                 ]}
             >
                 <div className={'mb-4 mt-4'}>
-                    <Input placeholder="請輸入信箱或電話" style={{height: 50}} className={'bg-white'} />
+                    <Input placeholder="請輸入信箱或電話"
+                           style={{height: 50}}
+                           className={'bg-white'}
+                           onChange={(e)=>onHandleChange('emailOrPhone', e)}
+                    />
                 </div>
                 <div>
-                    <TextArea rows={4} maxLength={6} className={'bg-white'} />
+                    <TextArea rows={4}
+                              maxLength={6}
+                              className={'bg-white'}
+                              onChange={(e)=>onHandleChange('request', e)}
+                    />
                 </div>
             </Modal>
         </>

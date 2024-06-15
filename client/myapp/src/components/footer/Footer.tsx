@@ -3,7 +3,7 @@ import ballLogo from "../../../public/ballLogo-round.png";
 import {FacebookFilled, InstagramFilled, YoutubeFilled} from "@ant-design/icons";
 import CustomModal from "../modal";
 import {useState} from "react";
-
+import { Link } from "react-router-dom";
 
 const Footer=()=>{
 
@@ -26,19 +26,17 @@ const Footer=()=>{
         <div className="footer">
             <div className="about sm:flex">
                 <div className="footer-logo-wrapper">
-                    <a href="">
+                    <a href="/">
                         <img src={ballLogo} className="logo" alt="Vite logo" />
                     </a>
                     <h2 style={{ color: "#000" }}>BBall_Vision</h2>
                 </div>
                 <div className="service-wrapper">
-                    <div>
-                        收錄精華以及您不知道的NBA大小事
-                        <h4>籃球傳教士 | NBA消息 | 球員報導</h4>
-                    </div>
                     <div className="service-info sm:items-end">
-                        <a href="">服務條款及隱私權政策</a>
-                        <div onClick={onOpenContactModal}>聯絡我們</div>
+                        <Link to="/serviceTerms" relative="path">
+                            服務條款及隱私權政策
+                        </Link>
+                        <div onClick={onOpenContactModal} className='cursor-pointer'>聯絡我們</div>
                     </div>
                 </div>
             </div>

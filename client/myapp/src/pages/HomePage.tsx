@@ -1,5 +1,5 @@
 import './App.css'
-import {useEffect, useState} from 'react'
+import {useCallback, useEffect, useRef, useState} from 'react'
 import { Pagination } from "antd";
 import Search from "antd/es/input/Search.js";
 import MenuComponent from "../components/Menu";
@@ -7,7 +7,9 @@ import ballLogo from '../../public/ballLogo-round.png'
 import axiosInstance from '../../utils/axiosInstance'
 import Footer from "../components/footer/Footer.tsx";
 
+
 type VIDEO = {
+    id: string;
     title: string;
     intro: string;
     videoUrl: string;
@@ -19,6 +21,7 @@ function HomePage() {
 
     const [inputText, setInputText] = useState<string>('');
     const [videoList, setVideoList] = useState<VIDEO[]>([])
+	const iframeRef = useRef<HTMLIFrameElement>(null);
 
     useEffect(()=>{
         onGetVideoList()
@@ -28,9 +31,50 @@ function HomePage() {
 
 		const {data} = await axiosInstance.get(`api/getVideoList`, {params: {inputText}})
 
-		console.log(data,'data')
 		setVideoList(data)
     }
+
+	const handleIframeClick = useCallback(() => {
+		console.log('Iframe clicked!');
+	}, []);
+
+	const attachClickListener = useCallback(() => {
+		const iframe = iframeRef.current;
+		if (iframe) {
+			console.log('Iframe reference:', iframe);
+			const iframeDocument = iframe.contentDocument || iframe.contentWindow?.document;
+			console.log(iframeDocument,'iframeDocument')
+			if (iframeDocument) {
+				console.log('Attaching click listener to iframe document');
+				iframeDocument.addEventListener('click', handleIframeClick);
+			} else {
+				console.log('Iframe document is null');
+			}
+		} else {
+			console.log('Iframe is null');
+		}
+	}, [handleIframeClick]);
+
+	useEffect(() => {
+		const iframe = iframeRef.current;
+		if (iframe) {
+			console.log('Adding load event listener to iframe');
+			iframe.addEventListener('load', attachClickListener);
+
+			// Cleanup event listener on component unmount
+			return () => {
+				const iframeDocument = iframe.contentDocument || iframe.contentWindow?.document;
+				if (iframeDocument) {
+					iframeDocument.removeEventListener('click', handleIframeClick);
+				}
+				iframe.removeEventListener('load', attachClickListener);
+			};
+		} else {
+			console.log('Iframe is null in useEffect');
+		}
+	}, [attachClickListener, handleIframeClick]);
+
+
 
 
     return (
@@ -40,7 +84,7 @@ function HomePage() {
 					<MenuComponent />
 
 					<div className="logo-wrapper">
-						<a href="https://vitejs.dev">
+						<a href="/">
 							<img src={ballLogo} className="logo" alt="Vite logo" />
 						</a>
 						<h2 className='text-white'>BBall_Vision</h2>
@@ -60,16 +104,21 @@ function HomePage() {
 				<div className="videoContainer">
 					{videoList.map((item:VIDEO) => {
 						return (
-							<div className="video-wrapper">
+							<div className="video-wrapper" key={item.id}>
 								<div className="iframe-wrapper">
 									<iframe
+										ref={iframeRef}
 										style={{ border: "none" }}
-										id="inlineFrameExample"
+										id={item.id}
 										title="Inline Frame Example"
 										width="100%"
 										height="500"
 										src={item.videoUrl}
-									></iframe>
+										onLoad={attachClickListener}
+									>
+									</iframe>
+
+
 								</div>
 								<div
 									className={ "intro-text"}
