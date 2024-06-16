@@ -1,4 +1,4 @@
-import {Elysia} from "elysia";
+import Elysia from "elysia";
 import {initDatabase} from "../db";
 
 

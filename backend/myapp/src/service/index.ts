@@ -2,6 +2,7 @@
 //業務邏輯
 
 import {VideoDao} from "../dao/video.dao";
+import {ContactDao} from "../dao/contact.dao";
 
 type UploadVideoText = {
     title: string
@@ -24,4 +25,9 @@ export function addVideo(params: UploadVideoText) {
 export function updateVideo(params: UploadVideoText) {
     const dao = new VideoDao()
     dao.updateVideo(params)
+}
+
+export function addContact(params: UploadVideoText) {
+    const dao = new ContactDao()
+    dao.addContact(params)
 }

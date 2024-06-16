@@ -10,3 +10,9 @@ export const videos = sqliteTable("video", {
     category: text('category').notNull(),
     clickCount: integer('clickCount')
 });
+
+export const contact = sqliteTable("contact", {
+    id: integer("id").primaryKey({ autoIncrement: true }),
+    emailOrPhone: text("emailOrPhone").notNull(),
+    request: text("request"),
+});
