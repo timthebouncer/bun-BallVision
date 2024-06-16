@@ -106,7 +106,6 @@ const MenuComponent = ({ ...props }) => {
 					mode="inline"
 					openKeys={stateOpenKeys}
 					onOpenChange={onOpenChange}
-					style={{ width: 256 }}
 					items={items}
 					theme="dark"
 				/>

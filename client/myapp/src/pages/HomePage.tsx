@@ -6,6 +6,8 @@ import MenuComponent from "../components/Menu";
 import ballLogo from '../../public/ballLogo-round.png'
 import axiosInstance from '../../utils/axiosInstance'
 import Footer from "../components/footer/Footer.tsx";
+import {ArrowUpOutlined} from "@ant-design/icons";
+import * as React from "react";
 
 
 type VIDEO = {
@@ -23,6 +25,12 @@ function HomePage() {
     const [videoList, setVideoList] = useState<VIDEO[]>([])
 	const iframeRef = useRef<HTMLIFrameElement>(null);
 
+
+
+	useEffect(() => {
+
+	}, []);
+
     useEffect(()=>{
         onGetVideoList()
     },[inputText])
@@ -34,45 +42,11 @@ function HomePage() {
 		setVideoList(data)
     }
 
-	const handleIframeClick = useCallback(() => {
-		console.log('Iframe clicked!');
-	}, []);
+    const ScrollToTopBtn=()=>{
+		return <ArrowUpOutlined onClick={scrollToTop} style={{width:20, height:20, position: 'sticky', right: 0}} />
 
-	const attachClickListener = useCallback(() => {
-		const iframe = iframeRef.current;
-		if (iframe) {
-			console.log('Iframe reference:', iframe);
-			const iframeDocument = iframe.contentDocument || iframe.contentWindow?.document;
-			console.log(iframeDocument,'iframeDocument')
-			if (iframeDocument) {
-				console.log('Attaching click listener to iframe document');
-				iframeDocument.addEventListener('click', handleIframeClick);
-			} else {
-				console.log('Iframe document is null');
-			}
-		} else {
-			console.log('Iframe is null');
-		}
-	}, [handleIframeClick]);
+	}
 
-	useEffect(() => {
-		const iframe = iframeRef.current;
-		if (iframe) {
-			console.log('Adding load event listener to iframe');
-			iframe.addEventListener('load', attachClickListener);
-
-			// Cleanup event listener on component unmount
-			return () => {
-				const iframeDocument = iframe.contentDocument || iframe.contentWindow?.document;
-				if (iframeDocument) {
-					iframeDocument.removeEventListener('click', handleIframeClick);
-				}
-				iframe.removeEventListener('load', attachClickListener);
-			};
-		} else {
-			console.log('Iframe is null in useEffect');
-		}
-	}, [attachClickListener, handleIframeClick]);
 
 
 
@@ -100,7 +74,7 @@ function HomePage() {
 					}}
 				/>
 			</div>
-			<div className="container sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl">
+			<div className="container sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl relative">
 				<div className="videoContainer">
 					{videoList.map((item:VIDEO) => {
 						return (
@@ -114,7 +88,6 @@ function HomePage() {
 										width="100%"
 										height="500"
 										src={item.videoUrl}
-										onLoad={attachClickListener}
 									>
 									</iframe>
 
@@ -130,10 +103,12 @@ function HomePage() {
 					})}
 				</div>
 				<div className="pagination">
-					<Pagination defaultCurrent={1} total={videoList.length} />
+					<Pagination defaultCurrent={1} defaultPageSize={5} total={videoList.length} />
 				</div>
+
 			</div>
 			<Footer />
+
 		</>
     )
 }

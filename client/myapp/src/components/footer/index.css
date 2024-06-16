@@ -5,10 +5,9 @@
 .footer-logo-wrapper {
     display: flex;
     align-items: center;
-    padding: 1rem 0;
 }
 .about {
-    padding: 0 3rem;
+    padding: .5rem 3rem;
     height: 75%;
     border-bottom: 1px solid #aaa;
     justify-content: space-between;
@@ -26,15 +25,11 @@ h4 {
     display: block;
     padding: 1rem 3rem;
     font-size: 12px;
-    > div{
-        /*@include font(0);*/
-    }
-
-    .social-icon-wrapper {
-        margin-top: 10px;
-    }
-    .social-icon {
-        font-size: 1.5rem;
-        width: 50px;
-    }
+}
+.social-icon-wrapper {
+    margin-top: 10px;
+}
+.social-icon {
+    font-size: 1.5rem;
+    width: 50px;
 }
