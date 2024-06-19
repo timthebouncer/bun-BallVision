@@ -15,15 +15,22 @@ type UpdateVideo = {
     videoUrl: string
 }
 
+type Keyword = {
+    keyword: string;
+    pageSize: number
+    currentPage: number
+}
+
 export class VideoDao {
 
     // Get TodoList
-    async getVideoList(text: String) {
-        if(text){
-            return db.select().from(videos).where(like(videos.title, `%${text}%`)).orderBy(desc(videos.createTime))
-        } else {
-            return db.select().from(videos).limit(10).orderBy(desc(videos.createTime))
-        }
+    async getVideoList(text: Keyword) {
+        console.log(text,'text')
+        // if(text){
+        //     return db.select().from(videos).where(like(videos.title, `%${text}%`)).orderBy(desc(videos.createTime))
+        // } else {
+        //     return db.select().from(videos).limit(10).orderBy(desc(videos.createTime))
+        // }
     }
 
     // Add a todo
