@@ -17,11 +17,24 @@ type VIDEO = {
     videoUrl: string;
 }
 
+type Keyword = {
+	keyword: string;
+	pageSize: number
+	currentPage: number
+}
+
+
+const initState={
+	keyword: '',
+	pageSize: 5,
+	currentPage: 1
+}
+
 
 
 function HomePage() {
 
-    const [inputText, setInputText] = useState<string>('');
+    const [searchParams, setSearchParams] = useState<Keyword>(initState);
     const [videoList, setVideoList] = useState<VIDEO[]>([])
 	const iframeRef = useRef<HTMLIFrameElement>(null);
 
@@ -33,11 +46,10 @@ function HomePage() {
 
     useEffect(()=>{
         onGetVideoList()
-    },[inputText])
+    },[searchParams])
 
     const onGetVideoList= async ()=>{
-
-		const {data} = await axiosInstance.get(`api/getVideoList`, {params: {inputText}})
+		const {data} = await axiosInstance.get(`api/getVideoList`, {params: {...searchParams}})
 
 		setVideoList(data)
     }
@@ -70,7 +82,7 @@ function HomePage() {
 					placeholder="請輸入想要觀看的球星影片關鍵字"
 					style={{ width: "20rem" }}
 					onChange={e=> {
-						setInputText(e.target.value)
+						setSearchParams({...searchParams, keyword: e.target.value})
 					}}
 				/>
 			</div>
