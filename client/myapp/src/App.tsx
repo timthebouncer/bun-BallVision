@@ -27,7 +27,6 @@ function App({routes}) {
     const scrollToTop=()=>{
         window.scrollTo({
             top: 0,
-            left: 0,
             behavior: "smooth"
         });
     }
@@ -50,25 +49,23 @@ function App({routes}) {
     return (
         <>
             {
-                isVisible && <div style={{
-                    position: 'fixed',
-                    bottom: '50px',
-                    right: '20px',
-                    width: '50px',
-                    height: '50px',
-                    fontSize: '20px',
-                    backgroundColor: '#007bff',
-                    color: '#fff',
-                    border: 'none',
-                    borderRadius: '50%',
-                    cursor: 'pointer',
-                    zIndex: 1000,
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                }}>
-                    <ArrowUpOutlined onClick={scrollToTop} />
-                </div>
+                isVisible && <ArrowUpOutlined onClick={scrollToTop} style={{
+                        position: 'fixed',
+                        bottom: '50px',
+                        right: '20px',
+                        width: '46px',
+                        height: '46px',
+                        fontSize: '20px',
+                        backgroundColor: '#1e0835',
+                        color: '#fff',
+                        border: 'none',
+                        borderRadius: '50%',
+                        cursor: 'pointer',
+                        zIndex: 1000,
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'center',
+                    }} />
             }
             <RouterProvider router={router}/>
         </>
