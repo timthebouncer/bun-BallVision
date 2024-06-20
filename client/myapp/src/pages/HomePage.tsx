@@ -8,6 +8,7 @@ import axiosInstance from '../../utils/axiosInstance'
 import Footer from "../components/footer/Footer.tsx";
 import {ArrowUpOutlined} from "@ant-design/icons";
 import * as React from "react";
+import {s} from "vite/dist/node/types.d-aGj9QkWt";
 
 
 type VIDEO = {
@@ -20,14 +21,14 @@ type VIDEO = {
 type Keyword = {
 	keyword: string;
 	pageSize: number
-	currentPage: number
+	pageNumber: number
 }
 
 
 const initState={
 	keyword: '',
 	pageSize: 5,
-	currentPage: 1
+	pageNumber: 1
 }
 
 
@@ -36,6 +37,7 @@ function HomePage() {
 
     const [searchParams, setSearchParams] = useState<Keyword>(initState);
     const [videoList, setVideoList] = useState<VIDEO[]>([])
+    const [totalElement, setTotalElement] = useState<number>(0)
 	const iframeRef = useRef<HTMLIFrameElement>(null);
 
 
@@ -50,8 +52,8 @@ function HomePage() {
 
     const onGetVideoList= async ()=>{
 		const {data} = await axiosInstance.get(`api/getVideoList`, {params: {...searchParams}})
-
-		setVideoList(data)
+		setVideoList(data.list)
+		setTotalElement(data.totalElement)
     }
 
     const ScrollToTopBtn=()=>{
@@ -115,7 +117,14 @@ function HomePage() {
 					})}
 				</div>
 				<div className="pagination">
-					<Pagination defaultCurrent={1} defaultPageSize={5} total={videoList.length} />
+					<Pagination
+						defaultCurrent={searchParams.pageNumber}
+						defaultPageSize={searchParams.pageSize}
+						total={totalElement}
+						onChange={(e)=>{
+							setSearchParams({...searchParams, pageNumber: e})
+						}}
+					/>
 				</div>
 
 			</div>
