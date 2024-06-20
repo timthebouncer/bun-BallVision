@@ -11,15 +11,15 @@ import {addVideo, getVideosByText, updateVideo} from "../service";
 app.get('/api/getVideoList', async ({query}) => {
     console.log(query,'query')
 
-    const data = await getVideosByText(query)
-    console.log(data,'ddddd')
-    return data
+    const response = await getVideosByText(query)
+    console.log(response,'response')
+    return response || null
 }, {
     query: t.Object({
         keyword:t.String(),
-        currentPage: t.Number(),
-        pageSize: t.Number(),
-    })
+        pageNumber: t.Optional(t.Numeric()),  // <----- Works
+        pageSize: t.Optional(t.Numeric()), // <----- Works
+    }),
 }).post('/api/addVideo',({body})=>{
     console.log(body,'body')
     addVideo(body)

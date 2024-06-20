@@ -10,11 +10,17 @@ type UploadVideoText = {
     videoUrl: string
 }
 
-export async function getVideosByText(text: String) {
+type Keyword = {
+    keyword: string;
+    pageSize: number
+    currentPage: number
+}
+
+export async function getVideosByText(query: Keyword) {
     const dao = new VideoDao()
-    const list = await dao.getVideoList(text)
-    console.log(list,'list')
-    return list
+    const response = await dao.getVideoList(query)
+    console.log(response,'response')
+    return response
 }
 
 export function addVideo(params: UploadVideoText) {

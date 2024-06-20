@@ -1,5 +1,5 @@
 import {videos} from "../schema";
-import {asc, desc, eq, like} from "drizzle-orm";
+import {asc, count, desc, eq, like} from "drizzle-orm";
 import {db} from "../constants";
 
 //對應表的所有sql操作
@@ -24,13 +24,27 @@ type Keyword = {
 export class VideoDao {
 
     // Get TodoList
-    async getVideoList(text: Keyword) {
-        console.log(text,'text')
-        // if(text){
-        //     return db.select().from(videos).where(like(videos.title, `%${text}%`)).orderBy(desc(videos.createTime))
-        // } else {
-        //     return db.select().from(videos).limit(10).orderBy(desc(videos.createTime))
-        // }
+    async getVideoList(query: Keyword) {
+        const {keyword, pageSize, pageNumber} = query
+
+        const response = {}
+
+        if(keyword){
+            response.list = await db.select().from(videos).where(like(videos.title, `%${keyword}%`)).orderBy(desc(videos.createTime))
+            const totalElement =
+                await db.select({ count: count() })
+                    .from(videos)
+                    .where(like(videos.title, `%${keyword}%`))
+                    .orderBy(desc(videos.createTime))
+            response.totalElement = totalElement[0].count
+
+        } else {
+            response.list = await db.select().from(videos).limit(pageSize).offset((pageNumber - 1) * pageSize).orderBy(desc(videos.createTime))
+            const totalElement = await db.select({ count: count() }).from(videos)
+            response.totalElement = totalElement[0].count
+        }
+
+        return response
     }
 
     // Add a todo
