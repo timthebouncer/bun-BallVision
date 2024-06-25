@@ -38,11 +38,19 @@ function HomePage() {
     const [searchParams, setSearchParams] = useState<Keyword>(initState);
     const [videoList, setVideoList] = useState<VIDEO[]>([])
     const [totalElement, setTotalElement] = useState<number>(0)
-	const iframeRef = useRef<HTMLIFrameElement>(null);
 
+	const googleApiUrl=(videoId)=> `https://www.googleapis.com/youtube/v3/videos?part=statistics&id=${videoId}&key=AIzaSyDp6gxoL8x0RxqAtl6NQ4VMF7wVTxP1Pt4`
+
+
+	const getViews=async ()=>{
+		const data = await axiosInstance.get(googleApiUrl('AqrpddAz8oc'))
+
+		console.log(data,'data')
+	}
 
 
 	useEffect(() => {
+		getViews()
 
 	}, []);
 
@@ -55,14 +63,6 @@ function HomePage() {
 		setVideoList(data.list)
 		setTotalElement(data.totalElement)
     }
-
-    const ScrollToTopBtn=()=>{
-		return <ArrowUpOutlined onClick={scrollToTop} style={{width:20, height:20, position: 'sticky', right: 0}} />
-
-	}
-
-
-
 
 
     return (
@@ -95,7 +95,6 @@ function HomePage() {
 							<div className="video-wrapper" key={item.id}>
 								<div className="iframe-wrapper">
 									<iframe
-										ref={iframeRef}
 										style={{ border: "none" }}
 										id={item.id}
 										title="Inline Frame Example"
