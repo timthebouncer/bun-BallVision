@@ -1,26 +1,11 @@
-import { Route, createBrowserRouter, createRoutesFromElements, RouterProvider } from 'react-router-dom';
-import Home from './pages/HomePage.tsx';
-import UploadVideo from './pages/UploadVideo.tsx';
-import ServiceTerms from './pages/ServiceTerms.tsx';
+import { BrowserRouter } from 'react-router-dom';
 import {ArrowUpOutlined} from "@ant-design/icons";
 import * as React from "react";
 import {useEffect, useState} from "react";
+import {Routes} from "./Routes.tsx";
 
 
-
-const router = createBrowserRouter(
-    createRoutesFromElements(
-        <Route path="/" >
-            <Route index element={<Home />} />
-            <Route path="/upload" index element={<UploadVideo />} />
-            <Route path="/serviceTerms" index element={<ServiceTerms />} />
-        </Route>
-        
-         
-    )
-)
-
-function App({routes}) {
+function App() {
 
     const [isVisible, setIsVisible] = useState(false);
 
@@ -67,7 +52,9 @@ function App({routes}) {
                         justifyContent: 'center',
                     }} />
             }
-            <RouterProvider router={router}/>
+            <BrowserRouter>
+                <Routes />
+            </BrowserRouter>
         </>
     );
 }
