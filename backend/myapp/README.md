@@ -1,23 +1,29 @@
 # Elysia with Bun runtime
 
-## Getting Started
-To get started with this template, simply paste this command into your terminal:
+## Backend
+backend/myapp/src
 ```bash
-bun create elysia ./elysia-example
+bun run index.tsx
 ```
 
-## Development
-To start the development server run:
+## Frontend
+frontend/myapp
 ```bash
-bun run dev
+bunx --bun vite
 ```
 
-Open http://localhost:3000/ with your browser to see the result.
+## Drizzle操作
 
-##更新DB
+更新sql指令: drizzle-kit up
+
+新增sql指令1: drizzle-kit push
+
+新增sql指令2:
+
+bunx drizzle-kit generate:sqlite --schema ./schema.ts
+
 更改schema後
 ```bash
 bun drizzle-kit generate --config=drizzle.config.ts
 ```
 接著執行migrate.ts，sql.db就會被更新
-
