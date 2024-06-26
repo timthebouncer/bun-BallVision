@@ -33,8 +33,31 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 4rem 0;
+  padding: 1.5rem 0;
   background-color: #190f23;
+}
+.button {
+  border: none;
+  padding: 1rem 3rem;
+  font-size: 1rem;
+  cursor: pointer;
+  margin: 0 0.5rem;
+  border-radius: 9px;
+  box-shadow: 0 9px #f0f0f0;
+  background: #fff;
+}
+.button:hover {
+  transform: translateY(4px);
+  box-shadow: 0 5px #f0f0f0;
+}
+.button:focus {
+  background-color: deepskyblue;
+  color: #f0f0f0;
+}
+.subButton {
+  padding: 1.5rem 3rem;
+  background-color: #190f23;
+  color: #ffffff;
 }
 .videoContainer {
   padding: 0.4em;

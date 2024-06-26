@@ -1,6 +1,6 @@
 import './App.css'
 import {useCallback, useEffect, useRef, useState} from 'react'
-import { Pagination } from "antd";
+import {Button, Pagination} from "antd";
 import Search from "antd/es/input/Search.js";
 import MenuComponent from "../components/Menu";
 import ballLogo from '../../public/ballLogo-round.png'
@@ -8,7 +8,8 @@ import axiosInstance from '../../utils/axiosInstance'
 import Footer from "../components/footer/Footer.tsx";
 import {ArrowUpOutlined} from "@ant-design/icons";
 import * as React from "react";
-import {s} from "vite/dist/node/types.d-aGj9QkWt";
+import {navList} from "../../data/navList.js"
+import {Link} from "react-router-dom";
 
 
 type VIDEO = {
@@ -38,21 +39,8 @@ function HomePage() {
     const [searchParams, setSearchParams] = useState<Keyword>(initState);
     const [videoList, setVideoList] = useState<VIDEO[]>([])
     const [totalElement, setTotalElement] = useState<number>(0)
+	const [activeNav, setActiveNav] = useState(null);
 
-	const googleApiUrl=(videoId)=> `https://www.googleapis.com/youtube/v3/videos?part=statistics&id=${videoId}&key=AIzaSyDp6gxoL8x0RxqAtl6NQ4VMF7wVTxP1Pt4`
-
-
-	const getViews=async ()=>{
-		const data = await axiosInstance.get(googleApiUrl('AqrpddAz8oc'))
-
-		console.log(data,'data')
-	}
-
-
-	useEffect(() => {
-		getViews()
-
-	}, []);
 
     useEffect(()=>{
         onGetVideoList()
@@ -77,16 +65,58 @@ function HomePage() {
 						</a>
 						<h2 className='text-white'>BBall_Vision</h2>
 					</div>
+					<div className="pl-4">
+						<Search
+							placeholder="請輸入想要觀看的球星影片關鍵字"
+							style={{ width: "20rem" }}
+							onChange={e=> {
+								setSearchParams({...searchParams, keyword: e.target.value})
+							}}
+						/>
+					</div>
+					<div className='flex-1 flex justify-end'>
+						<iframe className="iframe-fb border"
+								allow="encrypted-media"
+								height={70}
+								src="https://www.facebook.com/plugins/page.php?href=https://www.facebook.com/profile.php?id=100090875560321&tabs=timeline&width=400&height=50&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=true&appId=2235597906716847">
+
+						</iframe>
+					</div>
 				</div>
 			</nav>
-			<div className="header">
-				<Search
-					placeholder="請輸入想要觀看的球星影片關鍵字"
-					style={{ width: "20rem" }}
-					onChange={e=> {
-						setSearchParams({...searchParams, keyword: e.target.value})
-					}}
-				/>
+			<div className="header" onMouseLeave={()=>{
+				setActiveNav(null)
+			}}>
+				{
+					navList.map(el=>{
+						return (
+							<div key={el.id}  className='relative'>
+								<div>
+									<Link to="/articles" relative="path">
+										<Button
+											className={'button'}
+											onMouseEnter={()=>{
+												setActiveNav(el.id)
+											}}
+										>
+											{el.name}
+										</Button>
+									</Link>
+								</div>
+								{
+									activeNav === el.id && (
+										<div className='absolute top-14 -left-1 z-20'>
+											{(el.subList || []).map((sub) => {
+												return <Button key={sub.id} className="subButton">
+													{sub.name}
+												</Button>
+											})}
+										</div>
+								)}
+							</div>
+						)
+					})
+				}
 			</div>
 			<div className="container sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl relative">
 				<div className="videoContainer">
@@ -103,8 +133,6 @@ function HomePage() {
 										src={item.videoUrl}
 									>
 									</iframe>
-
-
 								</div>
 								<div
 									className={ "intro-text"}
