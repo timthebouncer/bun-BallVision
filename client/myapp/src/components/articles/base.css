@@ -1,0 +1,29 @@
+
+/*.react-tweet-theme > article > div[class^="_root_"] {*/
+/*    height: 300px;*/
+/*}*/
+/*.react-tweet-theme > article > div[class^="_mediaWrapper_"] {*/
+/*    height: 300px;*/
+/*}*/
+/*.react-tweet-theme > article > div[class^="_mediaContainer_"] {*/
+/*    height: 300px;*/
+/*}*/
+/*.react-tweet-theme  video[class^="_image_"] {*/
+/*    height: 300px;*/
+/*}*/
+/*.react-tweet-theme > article > div[class^="_replies_"]{*/
+
+/*}*/
+/*.react-tweet-theme > article > div{*/
+/*    !*height: 200px;*!*/
+
+/*}*/
+.test{
+    background: #aaaaaa;
+
+}
+.test .react-tweet-theme{
+    --tweet-body-font-szie: 3rem;
+    --tweet-header-font-szie: 3rem;
+    transform: scale(0.7);
+}
