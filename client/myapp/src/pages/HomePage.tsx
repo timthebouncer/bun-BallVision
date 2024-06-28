@@ -10,6 +10,7 @@ import {ArrowUpOutlined} from "@ant-design/icons";
 import * as React from "react";
 import {navList} from "../../data/navList.js"
 import {Link} from "react-router-dom";
+import {CarouselCompo} from "../components/carousel/Carousel.tsx";
 
 
 type VIDEO = {
@@ -36,21 +37,7 @@ const initState={
 
 function HomePage() {
 
-    const [searchParams, setSearchParams] = useState<Keyword>(initState);
-    const [videoList, setVideoList] = useState<VIDEO[]>([])
-    const [totalElement, setTotalElement] = useState<number>(0)
 	const [activeNav, setActiveNav] = useState(null);
-
-
-    useEffect(()=>{
-        onGetVideoList()
-    },[searchParams])
-
-    const onGetVideoList= async ()=>{
-		const {data} = await axiosInstance.get(`api/getVideoList`, {params: {...searchParams}})
-		setVideoList(data.list)
-		setTotalElement(data.totalElement)
-    }
 
 
     return (
@@ -64,15 +51,6 @@ function HomePage() {
 							<img src={ballLogo} className="logo" alt="Vite logo" />
 						</a>
 						<h2 className='text-white'>BBall_Vision</h2>
-					</div>
-					<div className="pl-4">
-						<Search
-							placeholder="請輸入想要觀看的球星影片關鍵字"
-							style={{ width: "20rem" }}
-							onChange={e=> {
-								setSearchParams({...searchParams, keyword: e.target.value})
-							}}
-						/>
 					</div>
 					<div className='flex-1 flex justify-end'>
 						<iframe className="iframe-fb border"
@@ -119,44 +97,13 @@ function HomePage() {
 				}
 			</div>
 			<div className="container sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl relative">
-				<div className="videoContainer">
-					{videoList.map((item:VIDEO) => {
-						return (
-							<div className="video-wrapper" key={item.id}>
-								<div className="iframe-wrapper">
-									<iframe
-										style={{ border: "none" }}
-										id={item.id}
-										title="Inline Frame Example"
-										width="100%"
-										height="500"
-										src={item.videoUrl}
-									>
-									</iframe>
-								</div>
-								<div
-									className={ "intro-text"}
-								>
-									{item.intro}
-								</div>
-							</div>
-						);
-					})}
-				</div>
-				<div className="pagination">
-					<Pagination
-						defaultCurrent={searchParams.pageNumber}
-						defaultPageSize={searchParams.pageSize}
-						total={totalElement}
-						onChange={(e)=>{
-							setSearchParams({...searchParams, pageNumber: e})
-						}}
-					/>
+				<div style={{userSelect: 'none'}}>
+					<CarouselCompo />
 				</div>
 
 			</div>
-			<Footer />
 
+			<Footer />
 		</>
     )
 }

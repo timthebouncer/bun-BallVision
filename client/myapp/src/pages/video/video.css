@@ -1,0 +1,120 @@
+
+.container {
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+  background: #ffffff;
+  margin: 20px 0;
+  padding: 0 0 4px 0;
+}
+
+.button {
+  border: none;
+  padding: 1rem 3rem;
+  font-size: 1rem;
+  cursor: pointer;
+  margin: 0 0.5rem;
+  border-radius: 9px;
+  box-shadow: 0 9px #f0f0f0;
+  background: #fff;
+}
+.button:hover {
+  transform: translateY(4px);
+  box-shadow: 0 5px #f0f0f0;
+}
+.button:focus {
+  background-color: deepskyblue;
+  color: #f0f0f0;
+}
+.subButton {
+  padding: 1.5rem 3rem;
+  background-color: #190f23;
+  color: #ffffff;
+}
+.videoContainer {
+  padding: 0.4em;
+}
+.video-wrapper {
+  display: unset;
+  margin-bottom: 2rem;
+}
+.iframe-wrapper {
+  flex: 0.7;
+  margin: auto;
+  min-width: 360px;
+  max-width: 500px;
+  position: relative;
+
+}
+.intro-text {
+  flex: 0.3;
+  padding: 0.5rem 1rem;
+}
+
+
+.pagination {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  margin: 1rem 0;
+}
+
+.ant-pagination-prev {
+  background-color: #fff;
+}
+.ant-pagination-next {
+  background-color: #fff;
+}
+.ant-pagination-item {
+}
+.ant-pagination-item-active {
+  background-color: #fff !important;
+}
+.ant-input {
+  background-color: #2d2436;
+  color: #fff;
+}
+.ant-input::placeholder {
+  color: #aaa;
+}
+.ant-input:focus {
+  color: #aaa;
+}
+
+@media (min-width: 576px) {
+  .about {
+    display: flex;
+  }
+  .service-wrapper > div,
+  h4 {
+    text-align: right;
+  }
+  .service-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  .copyright {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+@media (min-width: 768px) {
+  .video-wrapper {
+    display: flex;
+  }
+}
+
+@media (min-width: 992px) {
+  .video-wrapper {
+    display: flex;
+  }
+}
+
+@media (min-width: 1200px) {
+  .video-wrapper {
+    display: flex;
+  }
+}

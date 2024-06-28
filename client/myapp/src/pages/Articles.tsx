@@ -63,7 +63,7 @@ const Articles=()=>{
     useEffect(()=>{
       const content = localStorage.getItem('articleContent')
         console.log(JSON.parse(content),'ccccc')
-        if(content.length > 0){
+        if(content?.length > 0){
             setContents(JSON.parse(content))
         }
     },[])
