@@ -1,10 +1,11 @@
 import {Route, Routes as ReactRoutes} from "react-router-dom";
 import HomePage from "./pages/HomePage.tsx";
-import Articles from "./pages/Articles.tsx";
+import Articles from "./pages/articleList/Articles.js";
 import UploadVideo from "./pages/UploadVideo.tsx";
 import ServiceTerms from "./pages/ServiceTerms.tsx";
 import {SingleArticle} from "./components/articles";
 import {VideoPage} from "./pages/video/VideoPage.tsx";
+import {GenerateArticles} from "./pages/generateArticles/GenerateArticles";
 
 const Routes=()=>{
 
@@ -34,6 +35,10 @@ const Routes=()=>{
             <Route
                 path={"/serviceTerms"}
                 element={<ServiceTerms />}
+            />
+            <Route
+                path={"/generateArticles"}
+                element={<GenerateArticles />}
             />
         </ReactRoutes>
 

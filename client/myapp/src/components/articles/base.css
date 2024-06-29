@@ -18,16 +18,18 @@
 /*    !*height: 200px;*!*/
 
 /*}*/
-.container {
+
+.singleArticleWrapper{
     position: relative;
     left: 50%;
     transform: translateX(-50%);
-    background: #ffffff;
     margin: 20px 0;
     padding: 0 0 4px 0;
+    background: #fff;
 }
-.test .react-tweet-theme{
-    --tweet-body-font-szie: 3rem;
-    --tweet-header-font-szie: 3rem;
-    transform: scale(0.7);
+
+.size .react-tweet-theme{
+    /*--tweet-body-font-szie: 3rem;*/
+    /*--tweet-header-font-szie: 3rem;*/
+    /*transform: scale(1);*/
 }

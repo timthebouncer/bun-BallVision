@@ -1,0 +1,5 @@
+.test .react-tweet-theme{
+    --tweet-body-font-szie: 3rem;
+    --tweet-header-font-szie: 3rem;
+    transform: scale(0.7);
+}

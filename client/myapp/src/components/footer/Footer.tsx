@@ -1,9 +1,9 @@
 import './index.css'
-import ballLogo from "../../../public/ballLogo-round.png";
 import {FacebookFilled, InstagramFilled, YoutubeFilled} from "@ant-design/icons";
 import CustomModal from "../modal";
 import {useState} from "react";
 import { Link } from "react-router-dom";
+import * as React from "react";
 
 const Footer=()=>{
 
@@ -26,10 +26,14 @@ const Footer=()=>{
         <div className="footer">
             <div className="about sm:flex">
                 <div className="footer-logo-wrapper">
-                    <a href="/">
-                        <img src={ballLogo} className="logo" alt="Vite logo" />
-                    </a>
-                    <h2 style={{ color: "#000" }}>BBall_Vision</h2>
+                    <div>
+                        <iframe className="iframe-fb border"
+                                allow="encrypted-media"
+                                height={70}
+                                src="https://www.facebook.com/plugins/page.php?href=https://www.facebook.com/profile.php?id=100090875560321&tabs=timeline&width=300&height=50&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=true&appId=2235597906716847">
+
+                        </iframe>
+                    </div>
                 </div>
                 <div className="service-wrapper">
                     <div className="service-info sm:items-end">

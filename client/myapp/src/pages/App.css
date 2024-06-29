@@ -13,7 +13,7 @@
   position: relative;
   left: 50%;
   transform: translateX(-50%);
-  background: #ffffff;
+  /*background: #aaa;*/
   margin: 20px 0;
   padding: 0 0 4px 0;
 }
@@ -29,13 +29,7 @@
   background-color: #1e0835;
   padding: 1rem 1rem;
 }
-.header {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  padding: 1.5rem 0;
-  background-color: #190f23;
-}
+
 .button {
   border: none;
   padding: 1rem 3rem;

@@ -1,37 +1,14 @@
 import './App.css'
-import {useCallback, useEffect, useRef, useState} from 'react'
+import {useState} from 'react'
 import {Button, Pagination} from "antd";
-import Search from "antd/es/input/Search.js";
 import MenuComponent from "../components/Menu";
 import ballLogo from '../../public/ballLogo-round.png'
-import axiosInstance from '../../utils/axiosInstance'
 import Footer from "../components/footer/Footer.tsx";
-import {ArrowUpOutlined} from "@ant-design/icons";
 import * as React from "react";
 import {navList} from "../../data/navList.js"
 import {Link} from "react-router-dom";
 import {CarouselCompo} from "../components/carousel/Carousel.tsx";
-
-
-type VIDEO = {
-    id: string;
-    title: string;
-    intro: string;
-    videoUrl: string;
-}
-
-type Keyword = {
-	keyword: string;
-	pageSize: number
-	pageNumber: number
-}
-
-
-const initState={
-	keyword: '',
-	pageSize: 5,
-	pageNumber: 1
-}
+import Articles from "./articleList/Articles";
 
 
 
@@ -44,7 +21,9 @@ function HomePage() {
         <>
 			<nav className="nav-wrapper">
 				<div className="title">
-					<MenuComponent />
+					<div className="block sm:hidden">
+						<MenuComponent />
+					</div>
 
 					<div className="logo-wrapper">
 						<a href="/">
@@ -52,17 +31,9 @@ function HomePage() {
 						</a>
 						<h2 className='text-white'>BBall_Vision</h2>
 					</div>
-					<div className='flex-1 flex justify-end'>
-						<iframe className="iframe-fb border"
-								allow="encrypted-media"
-								height={70}
-								src="https://www.facebook.com/plugins/page.php?href=https://www.facebook.com/profile.php?id=100090875560321&tabs=timeline&width=400&height=50&small_header=true&adapt_container_width=true&hide_cover=true&show_facepile=true&appId=2235597906716847">
-
-						</iframe>
-					</div>
 				</div>
 			</nav>
-			<div className="header" onMouseLeave={()=>{
+			<div className="hidden sm:flex justify-center items-center py-6 bg-[#190f23]" onMouseLeave={()=>{
 				setActiveNav(null)
 			}}>
 				{
@@ -70,7 +41,7 @@ function HomePage() {
 						return (
 							<div key={el.id}  className='relative'>
 								<div>
-									<Link to="/articles" relative="path">
+									<Link to="/video" relative="path">
 										<Button
 											className={'button'}
 											onMouseEnter={()=>{
@@ -96,10 +67,37 @@ function HomePage() {
 					})
 				}
 			</div>
-			<div className="container sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl relative">
-				<div style={{userSelect: 'none'}}>
-					<CarouselCompo />
+			<div className="container sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl">
+				<div className={'flex'}>
+					<div style={{userSelect: 'none'}} className={'w-5/6 mr-8'}>
+						<div className={'mb-8'}>
+							<CarouselCompo />
+						</div>
+
+						<Articles />
+					</div>
+					<div className={'bg-white w-2/6 py-6 px-6'}>
+						<div>
+							熱門文章
+						</div>
+						<div className={'border-b mt-8'}>
+							<a href="">
+								巴黎奧運 / 完全體日本隊！八村壘、渡邊雄太領銜日本隊大名單
+							</a>
+						</div>
+						<div className={'border-b mt-8'}>
+							<a href="">
+								球團虧損近億台幣！PLG和T1合併關鍵原因曝光
+							</a>
+						</div>
+						<div className={'border-b mt-8'}>
+							<a href="">
+								NBA / 前勇士GM爆料 Rich Paul警告各球團別選走Bronny 否則將帶他去澳洲打球
+							</a>
+						</div>
+					</div>
 				</div>
+
 
 			</div>
 

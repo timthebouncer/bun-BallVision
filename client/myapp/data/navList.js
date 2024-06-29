@@ -16,9 +16,9 @@ export const navList=[
     url: ''
   },
   { id: 'nav3',
-    name: '文章',
+    name: '影片',
     subList: [],
-    url: '/articles'
+    url: '/video'
   },
   { id: 'nav4',
     name: '購物',

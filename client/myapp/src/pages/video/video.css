@@ -1,11 +1,10 @@
 
-.container {
+.videoPageContainer {
   position: relative;
   left: 50%;
   transform: translateX(-50%);
   background: #ffffff;
-  margin: 20px 0;
-  padding: 0 0 4px 0;
+  padding: 1rem;
 }
 
 .button {
@@ -31,9 +30,7 @@
   background-color: #190f23;
   color: #ffffff;
 }
-.videoContainer {
-  padding: 0.4em;
-}
+
 .video-wrapper {
   display: unset;
   margin-bottom: 2rem;

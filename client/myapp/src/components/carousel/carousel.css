@@ -1,0 +1,29 @@
+.arrowAttribute{
+    position: absolute;
+    z-Index: 2;
+    top: calc(50% - 15px);
+    cursor: pointer;
+    background: rgba(0,0,0,0.4);
+    padding: 16px 16px;
+}
+.arrowAttribute:hover{
+    background: rgba(0,0,0,0.8);
+    color: #f0f0f0;
+}
+.leftArrow{
+    left: 15px;
+}
+.rightArrow{
+    right: 15px;
+}
+.coverTitle{
+    position: relative;
+    height: 100px;
+    background: red;
+    top: -17%;
+    right: 0;
+    background: rgba(0,0,0,0.5);
+    padding: 1rem 1rem;
+    text-align: left;
+    color: #fff
+}

@@ -43,8 +43,8 @@ const VideoPage=()=>{
     }
 
     return (
-            <div className="container sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl relative">
-                <div className="pl-4">
+            <div>
+                <div className="flex justify-center flex-1 py-8">
                     <Search
                         placeholder="請輸入想要觀看的球星影片關鍵字"
                         style={{ width: "20rem" }}
@@ -53,7 +53,8 @@ const VideoPage=()=>{
                         }}
                     />
                 </div>
-                <div className="videoContainer">
+
+                <div className="videoPageContainer sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl relative">
                     {videoList.map((item:VIDEO) => {
                         return (
                             <div className="video-wrapper" key={item.id}>
@@ -76,17 +77,19 @@ const VideoPage=()=>{
                             </div>
                         );
                     })}
+
+                    <div className="pagination">
+                        <Pagination
+                            defaultCurrent={searchParams.pageNumber}
+                            defaultPageSize={searchParams.pageSize}
+                            total={totalElement}
+                            onChange={(e)=>{
+                                setSearchParams({...searchParams, pageNumber: e})
+                            }}
+                        />
+                    </div>
                 </div>
-                <div className="pagination">
-                    <Pagination
-                        defaultCurrent={searchParams.pageNumber}
-                        defaultPageSize={searchParams.pageSize}
-                        total={totalElement}
-                        onChange={(e)=>{
-                            setSearchParams({...searchParams, pageNumber: e})
-                        }}
-                    />
-                </div>
+
             </div>
     )
 

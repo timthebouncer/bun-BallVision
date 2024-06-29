@@ -13,11 +13,31 @@ interface LevelKeysProps {
 const items: MenuItem[] = [
 	{
 		key: '1',
-		label: '影片',
+		label: 'NBA',
 		children: [
 			{ key: '11', label: '熱門影片' },
 			{ key: '12', label: '最新影片' },
 		],
+	},
+	{
+		key: '2',
+		label: '台籃',
+		children: [
+			{ key: '21', label: '熱門影片' },
+			{ key: '22', label: '最新影片' },
+		],
+	},
+	{
+		key: '3',
+		label: '影片',
+		children: [
+			{ key: '31', label: '熱門影片' },
+			{ key: '32', label: '最新影片' },
+		],
+	},
+	{
+		key: '4',
+		label: '購物',
 	},
 ];
 

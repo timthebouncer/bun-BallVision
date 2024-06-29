@@ -1,0 +1,26 @@
+
+.content-wrapper{
+    position: relative;
+    width: 498px;
+    padding: 25px 30px;
+    overflow: hidden;
+    height: 170px;
+}
+.content-style{
+    width: 100%;
+    height: 40px;
+    overflow: hidden;
+    margin: 10px 0;
+    font-size: 14px;
+    color: #9d9b9b;
+    line-height: 1.4;
+}
+.photo-wrapper{
+    width: 276px;
+    height: 100%;
+    display: block;
+}
+.photo-wrapper img{
+    width: 100%;
+    height: 100%;
+}
