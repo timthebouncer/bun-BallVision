@@ -3,11 +3,19 @@
 
 import {VideoDao} from "../dao/video.dao";
 import {ContactDao} from "../dao/contact.dao";
+import {ArticleDao} from "../dao/article.dao";
 
 type UploadVideoText = {
     title: string
     intro: string
     videoUrl: string
+}
+
+type AddArticle = {
+    title: string
+    intro: string
+    avatar: string
+    content: string
 }
 
 type Keyword = {
@@ -37,3 +45,30 @@ export function addContact(params: UploadVideoText) {
     const dao = new ContactDao()
     dao.addContact(params)
 }
+
+export function getArticleList(params: UploadVideoText) {
+    const dao = new ArticleDao()
+    dao.getArticleList(params)
+}
+
+export function getSingleArticle(id) {
+    const dao = new ArticleDao()
+    dao.getSingleArticle(id)
+}
+
+export function getHottestArticle() {
+    const dao = new ArticleDao()
+    dao.getHottestArticle()
+}
+
+export function addArticle(params: AddArticle) {
+    const dao = new ArticleDao()
+    dao.addArticle(params)
+}
+
+export function updateArticleView(params: string) {
+    const dao = new ArticleDao()
+    dao.updateArticleView(params)
+}
+
+
