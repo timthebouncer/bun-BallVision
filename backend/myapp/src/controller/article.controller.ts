@@ -7,8 +7,9 @@ import {t} from "elysia";
 import {app} from "../constants";
 import {addArticle, getArticleList, getHottestArticle, getSingleArticle, updateArticleView} from "../service";
 
+console.log('99999')
 
-app.get('/api/getArticleList', async () => {
+app.get('/api/getArticle', async () => {
     const response = await getArticleList()
     console.log(response,'response getArticleList')
     return response || null

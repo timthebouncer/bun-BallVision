@@ -46,9 +46,11 @@ export function addContact(params: UploadVideoText) {
     dao.addContact(params)
 }
 
-export function getArticleList(params: UploadVideoText) {
+export async function getArticleList() {
     const dao = new ArticleDao()
-    dao.getArticleList(params)
+    const response = await dao.getArticleList()
+    console.log(response,'response')
+    return response
 }
 
 export function getSingleArticle(id) {
