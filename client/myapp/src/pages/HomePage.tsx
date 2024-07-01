@@ -1,5 +1,5 @@
 import './App.css'
-import {useState} from 'react'
+import {useEffect, useState} from 'react'
 import {Button, Pagination} from "antd";
 import MenuComponent from "../components/Menu";
 import ballLogo from '../../public/ballLogo-round.png'
@@ -9,12 +9,27 @@ import {navList} from "../../data/navList.js"
 import {Link} from "react-router-dom";
 import {CarouselCompo} from "../components/carousel/Carousel.tsx";
 import Articles from "./articleList/Articles";
+import axiosInstance from "../../utils/axiosInstance";
 
 
 
 function HomePage() {
 
 	const [activeNav, setActiveNav] = useState(null);
+
+	const [articleList, setArticleList] = useState<ARTICLE[]>([])
+	const [totalElement, setTotalElement] = useState<number>(0)
+
+
+	const onGetVideoList= async ()=>{
+		const {data} = await axiosInstance.get(`api/getArticle`)
+		setArticleList(data.list)
+		setTotalElement(data.totalElement)
+	}
+
+	useEffect(()=>{
+		onGetVideoList()
+	},[])
 
 
     return (
@@ -71,30 +86,26 @@ function HomePage() {
 				<div className={'flex'}>
 					<div style={{userSelect: 'none'}} className={'w-5/6 mr-8'}>
 						<div className={'mb-8'}>
-							<CarouselCompo />
+							<CarouselCompo articleList={articleList} />
 						</div>
 
-						<Articles />
+						<Articles articleList={articleList} />
 					</div>
 					<div className={'bg-white w-2/6 py-6 px-6'}>
 						<div>
 							熱門文章
 						</div>
-						<div className={'border-b mt-8'}>
-							<a href="">
-								巴黎奧運 / 完全體日本隊！八村壘、渡邊雄太領銜日本隊大名單
-							</a>
-						</div>
-						<div className={'border-b mt-8'}>
-							<a href="">
-								球團虧損近億台幣！PLG和T1合併關鍵原因曝光
-							</a>
-						</div>
-						<div className={'border-b mt-8'}>
-							<a href="">
-								NBA / 前勇士GM爆料 Rich Paul警告各球團別選走Bronny 否則將帶他去澳洲打球
-							</a>
-						</div>
+						{
+							articleList.map(item=>{
+								return (
+									<div key={item.id} className={'border-b mt-8'}>
+										<a href="">
+											{item.title}
+										</a>
+									</div>
+								)
+							})
+						}
 					</div>
 				</div>
 

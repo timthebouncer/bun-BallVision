@@ -5,7 +5,7 @@ import * as React from "react";
 import {Button} from "antd";
 import {LeftCircleOutlined, LeftOutlined, RightCircleOutlined, RightOutlined} from "@ant-design/icons"; // requires a loader
 
-const CarouselCompo=()=>{
+const CarouselCompo=({articleList})=>{
 
     const onChange=()=>{}
     const onClickItem=()=>{}
@@ -45,42 +45,18 @@ const CarouselCompo=()=>{
                 )
             }
         >
-            <div className={'h-full'}>
-                <img src="https://shorturl.at/Zyuqc" />
-                <div className={'coverTitle'}>
-                    籃網隊今天做出兩筆重大交易，將隊上的主將Mikal Bridges給交易至尼克，換回了四張的首輪籤，另外還有把未來的太陽籤交給火箭隊
-                </div>
-            </div>
-            <div className={'h-full'}>
-                <img src="https://shorturl.at/Zyuqc" />
-                <div className={'coverTitle'}>
-                    籃網隊今天做出兩筆重大交易，將隊上的主將Mikal Bridges給交易至尼克，換回了四張的首輪籤，另外還有把未來的太陽籤交給火箭隊
-                </div>
-            </div>
-            <div className={'h-full'}>
-                <img src="https://shorturl.at/Zyuqc" />
-                <div className={'coverTitle'}>
-                    籃網隊今天做出兩筆重大交易，將隊上的主將Mikal Bridges給交易至尼克，換回了四張的首輪籤，另外還有把未來的太陽籤交給火箭隊
-                </div>
-            </div>
-            <div className={'h-full'}>
-                <img src="https://shorturl.at/Zyuqc" />
-                <div className={'coverTitle'}>
-                    籃網隊今天做出兩筆重大交易，將隊上的主將Mikal Bridges給交易至尼克，換回了四張的首輪籤，另外還有把未來的太陽籤交給火箭隊
-                </div>
-            </div>
-            <div className={'h-full'}>
-                <img src="https://shorturl.at/Zyuqc" />
-                <div className={'coverTitle'}>
-                    籃網隊今天做出兩筆重大交易，將隊上的主將Mikal Bridges給交易至尼克，換回了四張的首輪籤，另外還有把未來的太陽籤交給火箭隊
-                </div>
-            </div>
-            <div className={'h-full'}>
-                <img src="https://shorturl.at/Zyuqc" />
-                <div className={'coverTitle'}>
-                    籃網隊今天做出兩筆重大交易，將隊上的主將Mikal Bridges給交易至尼克，換回了四張的首輪籤，另外還有把未來的太陽籤交給火箭隊
-                </div>
-            </div>
+            {
+                articleList.map(item=>{
+                    return (
+                        <div key={item.id} className={'h-full'}>
+                            <img src={item.avatar} style={{height:480, width: '100%'}} />
+                            <div className={'coverTitle'}>
+                                {item.intro}
+                            </div>
+                        </div>
+                    )
+                })
+            }
         </Carousel>
     );
 }

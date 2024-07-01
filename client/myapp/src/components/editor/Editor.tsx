@@ -37,17 +37,39 @@ const Editor = forwardRef<Quill, EditorProps>(
                 container.ownerDocument.createElement('div'),
             );
 
+            const toolbarOptions = [
+                [{ header: [1, 2, 3, 4, 5, 6, false] }],
+                [{ font: [] }],
+                ['bold', 'italic', 'underline', 'strike'],
+                ['image', 'link', 'video'],
+                [{ list: "ordered" }, { list: "bullet" }],
+                [{'color': []}],
+                [{ 'align': [] }]
+            ]
+
+
             const quill = new Quill(editorContainer, {
                 modules: {
-                    toolbar: [
-                        [{ header: [1, 2, false] }],
-                        ['bold', 'italic', 'underline'],
-                        ['image', 'code-block'],
-                    ],
+                    syntax: true,
+                    toolbar: {
+                        container: toolbarOptions,
+                        // handlers: {
+                        //     image: imageHandler
+                        // },
+                    },
                 },
                 placeholder: 'Compose an epic...',
                 theme: 'snow',
             });
+
+            // function imageHandler() {
+            //     var range = quill.getSelection();
+            //     var value = prompt('What is the image URL');
+            //     if(value){
+            //         quill.insertEmbed(range.index, 'image', value, Quill.sources.USER);
+            //     }
+            // }
+
             if (ref && 'current' in ref) {
                 ref.current = quill;
             }

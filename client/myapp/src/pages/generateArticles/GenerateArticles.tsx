@@ -82,8 +82,8 @@ const GenerateArticles=()=>{
                     if(quillRef.current){
                         quillRef.current.update()
                         const delta = quillRef.current.getContents()
-
-                        localStorage.setItem('articleContent', JSON.stringify(delta.ops, null, 2))
+                        console.log( JSON.stringify(delta.ops, null, 2))
+                        // localStorage.setItem('articleContent', JSON.stringify(delta.ops, null, 2))
                     }
                 }}>
                 送出
