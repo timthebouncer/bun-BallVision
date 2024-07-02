@@ -4,6 +4,7 @@ import {useEffect, useState} from "react";
 import * as React from "react";
 import {EyeOutlined} from "@ant-design/icons";
 import {Pagination} from "antd";
+import axiosInstance from "../../../utils/axiosInstance";
 
 
 type ARTICLE={
@@ -17,7 +18,11 @@ type ARTICLE={
 
 const Articles=({articleList})=>{
 
-    const {articleId} = useParams()
+
+    const onUpdateArticleView=(id:string)=>{
+        axiosInstance.put('api/updateArticleView', {id: id})
+    }
+
 
 
 
@@ -26,7 +31,7 @@ const Articles=({articleList})=>{
             {
                 articleList.map(data=>{
                     return <div key={data.id} className='px-2 py-2 mb-2 bg-white'>
-                        <Link to={`/articles/:${data.id}`} className='flex'>
+                        <Link to={`/articles/${data.id}`} className='flex' onClick={()=>onUpdateArticleView(data.id)}>
                             <div className={'photo-wrapper'}>
                                 <img src={data.avatar} alt="" width={170} />
                             </div>

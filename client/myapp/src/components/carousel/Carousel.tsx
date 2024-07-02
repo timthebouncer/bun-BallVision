@@ -45,6 +45,15 @@ const CarouselCompo=({articleList})=>{
                 )
             }
         >
+            {/*<div className={'h-full'}>*/}
+            {/*    asdasd*/}
+            {/*</div>*/}
+            {/*<div className={'h-full'}>*/}
+            {/*    ww*/}
+            {/*</div>*/}
+            {/*<div className={'h-full'}>*/}
+            {/*    dd*/}
+            {/*</div>*/}
             {
                 articleList.map(item=>{
                     return (

@@ -5,6 +5,8 @@ import { fetchTweet, Tweet } from 'react-tweet'
 import './base.css'
 import Quill from "quill";
 import {Button} from "antd";
+import axiosInstance from "../../../utils/axiosInstance";
+import {useParams} from "react-router-dom";
 const Delta = Quill.import('delta');
 
 interface Attribute {
@@ -21,6 +23,18 @@ interface Insert {
 
 const SingleArticle=()=>{
     const [contents, setContents] = useState([])
+
+    const {articleId} = useParams()
+
+    const onGetSingleArticle=async ()=>{
+        const {data} = await axiosInstance.get(`api/getSingleArticle${articleId}`)
+        console.log(data.list[0].content,'data.list')
+        setContents(data.list[0].content)
+    }
+
+    useEffect(()=>{
+        onGetSingleArticle()
+    }, [])
 
 
     const renderContent = (content: Insert[]) => {
@@ -62,13 +76,13 @@ const SingleArticle=()=>{
         });
     };
 
-    useEffect(()=>{
-        const content = localStorage.getItem('articleContent')
-        console.log(JSON.parse(content),'ccccc')
-        if(content?.length > 0){
-            setContents(JSON.parse(content))
-        }
-    },[])
+    // useEffect(()=>{
+    //     const content = localStorage.getItem('articleContent')
+    //     console.log(JSON.parse(content),'ccccc')
+    //     if(content?.length > 0){
+    //         setContents(JSON.parse(content))
+    //     }
+    // },[])
 
 
 

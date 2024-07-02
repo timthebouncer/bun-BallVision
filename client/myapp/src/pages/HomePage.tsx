@@ -85,9 +85,12 @@ function HomePage() {
 			<div className="container sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl">
 				<div className={'flex'}>
 					<div style={{userSelect: 'none'}} className={'w-5/6 mr-8'}>
-						<div className={'mb-8'}>
-							<CarouselCompo articleList={articleList} />
-						</div>
+						{
+							articleList.length > 0 && <div className={'mb-8'}>
+								<CarouselCompo articleList={articleList} />
+							</div>
+						}
+
 
 						<Articles articleList={articleList} />
 					</div>
