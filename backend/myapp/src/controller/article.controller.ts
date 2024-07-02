@@ -7,15 +7,12 @@ import {t} from "elysia";
 import {app} from "../constants";
 import {addArticle, getArticleList, getHottestArticle, getSingleArticle, updateArticleView} from "../service";
 
-console.log('99999')
 
 app.get('/api/getArticle', async () => {
     const response = await getArticleList()
-    console.log(response,'response getArticleList')
     return response || null
 }).get('/api/getSingleArticle:id', async ({ params: { id } }) => {
     const response = await getSingleArticle(id)
-    console.log(response,'response getSingleArticle')
     return response || null
 }).get('/api/getHottestArticle', async () => {
     const response = await getHottestArticle()

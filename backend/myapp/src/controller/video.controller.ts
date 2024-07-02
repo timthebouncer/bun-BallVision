@@ -9,10 +9,7 @@ import {addVideo, getVideosByText, updateVideo} from "../service";
 
 
 app.get('/api/getVideoList', async ({query}) => {
-    console.log(query,'query')
-
     const response = await getVideosByText(query)
-    console.log(response,'response')
     return response || null
 }, {
     query: t.Object({

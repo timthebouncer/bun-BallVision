@@ -1,5 +1,5 @@
 import {articles} from "../schema";
-import {asc, count, desc, eq, like} from "drizzle-orm";
+import {asc, count, desc, eq, like, sql} from "drizzle-orm";
 import {db} from "../constants";
 
 //對應表的所有sql操作
@@ -20,6 +20,7 @@ export class ArticleDao {
         return response
     }
     async getSingleArticle(id) {
+        console.log(id, typeof id'ididid')
         const response = {}
         response.list = await db.select().from(articles).where(eq(articles.id, id))
         return response
@@ -33,6 +34,6 @@ export class ArticleDao {
         await db.insert(articles).values({ ...params })
     }
     async updateArticleView({id}: string) {
-        await db.update(articles).set(articles.views + 1).where(eq(articles.id, id))
+        await db.update(articles).set({views: sql`${articles.views} + 1`,}).where(eq(articles.id, id))
     }
 }

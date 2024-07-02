@@ -27,7 +27,6 @@ type Keyword = {
 export async function getVideosByText(query: Keyword) {
     const dao = new VideoDao()
     const response = await dao.getVideoList(query)
-    console.log(response,'response')
     return response
 }
 
@@ -49,13 +48,13 @@ export function addContact(params: UploadVideoText) {
 export async function getArticleList() {
     const dao = new ArticleDao()
     const response = await dao.getArticleList()
-    console.log(response,'response')
     return response
 }
 
 export function getSingleArticle(id) {
     const dao = new ArticleDao()
-    dao.getSingleArticle(id)
+    const response = dao.getSingleArticle(id)
+    return response
 }
 
 export function getHottestArticle() {
