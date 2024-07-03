@@ -59,7 +59,8 @@ export function getSingleArticle(id) {
 
 export function getHottestArticle() {
     const dao = new ArticleDao()
-    dao.getHottestArticle()
+    const response = dao.getHottestArticle()
+    return response
 }
 
 export function addArticle(params: AddArticle) {

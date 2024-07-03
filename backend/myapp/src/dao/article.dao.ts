@@ -20,7 +20,6 @@ export class ArticleDao {
         return response
     }
     async getSingleArticle(id) {
-        console.log(id, typeof id'ididid')
         const response = {}
         response.list = await db.select().from(articles).where(eq(articles.id, id))
         return response
@@ -31,7 +30,7 @@ export class ArticleDao {
         return response
     }
     async addArticle(params: AddArticle) {
-        await db.insert(articles).values({ ...params })
+        await db.insert(articles).values({ ...params, views: 0 })
     }
     async updateArticleView({id}: string) {
         await db.update(articles).set({views: sql`${articles.views} + 1`,}).where(eq(articles.id, id))

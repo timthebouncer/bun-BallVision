@@ -23,6 +23,6 @@ export const articles = sqliteTable("article", {
     intro: text("intro").notNull(),
     avatar: text("avatar").notNull(),
     views: integer("views"),
-    content: text('content',{ mode: 'json' }).notNull(),
+    content: text('content',{ mode: 'json' }).notNull().$type<string[]>().default(sql`'[]'`),
     createTime: text('createTime').notNull().default(sql`current_timestamp`),
 });

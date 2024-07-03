@@ -16,7 +16,6 @@ app.get('/api/getArticle', async () => {
     return response || null
 }).get('/api/getHottestArticle', async () => {
     const response = await getHottestArticle()
-    console.log(response,'response getHottestArticle')
     return response || null
 }).post('/api/addArticle',({body})=>{
     console.log(body,'body')
