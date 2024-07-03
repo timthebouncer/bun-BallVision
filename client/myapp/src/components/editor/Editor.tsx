@@ -1,7 +1,6 @@
-import React, { forwardRef, useEffect, useLayoutEffect, useRef } from 'react';
+import { forwardRef, useEffect, useLayoutEffect, useRef } from 'react';
 import Quill from "quill";
 import "quill/dist/quill.snow.css";
-import {Button} from "antd";
 
 interface EditorProps {
     readOnly?: boolean;
@@ -13,6 +12,7 @@ interface EditorProps {
 // Editor is an uncontrolled React component
 const Editor = forwardRef<Quill, EditorProps>(
     ({ readOnly, defaultValue, onTextChange, onSelectionChange }, ref) => {
+
         const containerRef = useRef<HTMLDivElement>(null);
         const defaultValueRef = useRef(defaultValue);
         const onTextChangeRef = useRef(onTextChange);
@@ -105,9 +105,7 @@ const Editor = forwardRef<Quill, EditorProps>(
 
         // update();
         //
-        function formatDelta(delta) {
-            return `<div>${JSON.stringify(delta.ops, null, 2)}</div>`;
-        }
+
         //
         // function update(delta) {
         //     console.log(ref,'rrr')

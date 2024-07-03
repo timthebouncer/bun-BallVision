@@ -1,7 +1,4 @@
-import {ChangeEvent, useEffect, useRef, useState} from "react";
-import * as React from "react";
-import { TweetSkeleton, EmbeddedTweet, TweetNotFound } from 'react-tweet'
-import { fetchTweet, Tweet } from 'react-tweet'
+import {ChangeEvent, useRef, useState} from "react";
 import './generateArticles.css'
 import {Editor} from '../../components/editor/Editor';
 import Quill from "quill";
@@ -10,13 +7,18 @@ import {UploadImg} from "../../components/upload/upload";
 import axiosInstance from "../../../utils/axiosInstance.ts";
 const Delta = Quill.import('delta');
 
+type  ArticleParams = {
+    title?: string;
+    intro?: string;
+    [key: string]: any;
+}
 
 const GenerateArticles=()=>{
 
-    const quillRef = useRef();
-    const [range, setRange] = useState();
-    const [lastChange, setLastChange] = useState();
-    const [newArticleParams, setNewArticleParams] = useState({})
+    const quillRef = useRef<Quill | null>(null);
+    const [, setRange] = useState();
+    const [, setLastChange] = useState();
+    const [newArticleParams, setNewArticleParams] = useState<ArticleParams>({})
 
     const onHandleChange=(type:string, e:ChangeEvent<HTMLInputElement>)=>{
         const {value} = e.target
@@ -26,7 +28,7 @@ const GenerateArticles=()=>{
     const onSubmit= async ()=>{
 
 
-        let content = []
+        let content:[] = []
 
         if(quillRef.current){
             quillRef.current.update()
@@ -34,8 +36,6 @@ const GenerateArticles=()=>{
             // console.log(JSON.parse(JSON.stringify(delta.ops, null, 2)));
             content = JSON.parse(JSON.stringify(delta.ops, null, 2))
         }
-
-        console.log({...newArticleParams, content},'newArticleParams')
 
 
 
@@ -88,12 +88,7 @@ const GenerateArticles=()=>{
         <div className={'flex justify-end my-4 '}>
             <Button
                 className={'mx-4'}
-                onClick={()=>{
-                    if(quillRef.current){
-                        quillRef.current.update()
-                        console.log(quillRef.current.getContents());
-                    }
-                }}>
+                onClick={()=>{}}>
                 取消
             </Button>
             <Button

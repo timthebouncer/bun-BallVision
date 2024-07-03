@@ -1,13 +1,12 @@
-import { Button, Drawer, Menu, MenuProps, Space } from "antd";
-import MenuFoldOutlined from "@ant-design/icons/lib/icons/MenuFoldOutlined";
-import { useState } from "react";
-import ballLogo from "/ballLogo-round.png";
+import { Button, Drawer, Menu } from 'antd';
+import MenuFoldOutlined from '@ant-design/icons/lib/icons/MenuFoldOutlined';
+import { useState } from 'react';
+import ballLogo from '/ballLogo-round.png';
 
-
-type MenuItem = Required<MenuProps>['items'][number];
-interface LevelKeysProps {
-	key?: string;
-	children?: LevelKeysProps[];
+interface MenuItem {
+	key: string;
+	label: string;
+	children?: MenuItem[];
 }
 
 const items: MenuItem[] = [
@@ -41,47 +40,16 @@ const items: MenuItem[] = [
 	},
 ];
 
-const MenuComponent = ({ ...props }) => {
+const MenuComponent = () => {
 	const [open, setOpen] = useState(false);
+	const [stateOpenKeys, setStateOpenKeys] = useState<string[]>([]);
 
-	const [stateOpenKeys, setStateOpenKeys] = useState(['1']);
-
-	const getLevelKeys = (items1: LevelKeysProps[]) => {
-		const key: Record<string, number> = {};
-		const func = (items2: LevelKeysProps[], level = 1) => {
-			items2.forEach((item) => {
-				if (item.key) {
-					key[item.key] = level;
-				}
-				if (item.children) {
-					func(item.children, level + 1);
-				}
-			});
-		};
-		func(items1);
-		return key;
-	};
-
-	const levelKeys = getLevelKeys(items as LevelKeysProps[]);
-
-	const onOpenChange: MenuProps['onOpenChange'] = (openKeys) => {
-		const currentOpenKey = openKeys.find((key) => stateOpenKeys.indexOf(key) === -1);
-		// open
-		if (currentOpenKey !== undefined) {
-			const repeatIndex = openKeys
-				.filter((key) => key !== currentOpenKey)
-				.findIndex((key) => levelKeys[key] === levelKeys[currentOpenKey]);
-
-			setStateOpenKeys(
-				openKeys
-					// remove repeat key
-					.filter((_, index) => index !== repeatIndex)
-					// remove current level all child
-					.filter((key) => levelKeys[key] <= levelKeys[currentOpenKey]),
-			);
-		} else {
-			// close
+	const onOpenChange = (openKeys: string[]) => {
+		const latestOpenKey = openKeys.find((key) => stateOpenKeys.indexOf(key) === -1);
+		if (!latestOpenKey) {
 			setStateOpenKeys([]);
+		} else {
+			setStateOpenKeys([latestOpenKey]);
 		}
 	};
 
@@ -99,38 +67,41 @@ const MenuComponent = ({ ...props }) => {
 			<Button
 				type="primary"
 				onClick={showDrawer}
-				style={{ background: "transparent", fontSize: "20px", lineHeight: 1 }}
+				style={{ background: 'transparent', fontSize: '20px', lineHeight: 1 }}
 			>
 				<MenuFoldOutlined />
 			</Button>
 			<Drawer
 				closeIcon={false}
-				style={{ background: "#251633" }}
+				style={{ background: '#251633' }}
 				title={
-					<div style={{ color: "#fff" }}>
-						{" "}
+					<div style={{ color: '#fff' }}>
 						<div className="logo-wrapper">
 							<a href="https://vitejs.dev">
-								<img src={ballLogo} className="logo" alt="Vite logo" />
+								<img src={ballLogo} className="logo" alt="BBall Vision Logo" />
 							</a>
 							<h2>BBall_Vision</h2>
 						</div>
 					</div>
 				}
-				placement={"left"}
+				placement="left"
 				width={300}
 				onClose={onClose}
-				open={open}
+				visible={open}
 			>
-				<Menu
-					mode="inline"
-					openKeys={stateOpenKeys}
-					onOpenChange={onOpenChange}
-					items={items}
-					theme="dark"
-				/>
+				<Menu mode="inline" openKeys={stateOpenKeys} onOpenChange={onOpenChange} theme="dark">
+					{items.map((item) => (
+						<Menu.SubMenu key={item.key} title={item.label}>
+							{item.children &&
+							item.children.map((child) => (
+								<Menu.Item key={child.key}>{child.label}</Menu.Item>
+							))}
+						</Menu.SubMenu>
+					))}
+				</Menu>
 			</Drawer>
 		</div>
 	);
 };
+
 export default MenuComponent;

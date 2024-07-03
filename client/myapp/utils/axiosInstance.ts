@@ -1,6 +1,6 @@
 import axios from 'axios'
 
-let headers = {
+const headers = {
     "Content-Type": "application/json",
     "Accept": "application/json",
     "Authorization": `Bearer 777`,
@@ -23,7 +23,7 @@ axiosInstance.interceptors.request.use(
 
 axiosInstance.interceptors.response.use(
 	(response) =>
-		new Promise((resolve, reject) => {
+		new Promise((resolve) => {
 			console.info(
 				`API_${response.config.url}`,
 				`${JSON.stringify(response.data)}`
@@ -38,14 +38,13 @@ axiosInstance.interceptors.response.use(
 			}\nERROR：${JSON.stringify(error.response.data)}`
 		)
 		if (!error.response) {
-			return new Promise((resolve, reject) => {
+			return new Promise((reject) => {
 				reject(error)
 			})
 		}
 		console.log(error.response.status)
 		if (error.response.status === 401 || error.response.status === 403) {
-			return new Promise((resolve, reject) => {
-				reject()
+			return new Promise(() => {
 			})
 			// } else if (error.response.status === 400 || error.response.status === 500) {
 			//   return new Promise((resolve, reject) => {
@@ -55,18 +54,18 @@ axiosInstance.interceptors.response.use(
 			//防止10秒跳提示 系統服務關閉中，請聯絡系統商。
 			if (
 				error.response.status === 502) {
-				return new Promise((resolve, reject) => {
+				return new Promise((reject) => {
 					reject(error)
 				})
 			}
 
 			if (error.response.status === 502) {
-				return new Promise((resolve, reject) => {
+				return new Promise((reject) => {
 					reject(error)
 				})
 			}
 
-			return new Promise((resolve, reject) => {
+			return new Promise((reject) => {
 				reject(error.response.data || error)
 			})
 		}

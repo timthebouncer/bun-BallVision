@@ -22,7 +22,7 @@ const Routes=()=>{
             />
             <Route
                 path={"/articles"}
-                element={<Articles />}
+                element={<Articles articleList={[]} />}
 
             />
             <Route path="/articles/:articleId"

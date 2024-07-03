@@ -1,4 +1,17 @@
-export const navList=[
+type SubListItem = {
+  id: string;
+  name: string;
+}
+
+type NavListItem = {
+  id: string;
+  name: string;
+  subList?: SubListItem[];
+  url: string;
+}
+
+
+export const navList:NavListItem[]=[
   { id: 'nav1',
     name: 'NBA',
     subList: [

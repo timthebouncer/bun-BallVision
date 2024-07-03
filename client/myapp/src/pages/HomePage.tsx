@@ -1,11 +1,10 @@
 import './App.css'
 import {useEffect, useState} from 'react'
-import {Button, Pagination} from "antd";
+import {Button} from "antd";
 import MenuComponent from "../components/Menu";
 import ballLogo from '../../public/ballLogo-round.png'
 import Footer from "../components/footer/Footer.tsx";
-import * as React from "react";
-import {navList} from "../../data/navList.js"
+import {navList} from "../../data/navList.tsx"
 import {Link} from "react-router-dom";
 import {CarouselCompo} from "../components/carousel/Carousel.tsx";
 import Articles from "./articleList/Articles";
@@ -20,13 +19,16 @@ type ARTICLE={
 	views: number
 }
 
+
+
+
 function HomePage() {
 
-	const [activeNav, setActiveNav] = useState(null);
+	const [activeNav, setActiveNav] = useState<string | null>(null);
 
 	const [articleList, setArticleList] = useState<ARTICLE[]>([])
 	const [hotArticleList, setHotArticleList] = useState<ARTICLE[]>([])
-	const [totalElement, setTotalElement] = useState<number>(0)
+	const [, setTotalElement] = useState<number>(0)
 
 
 	const onGetArticleList= async ()=>{

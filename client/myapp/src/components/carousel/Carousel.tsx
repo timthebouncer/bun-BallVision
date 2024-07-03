@@ -1,16 +1,33 @@
 import { Carousel } from 'react-responsive-carousel';
-import './carousel.css'
+import './carousel.css';
 import "react-responsive-carousel/lib/styles/carousel.min.css";
-import * as React from "react";
-import {Button} from "antd";
-import {LeftCircleOutlined, LeftOutlined, RightCircleOutlined, RightOutlined} from "@ant-design/icons"; // requires a loader
+import { Button } from "antd";
+import { LeftOutlined, RightOutlined } from "@ant-design/icons";
+import {FC} from "react";
 
-const CarouselCompo=({articleList})=>{
+type Article={
+    id:string;
+    avatar:string;
+    title:string;
+    intro:string;
+}
+interface ArticlesProps {
+    articleList: Article[];
+}
 
-    const onChange=()=>{}
-    const onClickItem=()=>{}
-    const onClickThumb=()=>{}
+const CarouselCompo: FC<ArticlesProps> = ({ articleList }) => {
 
+    const onChange = () => {
+        // Handle carousel change event
+    };
+
+    const onClickItem = () => {
+        // Handle click on carousel item
+    };
+
+    const onClickThumb = () => {
+        // Handle click on carousel thumbnail
+    };
 
     return (
         <Carousel
@@ -32,42 +49,37 @@ const CarouselCompo=({articleList})=>{
             onClickThumb={onClickThumb}
             renderArrowPrev={(onClickHandler, hasPrev, label) =>
                 hasPrev && (
-                    <Button type="button" onClick={onClickHandler} title={label} className={'leftArrow arrowAttribute'}>
+                    <Button
+                        onClick={onClickHandler}
+                        title={label}
+                        className={'leftArrow arrowAttribute'}
+                    >
                         <LeftOutlined />
                     </Button>
                 )
             }
             renderArrowNext={(onClickHandler, hasNext, label) =>
                 hasNext && (
-                    <Button type="button" onClick={onClickHandler} title={label} className={'rightArrow arrowAttribute'}>
+                    <Button
+                        onClick={onClickHandler}
+                        title={label}
+                        className={'rightArrow arrowAttribute'}
+                    >
                         <RightOutlined />
                     </Button>
                 )
             }
         >
-            {/*<div className={'h-full'}>*/}
-            {/*    asdasd*/}
-            {/*</div>*/}
-            {/*<div className={'h-full'}>*/}
-            {/*    ww*/}
-            {/*</div>*/}
-            {/*<div className={'h-full'}>*/}
-            {/*    dd*/}
-            {/*</div>*/}
-            {
-                articleList.map(item=>{
-                    return (
-                        <div key={item.id} className={'h-full'}>
-                            <img src={item.avatar} style={{height:480, width: '100%'}} />
-                            <div className={'coverTitle'}>
-                                {item.intro}
-                            </div>
-                        </div>
-                    )
-                })
-            }
+            {articleList.map(item => (
+                <div key={item.id} className={'h-full'}>
+                    <img src={item.avatar} alt={item.title} style={{ height: 480, width: '100%' }} />
+                    <div className={'coverTitle'}>
+                        {item.intro}
+                    </div>
+                </div>
+            ))}
         </Carousel>
     );
-}
+};
 
-export {CarouselCompo}
+export { CarouselCompo };

@@ -1,10 +1,9 @@
-import {useEffect, useRef, useState} from "react";
-import * as React from "react";
-import { TweetSkeleton, EmbeddedTweet, TweetNotFound } from 'react-tweet'
+import {ReactNode, useEffect, useState} from "react";
 import { Tweet } from 'react-tweet'
 import './base.css'
 import axiosInstance from "../../../utils/axiosInstance";
 import {useParams} from "react-router-dom";
+import * as React from "react";
 
 interface Attribute {
     header?: number;
@@ -39,12 +38,12 @@ const Video: React.FC<{ src: string; align?: string }> = ({ src, align }) => {
     );
 };
 
-const Header: React.FC<{ level: number; style?: React.CSSProperties }> = ({ level, style, children }) => {
+const Header: React.FC<{ level: number; style?: React.CSSProperties, children?:ReactNode  }> = ({ level, style, children }) => {
     return React.createElement(`h${level}`, { style }, children);
 };
 
 
-const Span: React.FC<{ style?: React.CSSProperties }> = ({ style, children }) => {
+const Span: React.FC<{ style?: React.CSSProperties, children?:ReactNode }> = ({ style, children }) => {
     return <span style={style}>{children}</span>;
 };
 

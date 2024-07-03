@@ -1,13 +1,12 @@
 import './articleList.css'
-import {Link, useParams} from "react-router-dom";
-import {useEffect, useState} from "react";
-import * as React from "react";
+import {Link} from "react-router-dom";
 import {EyeOutlined} from "@ant-design/icons";
 import {Pagination} from "antd";
 import axiosInstance from "../../../utils/axiosInstance";
+import {FC} from "react";
 
 
-type ARTICLE={
+type Article ={
     id: string
     avatar: string
     title: string
@@ -15,12 +14,16 @@ type ARTICLE={
     content: string
     views: number
 }
+interface ArticlesProps {
+    articleList: Article[];
+}
 
-const Articles=({articleList})=>{
+
+const Articles: FC<ArticlesProps>=({articleList})=>{
 
 
     const onUpdateArticleView=(id:string)=>{
-        axiosInstance.put('api/updateArticleView', {id: id})
+        axiosInstance.put('api/updateArticleView', {id})
     }
 
 

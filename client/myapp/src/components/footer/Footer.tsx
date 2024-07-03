@@ -3,7 +3,6 @@ import {FacebookFilled, InstagramFilled, YoutubeFilled} from "@ant-design/icons"
 import CustomModal from "../modal";
 import {useState} from "react";
 import { Link } from "react-router-dom";
-import * as React from "react";
 
 const Footer=()=>{
 

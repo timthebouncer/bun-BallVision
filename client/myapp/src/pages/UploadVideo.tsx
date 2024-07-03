@@ -2,7 +2,6 @@ import Search from "antd/es/input/Search.js";
 import { Button } from "antd";
 import { ChangeEvent, useState } from "react";
 import axiosInstance from "../../utils/axiosInstance";
-import * as React from "react";
 
 type UploadVideoText = {
     title: string
@@ -11,11 +10,7 @@ type UploadVideoText = {
     category: string
 }
 
-let headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-    "Authorization": `Bearer 777`,
-}
+
 
 const UploadVideo=()=>{
 

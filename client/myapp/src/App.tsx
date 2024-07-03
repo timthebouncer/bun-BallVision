@@ -1,6 +1,5 @@
 import { BrowserRouter } from 'react-router-dom';
 import {ArrowUpOutlined} from "@ant-design/icons";
-import * as React from "react";
 import {useEffect, useState} from "react";
 import {Routes} from "./Routes.tsx";
 
@@ -52,7 +51,7 @@ function App() {
                         justifyContent: 'center',
                     }} />
             }
-            <BrowserRouter>
+            <BrowserRouter basename={'/bun-BallVision'}>
                 <Routes />
             </BrowserRouter>
         </>

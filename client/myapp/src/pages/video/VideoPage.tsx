@@ -1,8 +1,7 @@
 import './video.css'
 import {useEffect, useState} from "react";
 import axiosInstance from "../../../utils/axiosInstance.ts";
-import {Button, Pagination} from "antd";
-import * as React from "react";
+import {Pagination} from "antd";
 import Search from "antd/es/input/Search";
 
 
