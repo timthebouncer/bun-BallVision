@@ -11,24 +11,41 @@ import {CarouselCompo} from "../components/carousel/Carousel.tsx";
 import Articles from "./articleList/Articles";
 import axiosInstance from "../../utils/axiosInstance";
 
-
+type ARTICLE={
+	id: string
+	avatar: string
+	title: string
+	intro: string
+	content: string
+	views: number
+}
 
 function HomePage() {
 
 	const [activeNav, setActiveNav] = useState(null);
 
 	const [articleList, setArticleList] = useState<ARTICLE[]>([])
+	const [hotArticleList, setHotArticleList] = useState<ARTICLE[]>([])
 	const [totalElement, setTotalElement] = useState<number>(0)
 
 
-	const onGetVideoList= async ()=>{
+	const onGetArticleList= async ()=>{
 		const {data} = await axiosInstance.get(`api/getArticle`)
 		setArticleList(data.list)
 		setTotalElement(data.totalElement)
 	}
+	const onHottestArticleList= async ()=>{
+		const {data} = await axiosInstance.get(`api/getHottestArticle`)
+		setHotArticleList(data.list)
+	}
+
+	const onUpdateArticleView=(id:string)=>{
+		axiosInstance.put('api/updateArticleView', {id: id})
+	}
 
 	useEffect(()=>{
-		onGetVideoList()
+		onGetArticleList()
+		onHottestArticleList()
 	},[])
 
 
@@ -99,13 +116,17 @@ function HomePage() {
 							熱門文章
 						</div>
 						{
-							articleList.map(item=>{
+							hotArticleList?.length > 0 && hotArticleList.map(item=>{
 								return (
-									<div key={item.id} className={'border-b mt-8'}>
-										<a href="">
-											{item.title}
-										</a>
-									</div>
+									<Link
+										to={`/articles/${item.id}`}
+										onClick={()=>onUpdateArticleView(item.id)}
+										key={item.id}
+										className={'border-b mt-8 flex'}
+									>
+										{item.title}
+									</Link>
+
 								)
 							})
 						}

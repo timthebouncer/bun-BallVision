@@ -7,6 +7,7 @@ import {Editor} from '../../components/editor/Editor';
 import Quill from "quill";
 import {Button, Input} from "antd";
 import {UploadImg} from "../../components/upload/upload";
+import axiosInstance from "../../../utils/axiosInstance.ts";
 const Delta = Quill.import('delta');
 
 
@@ -20,6 +21,25 @@ const GenerateArticles=()=>{
     const onHandleChange=(type:string, e:ChangeEvent<HTMLInputElement>)=>{
         const {value} = e.target
         setNewArticleParams({...newArticleParams, [type]: value})
+    }
+
+    const onSubmit= async ()=>{
+
+
+        let content = []
+
+        if(quillRef.current){
+            quillRef.current.update()
+            const delta = await quillRef.current.getContents()
+            // console.log(JSON.parse(JSON.stringify(delta.ops, null, 2)));
+            content = JSON.parse(JSON.stringify(delta.ops, null, 2))
+        }
+
+        console.log({...newArticleParams, content},'newArticleParams')
+
+
+
+        await axiosInstance.post('/api/addArticle', {...newArticleParams, content})
     }
 
 
@@ -78,13 +98,7 @@ const GenerateArticles=()=>{
             </Button>
             <Button
                 onClick={()=>{
-                    console.log(newArticleParams,'nnn')
-                    if(quillRef.current){
-                        quillRef.current.update()
-                        const delta = quillRef.current.getContents()
-                        console.log( JSON.stringify(delta.ops, null, 2))
-                        // localStorage.setItem('articleContent', JSON.stringify(delta.ops, null, 2))
-                    }
+                    onSubmit()
                 }}>
                 送出
             </Button>

@@ -1,68 +1,58 @@
 import React, { useState } from 'react';
-import { PlusOutlined } from '@ant-design/icons';
-import { Image, Upload } from 'antd';
-import type { GetProp, UploadFile, UploadProps } from 'antd';
+import { Upload } from 'antd';
+import type { UploadFile } from 'antd';
 
-type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 
-const getBase64 = (file: FileType): Promise<string> =>
-    new Promise((resolve, reject) => {
-        const reader = new FileReader();
-        reader.readAsDataURL(file);
-        reader.onload = () => resolve(reader.result as string);
-        reader.onerror = (error) => reject(error);
-    });
 
 const UploadImg: React.FC = ({setNewArticleParams}) => {
-    const [previewOpen, setPreviewOpen] = useState(false);
-    const [previewImage, setPreviewImage] = useState('');
-    const [fileList, setFileList] = useState<UploadFile[]>([
+    const [fileList, setFileList] = useState<UploadFile[]>([]);
 
-    ]);
-
-    const handlePreview = async (file: UploadFile) => {
-        if (!file.url && !file.preview) {
-            file.preview = await getBase64(file.originFileObj as FileType);
+    const onRemove = ({uid}) => {
+        const i = fileList.findIndex(e => e.uid === uid)
+        if (i !== -1) {
+            setFileList(e => [...e.slice(0, i), ...e.slice(i + 1, e.length)])
         }
-
-        setPreviewImage(file.url || (file.preview as string));
-        setPreviewOpen(true);
-    };
-
-    const handleChange: UploadProps['onChange'] = ({ fileList: newFileList }) =>{
-        setFileList(newFileList);
-
-        setNewArticleParams(pre=>({...pre, fileList: newFileList}))
     }
 
-    const uploadButton = (
-        <button style={{ border: 0, background: 'none' }} type="button">
-            <PlusOutlined />
-            <div style={{ marginTop: 8 }}>Upload</div>
-        </button>
-    );
+    const onData = async file => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = () => {
+            const img = new (window as any).Image();
+            img.src = reader.result
+            img.onload = () => {
+                const e = {...file}
+                const naturalHeight = img.naturalHeight;
+                const naturalWidth = img.naturalWidth;
+                // setImgWidth(naturalWidth)
+                // setImgHeight(naturalHeight)
+                // getSize.push({id:e.uid,calWidthHeight: naturalWidth * naturalHeight})
+                // setSize(getSize)
+                for (let key in file) {
+                    e[key] = file[key]
+                }
+                e.isPass = null
+                e.widthHeight = `${naturalWidth} x ${naturalHeight}`
+                e.url = reader.result
+                setNewArticleParams(pre=>({...pre, avatar: e.url}))
+                setFileList(f=> [...f, e])
+            }
+        }
+    }
+
     return (
         <>
-            <Upload
-                action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
-                listType="picture-card"
-                fileList={fileList}
-                onPreview={handlePreview}
-                onChange={handleChange}
-            >
-                {fileList.length >= 8 ? null : uploadButton}
-            </Upload>
-            {previewImage && (
-                <Image
-                    wrapperStyle={{ display: 'none' }}
-                    preview={{
-                        visible: previewOpen,
-                        onVisibleChange: (visible) => setPreviewOpen(visible),
-                        afterOpenChange: (visible) => !visible && setPreviewImage(''),
-                    }}
-                    src={previewImage}
-                />
-            )}
+            <div>
+                <Upload
+                    // customRequest={dummyRequest}
+                    listType="picture-card"
+                    data={onData}
+                    fileList={fileList}
+                    onRemove={onRemove}
+                >
+                    {fileList.length < 5 && '+ Upload'}
+                </Upload>
+            </div>
         </>
     );
 };
