@@ -7,7 +7,7 @@ const headers = {
 }
 
 const axiosInstance = axios.create({
-	baseURL: 'http://localhost:3000',
+	baseURL: 'http://192.168.168.143',
 	headers,
 })
 axiosInstance.interceptors.request.use(
