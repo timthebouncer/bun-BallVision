@@ -1,14 +1,14 @@
 import axios from 'axios'
 
-const headers = {
-    "Content-Type": "application/json",
-    "Accept": "application/json",
-    "Authorization": `Bearer 777`,
-}
+// const headers = {
+//     "Content-Type": "application/json",
+//     "Accept": "application/json",
+//     // "Authorization": `Bearer 777`,
+// }
 
 const axiosInstance = axios.create({
 	baseURL: 'http://192.168.1.108:3000',
-	headers,
+	// headers,
 })
 axiosInstance.interceptors.request.use(
 	async (config) => {
