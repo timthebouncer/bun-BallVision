@@ -5,11 +5,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "dev": "bun run --watch index.ts",
     "start": "bun run index.ts",
-    "build": "bun-vercel index.ts"
   },
   "dependencies": {
     "@elysiajs/cors": "^1.0.2",
-    "bun-vercel": "^1.0.0-alpha.5",
     "drizzle-orm": "^0.30.9",
     "elysia": "latest"
   },
