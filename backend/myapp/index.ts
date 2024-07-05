@@ -14,6 +14,10 @@ import './src/controller/article.controller'
 
   app
       .use(cors())
+      .get('/www',()=>{
+        console.log(89899)
+        return '899999999922'
+      })
       .listen(3000)
 
     console.log(
