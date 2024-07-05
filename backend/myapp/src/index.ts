@@ -2,10 +2,10 @@ import {t} from "elysia";
 import {cors} from '@elysiajs/cors'
 
 
-import {app, db} from "./src/constants";
+import {app, db} from "./constants";
 import {migrate} from "drizzle-orm/bun-sqlite/migrator";
-import './src/controller/video.controller'
-import './src/controller/article.controller'
+import './controller/video.controller'
+import './controller/article.controller'
 
 
 ;(async ()=>{
