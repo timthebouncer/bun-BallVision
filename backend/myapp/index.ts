@@ -2,15 +2,15 @@ import {t} from "elysia";
 import {cors} from '@elysiajs/cors'
 
 
-import {app, db} from "./constants";
+import {app, db} from "./src/constants";
 import {migrate} from "drizzle-orm/bun-sqlite/migrator";
-import './controller/video.controller'
-import './controller/article.controller'
+import './src/controller/video.controller'
+import './src/controller/article.controller'
 
 
 ;(async ()=>{
 
-  await migrate(db, { migrationsFolder: "../drizzle" });
+  await migrate(db, { migrationsFolder: "./drizzle" });
 
   app
       .use(cors())
