@@ -17,17 +17,17 @@ type UpdateVideo = {
 
 type Keyword = {
     keyword: string;
-    pageSize: number
-    currentPage: number
+    pageSize?: number;
+    pageNumber?: number;
 }
 
 export class VideoDao {
 
     // Get TodoList
     async getVideoList(query: Keyword) {
-        const {keyword, pageSize, pageNumber} = query
+        const { keyword, pageSize = 10, pageNumber = 1 } = query
 
-        const response = {}
+        const response: any = {};
 
         if(keyword){
             response.list = await db.select().from(videos).where(like(videos.title, `%${keyword}%`)).orderBy(desc(videos.createTime))

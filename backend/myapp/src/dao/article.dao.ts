@@ -14,25 +14,25 @@ type AddArticle = {
 
 export class ArticleDao {
     async getArticleList() {
-        const response = {}
+        const response: any = {};
         response.list = await db.select().from(articles)
         response.totalElement = await db.select({ count: count() }).from(articles).orderBy(desc(articles.createTime))
         return response
     }
     async getSingleArticle(id) {
-        const response = {}
+        const response: any = {};
         response.list = await db.select().from(articles).where(eq(articles.id, id))
         return response
     }
     async getHottestArticle() {
-        const response = {}
+        const response: any = {};
         response.list = await db.select().from(articles).orderBy(desc(articles.views))
         return response
     }
     async addArticle(params: AddArticle) {
         await db.insert(articles).values({ ...params, views: 0 })
     }
-    async updateArticleView({id}: string) {
+    async updateArticleView(id: string) {
         await db.update(articles).set({views: sql`${articles.views} + 1`,}).where(eq(articles.id, id))
     }
 }

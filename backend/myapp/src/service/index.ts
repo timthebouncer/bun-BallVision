@@ -20,8 +20,13 @@ type AddArticle = {
 
 type Keyword = {
     keyword: string;
-    pageSize: number
-    currentPage: number
+    pageSize?: number;
+    pageNumber?: number;
+}
+
+type AddContact = {
+    emailOrPhone: string
+    request: string
 }
 
 export async function getVideosByText(query: Keyword) {
@@ -35,12 +40,12 @@ export function addVideo(params: UploadVideoText) {
     dao.addVideo(params)
 }
 
-export function updateVideo(params: UploadVideoText) {
+export function updateVideo(params: { id: string; videoUrl: string }) {
     const dao = new VideoDao()
     dao.updateVideo(params)
 }
 
-export function addContact(params: UploadVideoText) {
+export function addContact(params: AddContact) {
     const dao = new ContactDao()
     dao.addContact(params)
 }
@@ -51,7 +56,7 @@ export async function getArticleList() {
     return response
 }
 
-export function getSingleArticle(id) {
+export function getSingleArticle(id: string) {
     const dao = new ArticleDao()
     const response = dao.getSingleArticle(id)
     return response
@@ -68,9 +73,9 @@ export function addArticle(params: AddArticle) {
     dao.addArticle(params)
 }
 
-export function updateArticleView(params: string) {
+export function updateArticleView(id: string) {
     const dao = new ArticleDao()
-    dao.updateArticleView(params)
+    dao.updateArticleView(id)
 }
 
 

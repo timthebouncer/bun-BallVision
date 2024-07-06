@@ -19,8 +19,25 @@ app.get('/api/getArticle', async () => {
     return response || null
 }).post('/api/addArticle',({body})=>{
     console.log(body,'body')
-    addArticle(body)
+    if (isAddArticle(body)) {
+        addArticle(body);
+    } else {
+        throw new Error('Invalid body');
+    }
 }).put('/api/updateArticleView',({body})=>{
     console.log(body,'body')
     updateArticleView(body)
+    if (typeof body === 'string') {
+        updateArticleView(body);
+    } else {
+        throw new Error('Invalid body');
+    }
 })
+
+// Type guard for AddArticle
+function isAddArticle(obj: any): obj is AddArticle {
+    return typeof obj.title === 'string' &&
+        typeof obj.intro === 'string' &&
+        typeof obj.avatar === 'string' &&
+        typeof obj.content === 'string';
+}
