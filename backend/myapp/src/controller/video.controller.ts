@@ -8,6 +8,18 @@ import {app} from "../constants";
 import {addVideo, getVideosByText, updateVideo} from "../service";
 
 
+type UploadVideoText = {
+    title: string
+    intro: string
+    videoUrl: string
+}
+
+type UpdateVideo = {
+    id: number
+    videoUrl: string
+}
+
+
 app.get('/api/getVideoList', async ({query}) => {
     const response = await getVideosByText(query)
     return response || null
@@ -19,8 +31,25 @@ app.get('/api/getVideoList', async ({query}) => {
     }),
 }).post('/api/addVideo',({body})=>{
     console.log(body,'body')
-    addVideo(body)
+    if (isUploadVideoText(body)) {
+        addVideo(body);
+    } else {
+        throw new Error('Invalid body');
+    }
 }).put('/api/updateVideo',({body})=>{
     console.log(body,'body')
-    updateVideo(body)
+    if(isUpdateVideo){
+        updateVideo(body)
+    }
 })
+
+function isUploadVideoText(obj: any): obj is UploadVideoText {
+    return typeof obj.title === 'string' &&
+        typeof obj.intro === 'string' &&
+        typeof obj.videoUrl === 'string';
+}
+
+function isUpdateVideo(obj: any): obj is UpdateVideo {
+    return typeof obj.id === 'number' &&
+        typeof obj.videoUrl === 'string';
+}

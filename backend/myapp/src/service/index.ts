@@ -40,7 +40,7 @@ export function addVideo(params: UploadVideoText) {
     dao.addVideo(params)
 }
 
-export function updateVideo(params: { id: string; videoUrl: string }) {
+export function updateVideo(params: { id: number; videoUrl: string }) {
     const dao = new VideoDao()
     dao.updateVideo(params)
 }
@@ -56,7 +56,7 @@ export async function getArticleList() {
     return response
 }
 
-export function getSingleArticle(id: string) {
+export function getSingleArticle(id: number) {
     const dao = new ArticleDao()
     const response = dao.getSingleArticle(id)
     return response
@@ -73,7 +73,7 @@ export function addArticle(params: AddArticle) {
     dao.addArticle(params)
 }
 
-export function updateArticleView(id: string) {
+export function updateArticleView(id: number) {
     const dao = new ArticleDao()
     dao.updateArticleView(id)
 }

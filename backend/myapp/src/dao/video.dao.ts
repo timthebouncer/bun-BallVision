@@ -11,7 +11,7 @@ type UploadVideoText = {
 }
 
 type UpdateVideo = {
-    id: string
+    id: number
     videoUrl: string
 }
 
