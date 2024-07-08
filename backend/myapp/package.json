@@ -6,6 +6,7 @@
     "dev": "bun run --watch src/index.ts",
     "start": "bun run src/index.ts"
   },
+  "type": "module",
   "dependencies": {
     "@elysiajs/cors": "^1.0.2",
     "drizzle-orm": "^0.30.9",
@@ -16,7 +17,6 @@
     "drizzle-kit": "^0.20.17"
   },
   "module": "src/index.ts",
-  "type": "module",
   "peerDependencies": {
     "typescript": "^5.0.0"
   }
