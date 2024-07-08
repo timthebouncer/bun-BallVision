@@ -12,6 +12,10 @@ type AddArticle = {
     content: string;
 }
 
+interface UpdateArticleViewBody {
+    id: number;
+}
+
 app.get('/api/getArticle', async () => {
     const response = await getArticleList()
     return response || null
@@ -28,14 +32,8 @@ app.get('/api/getArticle', async () => {
     } else {
         throw new Error('Invalid body');
     }
-}).put('/api/updateArticleView',({body})=>{
-    console.log(body,'body')
-    updateArticleView(body)
-    if (typeof body === 'string') {
-        updateArticleView(body);
-    } else {
-        throw new Error('Invalid body');
-    }
+}).put('/api/updateArticleView',({body}: { body: UpdateArticleViewBody })=>{
+        updateArticleView(body.id);
 })
 
 // Type guard for AddArticle
