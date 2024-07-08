@@ -9,7 +9,7 @@ type AddArticle = {
     title: string;
     intro: string;
     avatar: string;
-    content: string;
+    content: string[];
 }
 
 interface UpdateArticleViewBody {
@@ -25,21 +25,9 @@ app.get('/api/getArticle', async () => {
 }).get('/api/getHottestArticle', async () => {
     const response = await getHottestArticle()
     return response || null
-}).post('/api/addArticle',({body})=>{
-    console.log(body,'body')
-    if (isAddArticle(body)) {
-        addArticle(body);
-    } else {
-        throw new Error('Invalid body');
-    }
+}).post('/api/addArticle',({body}:{body: AddArticle})=>{
+    addArticle(body);
 }).put('/api/updateArticleView',({body}: { body: UpdateArticleViewBody })=>{
         updateArticleView(body.id);
 })
 
-// Type guard for AddArticle
-function isAddArticle(obj: any): obj is AddArticle {
-    return typeof obj.title === 'string' &&
-        typeof obj.intro === 'string' &&
-        typeof obj.avatar === 'string' &&
-        typeof obj.content === 'string';
-}

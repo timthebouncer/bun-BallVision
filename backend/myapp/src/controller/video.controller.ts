@@ -12,6 +12,7 @@ type UploadVideoText = {
     title: string
     intro: string
     videoUrl: string
+    category: string
 }
 
 type UpdateVideo = {
@@ -29,20 +30,11 @@ app.get('/api/getVideoList', async ({query}) => {
         pageNumber: t.Optional(t.Numeric()),  // <----- Works
         pageSize: t.Optional(t.Numeric()), // <----- Works
     }),
-}).post('/api/addVideo',({body})=>{
-    console.log(body,'body')
-    if (isUploadVideoText(body)) {
-        addVideo(body);
-    } else {
-        throw new Error('Invalid body');
-    }
+}).post('/api/addVideo',({body}:{body: UploadVideoText})=>{
+    addVideo(body);
 }).put('/api/updateVideo',({body}:{body: UpdateVideo})=>{
     console.log(body,'body')
         updateVideo(body)
 })
 
-function isUploadVideoText(obj: any): obj is UploadVideoText {
-    return typeof obj.title === 'string' &&
-        typeof obj.intro === 'string' &&
-        typeof obj.videoUrl === 'string';
-}
+
