@@ -14,6 +14,9 @@ import './controller/article.controller'
 
   app
       .use(cors())
+      .get('/www',()=>{
+        return 'wwwwww'
+      })
       .listen(3000)
 
     console.log(
