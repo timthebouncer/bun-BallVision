@@ -23,6 +23,9 @@ const createElysia = (
     config?: ConstructorParameters<typeof Elysia>[0]
 ) => new Elysia({ ...config, aot: env.RUNTIME === 'bun' });
 
+const config = { runtime: 'edge' };
+
+
 ;(async ()=>{
 
     const app = createElysia()
