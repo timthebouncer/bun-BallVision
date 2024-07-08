@@ -1,12 +1,5 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "src/index.ts",
-      "use": "@vercel/node",
-      "config": { "maxLambdaSize": "50mb" }
-    }
-  ],
   "routes": [
     {
       "src": "/api/(.*)",
@@ -16,5 +9,6 @@
       "src": "/(.*)",
       "dest": "/src/$1"
     }
-  ]
+  ],
+  "rewrites": [{ "source": "/(.*)", "destination": "/api" }]
 }
