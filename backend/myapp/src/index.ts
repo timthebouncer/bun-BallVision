@@ -4,8 +4,8 @@ import {cors} from '@elysiajs/cors'
 
 import {app, db} from "./constants";
 import {migrate} from "drizzle-orm/bun-sqlite/migrator";
-import './controller/video.controller'
-import './controller/article.controller'
+// import './controller/video.controller'
+// import './controller/article.controller'
 
 
 ;(async ()=>{
