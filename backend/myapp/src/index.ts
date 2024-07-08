@@ -1,6 +1,6 @@
 import Elysia, {t} from "elysia";
 import {cors} from '@elysiajs/cors'
-
+import { swagger } from '@elysiajs/swagger';
 
 // import {app, db} from "./constants";
 // import {migrate} from "drizzle-orm/bun-sqlite/migrator";
@@ -15,6 +15,7 @@ import {cors} from '@elysiajs/cors'
   // await migrate(db, { migrationsFolder: "./drizzle" });
 
   app
+      .use(swagger())
       .use(cors())
       .get('/www',()=>{
         return 'wwwwww'
