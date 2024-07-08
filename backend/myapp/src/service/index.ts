@@ -9,13 +9,14 @@ type UploadVideoText = {
     title: string
     intro: string
     videoUrl: string
+    category: string
 }
 
 type AddArticle = {
     title: string
     intro: string
     avatar: string
-    content: string
+    content: string[]
 }
 
 type Keyword = {
