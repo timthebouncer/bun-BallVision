@@ -36,20 +36,13 @@ app.get('/api/getVideoList', async ({query}) => {
     } else {
         throw new Error('Invalid body');
     }
-}).put('/api/updateVideo',({body})=>{
+}).put('/api/updateVideo',({body}:{body: UpdateVideo})=>{
     console.log(body,'body')
-    if(isUpdateVideo){
         updateVideo(body)
-    }
 })
 
 function isUploadVideoText(obj: any): obj is UploadVideoText {
     return typeof obj.title === 'string' &&
         typeof obj.intro === 'string' &&
-        typeof obj.videoUrl === 'string';
-}
-
-function isUpdateVideo(obj: any): obj is UpdateVideo {
-    return typeof obj.id === 'number' &&
         typeof obj.videoUrl === 'string';
 }

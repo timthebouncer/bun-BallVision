@@ -8,6 +8,7 @@ type UploadVideoText = {
     title: string
     intro: string
     videoUrl: string
+    category: string
 }
 
 type UpdateVideo = {

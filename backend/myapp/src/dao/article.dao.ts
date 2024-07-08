@@ -9,7 +9,8 @@ type AddArticle = {
     title: string
     intro: string
     avatar: string
-    content: string
+    content: string[]
+    views?: number
 }
 
 export class ArticleDao {
