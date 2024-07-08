@@ -1,12 +1,23 @@
 import Elysia, {t} from "elysia";
 import {cors} from '@elysiajs/cors'
 import { swagger } from '@elysiajs/swagger';
-import { env } from './env';
+// import { env } from './env';
+import {z} from "zod";
 
 // import {app, db} from "./constants";
 // import {migrate} from "drizzle-orm/bun-sqlite/migrator";
 // import './controller/video.controller'
 // import './controller/article.controller'
+
+const envVariables = z.object({
+    NODE_ENV: z
+        .enum(['development', 'production', 'test'])
+        .default('development'),
+    PORT: z.coerce.number().default(3000),
+    RUNTIME: z.enum(['bun', 'edge']).default('bun'),
+});
+
+const env = envVariables.parse(process.env);
 
 const createElysia = (
     config?: ConstructorParameters<typeof Elysia>[0]
