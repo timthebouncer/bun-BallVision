@@ -35,7 +35,6 @@ const createElysia = (
       .get('/www',()=>{
         return 'wwwwww'
       })
-      .listen(3000)
 
     app.listen({ port: env.PORT }, ({ hostname, port }) => {
         const url = env.NODE_ENV === 'production' ? 'https' : 'http';
