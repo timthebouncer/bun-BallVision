@@ -1,28 +1,12 @@
 import Elysia, {t} from "elysia";
 import {cors} from '@elysiajs/cors'
 import { swagger } from '@elysiajs/swagger';
-// import { env } from './env';
-import {z} from "zod";
+import { env } from './env';
 
 // import {app, db} from "./constants";
 // import {migrate} from "drizzle-orm/bun-sqlite/migrator";
 // import './controller/video.controller'
 // import './controller/article.controller'
-
-const envVariables = z.object({
-    AUTH_GITHUB_ID: z.string().min(1),
-    AUTH_GITHUB_SECRET: z.string().min(1),
-    AUTH_SECRET: z.string().min(1),
-    DB_AUTH_TOKEN: z.string().min(1),
-    DB_URL: z.string().min(1),
-    NODE_ENV: z
-        .enum(['development', 'production', 'test'])
-        .default('development'),
-    PORT: z.coerce.number().default(3000),
-    RUNTIME: z.enum(['bun', 'edge']).default('bun'),
-});
-
-const env = envVariables.parse(process.env);
 
 const createElysia = (
     config?: ConstructorParameters<typeof Elysia>[0]
@@ -42,8 +26,14 @@ const createElysia = (
       })
       .listen(3000)
 
-    console.log(
-        `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
-    );
+    app.listen({ port: env.PORT }, ({ hostname, port }) => {
+        const url = env.NODE_ENV === 'production' ? 'https' : 'http';
+
+        console.log(`🦊 Elysia is running at ${url}://${hostname}:${port}`);
+    });
+
+    // console.log(
+    //     `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
+    // );
 })()
 
