@@ -102,8 +102,8 @@ function HomePage() {
 				}
 			</div>
 			<div className="container sm:max-w-screen-sm md:max-w-screen-md lg:max-w-screen-lg xl:max-w-screen-xl">
-				<div className={'flex'}>
-					<div style={{userSelect: 'none'}} className={'w-5/6 mr-8'}>
+				<div className={'flex justify-center'}>
+					<div style={{userSelect: 'none'}} className={'w-full lg:w-5/6'}>
 						{
 							articleList.length > 0 && <div className={'mb-8'}>
 								<CarouselCompo articleList={articleList} />
@@ -113,7 +113,7 @@ function HomePage() {
 
 						<Articles articleList={articleList} />
 					</div>
-					<div className={'bg-white w-2/6 py-6 px-6'}>
+					<div className={'hidden xl:block bg-white w-2/6 py-6 px-6 ml-4'}>
 						<div>
 							熱門文章
 						</div>
@@ -134,11 +134,11 @@ function HomePage() {
 						}
 					</div>
 				</div>
-
-
 			</div>
 
-			<Footer />
+			<div className={'hidden sm:block'}>
+				<Footer />
+			</div>
 		</>
     )
 }

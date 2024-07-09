@@ -29,13 +29,13 @@ const Articles: FC<ArticlesProps>=({articleList})=>{
 
 
 
-    return <div className={'flex'}>
+    return <div>
         <div>
             {
                 articleList.map(data=>{
                     return <div key={data.id} className='px-2 py-2 mb-2 bg-white'>
                         <Link to={`/articles/${data.id}`} className='flex' onClick={()=>onUpdateArticleView(data.id)}>
-                            <div className={'photo-wrapper'}>
+                            <div className={'hidden md:block photo-wrapper'}>
                                 <img src={data.avatar} alt="" width={170} />
                             </div>
                             <div className={'content-wrapper'}>
@@ -55,7 +55,7 @@ const Articles: FC<ArticlesProps>=({articleList})=>{
                 })
             }
 
-            <div className="pagination">
+            <div className="hidden sm:block pagination">
                 <Pagination
                     // defaultCurrent={searchParams.pageNumber}
                     // defaultPageSize={searchParams.pageSize}
