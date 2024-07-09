@@ -23,7 +23,7 @@ const Articles: FC<ArticlesProps>=({articleList})=>{
 
 
     const onUpdateArticleView=(id:string)=>{
-        axiosInstance.put('api/updateArticleView', {id})
+        axiosInstance.put('/updateArticleView', {id})
     }
 
 

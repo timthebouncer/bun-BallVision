@@ -39,7 +39,7 @@ const GenerateArticles=()=>{
 
 
 
-        await axiosInstance.post('/api/addArticle', {...newArticleParams, content})
+        await axiosInstance.post('/addArticle', {...newArticleParams, content})
     }
 
 

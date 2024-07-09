@@ -36,7 +36,7 @@ const VideoPage=()=>{
     },[searchParams])
 
     const onGetVideoList= async ()=>{
-        const {data} = await axiosInstance.get(`api/getVideoList`, {params: {...searchParams}})
+        const {data} = await axiosInstance.get(`/getVideoList`, {params: {...searchParams}})
         setVideoList(data.list)
         setTotalElement(data.totalElement)
     }

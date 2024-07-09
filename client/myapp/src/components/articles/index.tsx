@@ -60,7 +60,7 @@ const SingleArticle=()=>{
     const {articleId} = useParams()
 
     const onGetSingleArticle=async ()=>{
-        const {data} = await axiosInstance.get(`api/getSingleArticle${articleId}`)
+        const {data} = await axiosInstance.get(`/getSingleArticle${articleId}`)
         console.log(typeof data.list[0].content)
         console.log(data.list)
         setContents(data.list[0].content)

@@ -35,7 +35,7 @@ const UploadVideo=()=>{
             category: textParams.category,
         }
 
-        await axiosInstance.post('api/addVideo', payload)
+        await axiosInstance.post('/addVideo', payload)
 
     
     }

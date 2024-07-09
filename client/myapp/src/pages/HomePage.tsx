@@ -32,17 +32,17 @@ function HomePage() {
 
 
 	const onGetArticleList= async ()=>{
-		const {data} = await axiosInstance.get(`api/getArticle`)
+		const {data} = await axiosInstance.get(`/getArticle`)
 		setArticleList(data.list)
 		setTotalElement(data.totalElement)
 	}
 	const onHottestArticleList= async ()=>{
-		const {data} = await axiosInstance.get(`api/getHottestArticle`)
+		const {data} = await axiosInstance.get(`/getHottestArticle`)
 		setHotArticleList(data.list)
 	}
 
 	const onUpdateArticleView=(id:string)=>{
-		axiosInstance.put('api/updateArticleView', {id: id})
+		axiosInstance.put('/updateArticleView', {id: id})
 	}
 
 	useEffect(()=>{
