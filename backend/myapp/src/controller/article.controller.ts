@@ -5,16 +5,6 @@
 import {app} from "../constants";
 import {addArticle, getArticleList, getHottestArticle, getSingleArticle, updateArticleView} from "../service";
 
-type AddArticle = {
-    title: string;
-    intro: string;
-    avatar: string;
-    content: string[];
-}
-
-interface UpdateArticleViewBody {
-    id: number;
-}
 
 app.get('/api/getArticle', async () => {
     const response = await getArticleList()

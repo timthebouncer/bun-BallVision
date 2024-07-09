@@ -1,34 +1,8 @@
-
 //業務邏輯
-
 import {VideoDao} from "../dao/video.dao";
 import {ContactDao} from "../dao/contact.dao";
 import {ArticleDao} from "../dao/article.dao";
 
-type UploadVideoText = {
-    title: string
-    intro: string
-    videoUrl: string
-    category: string
-}
-
-type AddArticle = {
-    title: string
-    intro: string
-    avatar: string
-    content: string[]
-}
-
-type Keyword = {
-    keyword: string;
-    pageSize?: number;
-    pageNumber?: number;
-}
-
-type AddContact = {
-    emailOrPhone: string
-    request: string
-}
 
 export async function getVideosByText(query: Keyword) {
     const dao = new VideoDao()

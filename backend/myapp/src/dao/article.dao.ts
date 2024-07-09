@@ -5,13 +5,6 @@ import {db} from "../constants";
 //對應表的所有sql操作
 
 
-type AddArticle = {
-    title: string
-    intro: string
-    avatar: string
-    content: string[]
-    views?: number
-}
 
 export class ArticleDao {
     async getArticleList() {

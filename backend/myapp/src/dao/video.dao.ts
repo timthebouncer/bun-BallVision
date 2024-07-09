@@ -4,23 +4,6 @@ import {db} from "../constants";
 
 //對應表的所有sql操作
 
-type UploadVideoText = {
-    title: string
-    intro: string
-    videoUrl: string
-    category: string
-}
-
-type UpdateVideo = {
-    id: number
-    videoUrl: string
-}
-
-type Keyword = {
-    keyword: string;
-    pageSize?: number;
-    pageNumber?: number;
-}
 
 export class VideoDao {
 
