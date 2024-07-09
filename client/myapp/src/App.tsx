@@ -51,7 +51,7 @@ function App() {
                         justifyContent: 'center',
                     }} />
             }
-            <BrowserRouter basename={'/bun-BallVision'}>
+            <BrowserRouter>
                 <Routes />
             </BrowserRouter>
         </>
