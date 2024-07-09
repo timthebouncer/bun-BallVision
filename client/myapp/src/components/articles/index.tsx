@@ -81,7 +81,7 @@ const SingleArticle=()=>{
 
         content.forEach((item, index) => {
             if (typeof item.insert === 'string') {
-                const parts = item.insert.split(/(\n|https:\/\/(?:x|twitter)\.com\/\S+\/status\/\d+)/g).filter(part => part !== '');
+                const parts = item.insert.split(/(\n|https:\/\/(?:x|twitter)\.com\/\S+\/status\/\d+(?:\/\S+)?)/g).filter(part => part !== '');
 
                 parts.forEach((part, partIndex) => {
                     if (part === '\n') {
