@@ -2,7 +2,7 @@ import {ChangeEvent, useRef, useState} from "react";
 import './generateArticles.css'
 import {Editor} from '../../components/editor/Editor';
 import Quill from "quill";
-import {Button, Input} from "antd";
+import {Button, Input, Select } from "antd";
 import {UploadImg} from "../../components/upload/upload";
 import axiosInstance from "../../../utils/axiosInstance.ts";
 const Delta = Quill.import('delta');
@@ -53,6 +53,19 @@ const GenerateArticles=()=>{
                     上傳封面
                 </div>
                 <UploadImg setNewArticleParams={setNewArticleParams} />
+                <div className={'flex items-center ml-8'}>
+                    <span className={'mr-4'}>
+                        文章分類:
+                    </span>
+                    <Select
+                        style={{ width: 120 }}
+                        onChange={(e)=> setNewArticleParams({...newArticleParams, category: e})}
+                        options={[
+                            { value: 'nba', label: 'NBA' },
+                            { value: 'tba', label: '台籃' },
+                        ]}
+                    />
+                </div>
             </div>
             <div className={'flex items-center my-8'}>
                 <Input placeholder="輸入標題"
@@ -66,7 +79,6 @@ const GenerateArticles=()=>{
                        onChange={(e)=>onHandleChange('intro', e)}
                 />
             </div>
-
         </div>
 
         <div>
