@@ -1,7 +1,3 @@
-import { migrate } from "drizzle-orm/bun-sqlite/migrator";
-
-import { drizzle } from "drizzle-orm/bun-sqlite";
-import { Database } from "bun:sqlite";
 import {pushToBallVisionDbDb} from "./index";
 import {config} from "../config";
 

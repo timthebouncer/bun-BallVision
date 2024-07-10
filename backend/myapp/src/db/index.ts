@@ -38,7 +38,7 @@ export async function pushToBallVisionDbDb({
 
     const configText = `
   export default {
-    schema: "./src/schema.ts",
+    schema: "./src/db/schema.ts",
     driver: "turso",
     dbCredentials: {
       url: "${dbName}",
