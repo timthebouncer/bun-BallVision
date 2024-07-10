@@ -1,5 +1,4 @@
-import {contact, users} from "../db/schema";
-import {db} from "../constants";
+import {users} from "../db/schema";
 import {eq} from "drizzle-orm";
 import {getBallVisionDb} from "../db";
 import {config} from "../config";
@@ -13,6 +12,7 @@ export class UserDao {
             dbName: config.env.DATABASE_URL,
             authToken: config.env.DATABASE_AUTH_TOKEN!,
         });
-        await ballVisionDb.select().from(users).where(eq(users.password, password))
+        const [user] = await ballVisionDb.select().from(users).where(eq(users.password, password))
+        return user.password === password
     }
 }

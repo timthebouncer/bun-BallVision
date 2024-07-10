@@ -54,9 +54,10 @@ export function updateArticleView(id: number) {
     dao.updateArticleView(id)
 }
 
-export function userCheck(password: string){
+export async function userCheck(password: string){
     const dao = new UserDao()
-    dao.userCheck(password)
+    const response = await dao.userCheck(password)
+    return response
 }
 
 

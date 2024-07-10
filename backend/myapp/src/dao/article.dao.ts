@@ -40,7 +40,7 @@ export class ArticleDao {
     }
     async addArticle(params: AddArticle) {
         const { title, intro, avatar, content, category } = params;
-        // await db.insert(articles).values({
+        // await db.insert(articleDetail).values({
         //     title,
         //     intro,
         //     avatar,

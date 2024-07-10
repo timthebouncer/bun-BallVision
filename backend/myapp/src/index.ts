@@ -2,6 +2,7 @@ import {cors} from '@elysiajs/cors'
 import {app, db} from "./constants";
 import './controller/video.controller'
 import './controller/article.controller'
+import './controller/user.controller'
 
 ;(async ()=>{
 

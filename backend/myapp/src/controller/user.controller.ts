@@ -8,6 +8,8 @@ import {userCheck} from "../service";
 
 
 
-app.get('/api/userCheck',({ params: { password } })=>{
-    userCheck(password)
+app.get('/api/userCheck', async ({query})=>{
+    const {password} = query
+    const response = await userCheck(password)
+    return response
 })
