@@ -1,4 +1,4 @@
-import {ChangeEvent, useRef, useState} from "react";
+import {ChangeEvent, useEffect, useRef, useState} from "react";
 import './generateArticles.css'
 import {Editor} from '../../components/editor/Editor';
 import Quill from "quill";
@@ -42,6 +42,17 @@ const GenerateArticles=()=>{
         await axiosInstance.post('/addArticle', {...newArticleParams, content})
     }
 
+
+    const handleUserCheck= async ()=>{
+      const data = await axiosInstance.get('/userCheck', {params: {password: "chrischeng"}})
+        console.log(data,'dddd')
+    }
+
+
+    useEffect(() => {
+        handleUserCheck()
+
+    }, []);
 
 
 

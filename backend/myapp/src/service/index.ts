@@ -2,6 +2,7 @@
 import {VideoDao} from "../dao/video.dao";
 import {ContactDao} from "../dao/contact.dao";
 import {ArticleDao} from "../dao/article.dao";
+import {UserDao} from "../dao/user.dao";
 
 
 export async function getVideosByText(query: Keyword) {
@@ -51,6 +52,11 @@ export function addArticle(params: AddArticle) {
 export function updateArticleView(id: number) {
     const dao = new ArticleDao()
     dao.updateArticleView(id)
+}
+
+export function userCheck(password: string){
+    const dao = new UserDao()
+    dao.userCheck(password)
 }
 
 
