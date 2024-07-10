@@ -1,10 +1,12 @@
 import {ChangeEvent, useEffect, useRef, useState} from "react";
 import './generateArticles.css'
-import {Editor} from '../../components/editor/Editor';
+import {Editor} from '../../../components/editor/Editor';
 import Quill from "quill";
 import {Button, Input, Select } from "antd";
-import {UploadImg} from "../../components/upload/upload";
-import axiosInstance from "../../../utils/axiosInstance.ts";
+import {UploadImg} from "../../../components/upload/upload";
+import axiosInstance from "../../../../utils/axiosInstance.ts";
+import { useNavigate  } from "react-router-dom";
+
 const Delta = Quill.import('delta');
 
 type  ArticleParams = {
@@ -14,7 +16,7 @@ type  ArticleParams = {
 }
 
 const GenerateArticles=()=>{
-
+    let navigate = useNavigate();
     const quillRef = useRef<Quill | null>(null);
     const [, setRange] = useState();
     const [, setLastChange] = useState();
@@ -44,16 +46,18 @@ const GenerateArticles=()=>{
 
 
     const handleUserCheck= async ()=>{
-      const data = await axiosInstance.get('/userCheck', {params: {password: "chrischeng"}})
-        console.log(data,'dddd')
+
+      const hasPassword = localStorage.getItem('password')
+
+        if(!hasPassword){
+            return navigate('/login')
+        }
     }
 
 
     useEffect(() => {
         handleUserCheck()
-
     }, []);
-
 
 
     return <div className='container justify-center lg:max-w-screen-lg xl:max-w-screen-xl'>
