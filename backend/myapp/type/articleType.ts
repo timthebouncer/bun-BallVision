@@ -3,6 +3,7 @@ type AddArticle = {
     intro: string;
     avatar: string;
     content: string[];
+    category: string;
 }
 
 type UpdateArticleViewBody = {
