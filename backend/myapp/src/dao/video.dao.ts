@@ -1,4 +1,4 @@
-import {videos} from "../schema";
+import {videos} from "../db/schema";
 import {asc, count, desc, eq, like} from "drizzle-orm";
 import {db} from "../constants";
 

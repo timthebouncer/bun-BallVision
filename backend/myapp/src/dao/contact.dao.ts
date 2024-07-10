@@ -1,4 +1,4 @@
-import {contact} from "../schema";
+import {contact} from "../db/schema";
 import {db} from "../constants";
 
 //對應表的所有sql操作
