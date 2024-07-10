@@ -1,5 +1,5 @@
 import { db } from "./index";
-import * as schema from "../schema";
+import * as schema from "../db/schema";
 await db.insert(schema.videos).values([
     {
         title: "甚麼是超巨",
@@ -27,6 +27,7 @@ await db.insert(schema.articles).values([
         intro: '根據Adrian Wojnarowski報導指出，Tobias Harris已和活塞達成協議，將會以2年5200萬合約的價碼加盟活塞。',
         avatar: 'https://shorturl.at/AC38o',
         views: 10,
+        category: 'NBA',
         content: [
             {
                 "attributes": {
@@ -365,6 +366,7 @@ await db.insert(schema.articles).values([
         intro: '籃網隊今天做出兩筆重大交易，將隊上的主將Mikal Bridges給交易至尼克，換回了四張的首輪籤，另外還有把未來的太陽籤交給火箭隊',
         avatar: 'https://shorturl.at/QS5Ev',
         views: 100,
+        category: 'NBA',
         content: [
             {
                 "attributes": {
@@ -703,6 +705,7 @@ await db.insert(schema.articles).values([
         intro: '根據記者Shams Charania最新消息，自由球員Isaiah Hartenstein將會與雷霆簽下三年8700萬美金的合約，接近一年平均2900萬，讓尼克無法跟進，雷霆完成自由市場隊史最大筆的簽約。',
         avatar: 'https://shorturl.at/Bq0lS',
         views: 1000,
+        category: 'NBA',
         content: [
             {
                 "attributes": {

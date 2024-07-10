@@ -1,16 +1,9 @@
-import {t} from "elysia";
 import {cors} from '@elysiajs/cors'
-
-
 import {app, db} from "./constants";
-import {migrate} from "drizzle-orm/bun-sqlite/migrator";
 import './controller/video.controller'
 import './controller/article.controller'
 
-
-    ;(async ()=>{
-
-    await migrate(db, { migrationsFolder: "../drizzle" });
+;(async ()=>{
 
     app
         .use(cors())
@@ -20,3 +13,5 @@ import './controller/article.controller'
         `🦊 Elysia is running at ${app.server?.hostname}:${app.server?.port}`
     );
 })()
+
+

@@ -22,6 +22,7 @@ export const articles = sqliteTable("article", {
     title: text("title").notNull(),
     intro: text("intro").notNull(),
     avatar: text("avatar").notNull(),
+    category: text("category").notNull(),
     views: integer("views"),
     content: text('content',{ mode: 'json' }).notNull().$type<string[]>().default(sql`'[]'`),
     createTime: text('createTime').notNull().default(sql`current_timestamp`),
