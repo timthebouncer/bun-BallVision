@@ -25,19 +25,11 @@ app.get('/api/getArticle', async () => {
     return response || null
 }).post('/api/addArticle',({body}:{body: AddArticle})=>{
     addArticle(body);
-}).delete('/api/deleteArticle',(query:{id:number})=>{
+}).delete('/api/deleteArticle',({query}:{id:number})=>{
     deleteArticle(query.id);
 }).put('/api/updateArticleView',({body}: { body: UpdateArticleViewBody })=>{
         updateArticleView(body.id);
 }).put('/api/updateArticle',({body}: { body: UpdateArticleBody })=>{
         updateArticle(body);
-}, {
-    body: t.Object({
-        title:t.String(),
-        intro: t.String(),
-        avatar: t.String(),
-        category: t.String(),
-        content: t.Array(t.String()),
-    }),
 })
 

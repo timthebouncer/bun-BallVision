@@ -76,7 +76,6 @@ export class ArticleDao {
             dbName: config.env.DATABASE_URL,
             authToken: config.env.DATABASE_AUTH_TOKEN!,
         });
-
         await ballVisionDb.delete(articles).where(eq(articles.id, id))
     }
 
