@@ -36,7 +36,7 @@ const EditArticles=()=>{
     const [, setTotalElement] = useState<number>(0)
     const [isDeleteModalOpen, setIsDeleteModalOpen] = useState<ModalTypeParams>({isVisible: false, id: null});
     const [showEditor, setShowEditor] =
-        useState<EditorParamsType>({isVisible: false, content: [], type: 'edit', avatar: '', intro: '', title: ''})
+        useState<EditorParamsType>({isVisible: false, content: [], type: 'edit', avatar: '', intro: '', title: '', category:'', id: 0})
 
     const showModal = (id: number) => {
         setIsDeleteModalOpen({isVisible: true, id: id});

@@ -7,7 +7,7 @@ import * as React from "react";
 type  ArticleParams = {
     title?: string;
     intro?: string;
-    avatar: string;
+    avatar?: string;
     [key: string]: any;
 }
 

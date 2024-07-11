@@ -1,13 +1,14 @@
 import { forwardRef, useEffect, useLayoutEffect, useRef } from 'react';
 import Quill from "quill";
 import "quill/dist/quill.snow.css";
+import {Op} from "quill/core";
 
 interface EditorProps {
     readOnly?: boolean;
     defaultValue?: any;
     onTextChange?: any;
     onSelectionChange?: any;
-    content?: string[];
+    content?: string[] | Op[];
 }
 
 const Delta = Quill.import('delta');

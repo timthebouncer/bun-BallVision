@@ -1,4 +1,4 @@
-import {ChangeEvent, useEffect, useRef, useState} from "react";
+import {ChangeEvent, useRef, useState} from "react";
 import './generateArticles.css'
 import {Editor} from '../../../components/editor/Editor';
 import Quill from "quill";
@@ -13,6 +13,7 @@ const Delta = Quill.import('delta');
 type  ArticleParams = {
     title?: string;
     intro?: string;
+    avatar?: string;
     [key: string]: any;
 }
 
@@ -61,7 +62,7 @@ const GenerateArticles=()=>{
                 <div className={'mr-8'}>
                     上傳封面
                 </div>
-                <UploadImg setNewArticleParams={setNewArticleParams} />
+                <UploadImg newArticleParams={newArticleParams} setNewArticleParams={setNewArticleParams} />
                 <div className={'flex items-center ml-8'}>
                     <span className={'mr-4'}>
                         文章分類:

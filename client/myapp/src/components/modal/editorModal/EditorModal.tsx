@@ -43,7 +43,11 @@ const EditorModal:FC<ModalParamsType>=({showEditor, setShowEditor, onGetArticleL
     const quillRef = useRef<Quill | null>(null);
     const [, setRange] = useState();
     const [, setLastChange] = useState();
-    const [newArticleParams, setNewArticleParams] = useState<ArticleParams>({})
+    const [newArticleParams, setNewArticleParams] = useState<ArticleParams>({
+        title: '',
+        intro: '',
+        avatar: ''
+    })
 
     const onHandleChange=(type:string, e:ChangeEvent<HTMLInputElement>)=>{
         const {value} = e.target
@@ -88,7 +92,7 @@ const EditorModal:FC<ModalParamsType>=({showEditor, setShowEditor, onGetArticleL
     }
 
     const onClose=()=>{
-        setShowEditor({isVisible: false, content: [], type: ''})
+        setShowEditor({isVisible: false, content: [], type: '', intro:'', avatar:'', category:'', title: '', id: 0})
     }
 
     useEffect(() => {
