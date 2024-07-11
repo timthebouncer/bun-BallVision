@@ -56,7 +56,13 @@ const EditorModal:FC<ModalParamsType>=({showEditor, setShowEditor})=>{
             content = JSON.parse(JSON.stringify(delta.ops, null, 2))
         }
         if(showEditor.type === 'edit'){
-            await axiosInstance.put('/editArticle', {...newArticleParams, content})
+            await axiosInstance.put('/updateArticle', {
+                title: newArticleParams.title,
+                intro: newArticleParams.intro,
+                avatar: newArticleParams.avatar,
+                category: newArticleParams.category,
+                content: newArticleParams.content
+            })
         } else {
             await axiosInstance.post('/addArticle', {...newArticleParams, content})
         }

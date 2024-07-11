@@ -49,9 +49,19 @@ export function addArticle(params: AddArticle) {
     dao.addArticle(params)
 }
 
+export function deleteArticle(id: number) {
+    const dao = new ArticleDao()
+    dao.deleteArticle(id)
+}
+
 export function updateArticleView(id: number) {
     const dao = new ArticleDao()
     dao.updateArticleView(id)
+}
+
+export function updateArticle(params: UpdateArticleBody) {
+    const dao = new ArticleDao()
+    dao.updateArticle(params)
 }
 
 export async function userCheck(password: string){

@@ -2,6 +2,7 @@ import {articles} from "../db/schema";
 import {asc, count, desc, eq, like, sql} from "drizzle-orm";
 import {config} from "../config";
 import {getBallVisionDb} from "../db";
+import {deleteArticle} from "../service";
 
 //對應表的所有sql操作
 
@@ -69,6 +70,16 @@ export class ArticleDao {
 
         console.log(article,'article')
     }
+
+   async deleteArticle(id: number) {
+        const { ballVisionDb } = getBallVisionDb({
+            dbName: config.env.DATABASE_URL,
+            authToken: config.env.DATABASE_AUTH_TOKEN!,
+        });
+
+        await ballVisionDb.delete(articles).where(eq(articles.id, id))
+    }
+
     async updateArticleView(id: number) {
         const { ballVisionDb } = getBallVisionDb({
             dbName: config.env.DATABASE_URL,
@@ -76,5 +87,16 @@ export class ArticleDao {
         });
 
         await ballVisionDb.update(articles).set({views: sql`${articles.views} + 1`,}).where(eq(articles.id, id))
+    }
+
+    async updateArticle(params: UpdateArticleBody) {
+        const { ballVisionDb } = getBallVisionDb({
+            dbName: config.env.DATABASE_URL,
+            authToken: config.env.DATABASE_AUTH_TOKEN!,
+        });
+
+        await ballVisionDb.update(articles).set({
+            ...params
+        }).where(eq(articles.id, params.id))
     }
 }
