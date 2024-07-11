@@ -6,6 +6,7 @@ import {Button, Input, Select } from "antd";
 import {UploadImg} from "../../../components/upload/upload";
 import axiosInstance from "../../../../utils/axiosInstance.ts";
 import { useNavigate  } from "react-router-dom";
+import {errorToaster, successToaster} from "../../../components/toaster/Toaster";
 
 const Delta = Quill.import('delta');
 
@@ -16,6 +17,7 @@ type  ArticleParams = {
 }
 
 const GenerateArticles=()=>{
+    const navigate = useNavigate();
     const quillRef = useRef<Quill | null>(null);
     const [, setRange] = useState();
     const [, setLastChange] = useState();
@@ -40,7 +42,13 @@ const GenerateArticles=()=>{
 
 
 
-        await axiosInstance.post('/addArticle', {...newArticleParams, content})
+        const {status} = await axiosInstance.post('/addArticle', {...newArticleParams, content})
+        if(status === 200){
+            successToaster()
+            navigate(-1)
+        } else {
+            errorToaster()
+        }
     }
 
 

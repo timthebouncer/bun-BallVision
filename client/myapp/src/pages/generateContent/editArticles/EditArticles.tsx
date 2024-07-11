@@ -12,6 +12,7 @@ type ARTICLE={
     intro: string
     content: string[]
     views: number
+    category: string
 }
 
 type ModalTypeParams = {
@@ -21,11 +22,13 @@ type ModalTypeParams = {
 
 type EditorParamsType = {
     isVisible: boolean
+    id: number
     content: string[]
     type: string
     avatar: string
     title: string
     intro: string
+    category: string
 }
 
 const EditArticles=()=>{
@@ -40,8 +43,8 @@ const EditArticles=()=>{
     };
 
     const handleOk = async () => {
-        await axiosInstance.delete('/deleteArticle', {params: isDeleteModalOpen.id})
-
+        const data = await axiosInstance.delete('/deleteArticle', {params: {id: isDeleteModalOpen.id}})
+        console.log(data,'ddd')
         setIsDeleteModalOpen({isVisible: false, id: null});
     };
 
@@ -85,11 +88,13 @@ const EditArticles=()=>{
                                             className={'border-0'}
                                             onClick={()=>setShowEditor({
                                                 isVisible: true,
+                                                id:data.id,
                                                 content: data.content,
                                                 type:'edit',
                                                 avatar: data.avatar,
                                                 title: data.title,
-                                                intro: data.intro
+                                                intro: data.intro,
+                                                category: data.category,
                                             })}
                                         >
                                         </Button>
@@ -128,6 +133,7 @@ const EditArticles=()=>{
                 showEditor.isVisible &&  <EditorModal
                 showEditor={showEditor}
                 setShowEditor={setShowEditor}
+                onGetArticleList={onGetArticleList}
               />
             }
         </div>

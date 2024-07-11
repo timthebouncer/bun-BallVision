@@ -4,8 +4,9 @@ import {Editor} from "../../editor/Editor.tsx";
 import {ChangeEvent, FC, useEffect, useRef, useState} from "react";
 import Quill from "quill";
 import axiosInstance from "../../../../utils/axiosInstance.ts";
+import {errorToaster, successToaster} from "../../toaster/Toaster";
 
-type  ArticleParams = {
+type ArticleParams = {
     title?: string;
     intro?: string;
     avatar: string;
@@ -19,21 +20,25 @@ type ShowEditorType = {
     avatar: string
     title: string
     intro: string
+    category: string
 }
 
 type ModalParamsType = {
     showEditor: ShowEditorType
     setShowEditor: (p: {
         isVisible: boolean;
+        id: number
         content: string[],
         type: string,
         avatar: string
         title: string
         intro: string
+        category: string
     })=>void
+    onGetArticleList:()=>void
 }
 
-const EditorModal:FC<ModalParamsType>=({showEditor, setShowEditor})=>{
+const EditorModal:FC<ModalParamsType>=({showEditor, setShowEditor, onGetArticleList})=>{
 
     const quillRef = useRef<Quill | null>(null);
     const [, setRange] = useState();
@@ -56,16 +61,28 @@ const EditorModal:FC<ModalParamsType>=({showEditor, setShowEditor})=>{
             content = JSON.parse(JSON.stringify(delta.ops, null, 2))
         }
         if(showEditor.type === 'edit'){
-            await axiosInstance.put('/updateArticle', {
+            const {status} = await axiosInstance.put('/updateArticle', {
+                id: newArticleParams.id,
                 title: newArticleParams.title,
                 intro: newArticleParams.intro,
                 avatar: newArticleParams.avatar,
                 category: newArticleParams.category,
                 content: newArticleParams.content
             })
+            if(status === 200){
+                successToaster()
+            } else {
+                errorToaster()
+            }
         } else {
-            await axiosInstance.post('/addArticle', {...newArticleParams, content})
+            const {status} = await axiosInstance.post('/addArticle', {...newArticleParams, content})
+            if(status === 200){
+                successToaster()
+            } else {
+                errorToaster()
+            }
         }
+        onGetArticleList()
 
         onClose()
     }
@@ -76,7 +93,6 @@ const EditorModal:FC<ModalParamsType>=({showEditor, setShowEditor})=>{
 
     useEffect(() => {
         if(showEditor.type === 'edit'){
-            console.log(showEditor,'showEditor')
             setNewArticleParams(showEditor)
         }
 

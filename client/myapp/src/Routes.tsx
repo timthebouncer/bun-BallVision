@@ -15,7 +15,7 @@ const SingleArticle = lazy(()=> import('./components/articleDetail/index'))
 const ServiceTerms = lazy(()=> import('./pages/ServiceTerms'))
 const GenerateContents = lazy(()=> import('./pages/generateContent/generateContents'))
 const GenerateArticles = lazy(()=> import('./pages/generateContent/generateArticles/GenerateArticles'))
-const UploadVideo = lazy(()=> import('./pages/UploadVideo'))
+const UploadVideo = lazy(()=> import('./pages/generateContent/UploadVideo'))
 
 const Routes=()=>{
 

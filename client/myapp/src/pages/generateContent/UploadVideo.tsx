@@ -1,7 +1,9 @@
 import Search from "antd/es/input/Search.js";
 import { Button } from "antd";
 import { ChangeEvent, useState } from "react";
-import axiosInstance from "../../utils/axiosInstance";
+import axiosInstance from "../../../utils/axiosInstance";
+import {errorToaster, successToaster} from "../../components/toaster/Toaster";
+import {useNavigate} from "react-router-dom";
 
 type UploadVideoText = {
     title: string
@@ -13,6 +15,7 @@ type UploadVideoText = {
 
 
 const UploadVideo=()=>{
+    const navigate = useNavigate();
 
     const [textParams, setTextParams] = useState<UploadVideoText>({
         title: '',
@@ -35,9 +38,14 @@ const UploadVideo=()=>{
             category: textParams.category,
         }
 
-        await axiosInstance.post('/addVideo', payload)
+        const {status} = await axiosInstance.post('/addVideo', payload)
 
-    
+        if(status === 200){
+            successToaster()
+            navigate(-1)
+        } else {
+            errorToaster()
+        }
     }
 
     
