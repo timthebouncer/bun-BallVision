@@ -3,7 +3,7 @@ import {useState} from "react";
 import axiosInstance from "../../../utils/axiosInstance";
 import { useNavigate  } from "react-router-dom";
 
-const Login=()=>{
+const LoginPage=()=>{
 
     let navigate = useNavigate();
     const [password, setPassword] = useState('')
@@ -22,7 +22,6 @@ const Login=()=>{
     return (
         <div>
             <Input
-                placeholder="請輸入信箱或電話"
                 style={{ height: 50 }}
                 className="bg-white"
                 onChange={(e) => setPassword(e.target.value)}
@@ -37,4 +36,4 @@ const Login=()=>{
 
 }
 
-export {Login}
+export default LoginPage

@@ -182,4 +182,4 @@ const SingleArticle=()=>{
 }
 
 
-export {SingleArticle}
+export default SingleArticle

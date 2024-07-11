@@ -1,0 +1,25 @@
+
+
+.content-wrapper{
+    position: relative;
+    width: 100%;
+    padding: 0 2rem;
+    overflow: hidden;
+}
+.content-style{
+    width: 100%;
+    height: 40px;
+    overflow: hidden;
+    font-size: 14px;
+    color: #9d9b9b;
+    line-height: 1.4;
+}
+.photo-wrapper{
+    width: 276px;
+    height: 100%;
+    display: block;
+}
+.photo-wrapper img{
+    width: 100%;
+    height: 100%;
+}

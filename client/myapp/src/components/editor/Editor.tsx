@@ -7,11 +7,15 @@ interface EditorProps {
     defaultValue?: any;
     onTextChange?: any;
     onSelectionChange?: any;
+    content?: string[];
 }
+
+const Delta = Quill.import('delta');
+
 
 // Editor is an uncontrolled React component
 const Editor = forwardRef<Quill, EditorProps>(
-    ({ readOnly, defaultValue, onTextChange, onSelectionChange }, ref) => {
+    ({ readOnly, defaultValue, onTextChange, onSelectionChange, content }, ref) => {
 
         const containerRef = useRef<HTMLDivElement>(null);
         const defaultValueRef = useRef(defaultValue);
@@ -76,6 +80,12 @@ const Editor = forwardRef<Quill, EditorProps>(
 
             if (defaultValueRef.current) {
                 quill.setContents(defaultValueRef.current);
+            }
+
+            if (content) {
+                const delta = new Delta()
+                delta.ops = content
+                quill.setContents(delta.ops);
             }
 
             quill.on(Quill.events.TEXT_CHANGE, (...args) => {

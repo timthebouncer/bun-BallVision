@@ -1,51 +1,114 @@
 import {Route, Routes as ReactRoutes} from "react-router-dom";
-import HomePage from "./pages/HomePage.tsx";
-import Articles from "./pages/articleList/Articles.js";
-import UploadVideo from "./pages/UploadVideo.tsx";
-import ServiceTerms from "./pages/ServiceTerms.tsx";
-import {SingleArticle} from "./components/articleDetail";
-import {VideoPage} from "./pages/video/VideoPage.tsx";
-import {GenerateArticles} from "./pages/generateContent/generateArticles/GenerateArticles";
-import {Login} from "./pages/login/loginPage";
-import {GenerateContents} from "./pages/generateContent/generateContens";
+import {lazy, Suspense} from 'react';
+import {Layout} from "./layout/layout.tsx";
+import EditArticles from "./pages/generateContent/editArticles/EditArticles.tsx";
+
+const Loading=()=>{
+        return <div>Loading...</div>
+}
+
+const HomePage = lazy(()=> import('./pages/HomePage'))
+const Login = lazy(()=> import('./pages/login/LoginPage'))
+const VideoPage = lazy(()=> import('./pages/video/VideoPage'))
+const Articles = lazy(()=> import('./pages/articleList/Articles'))
+const SingleArticle = lazy(()=> import('./components/articleDetail/index'))
+const ServiceTerms = lazy(()=> import('./pages/ServiceTerms'))
+const GenerateContents = lazy(()=> import('./pages/generateContent/generateContents'))
+const GenerateArticles = lazy(()=> import('./pages/generateContent/generateArticles/GenerateArticles'))
+const UploadVideo = lazy(()=> import('./pages/UploadVideo'))
 
 const Routes=()=>{
+
 
     return (
         <ReactRoutes>
             <Route
                 path="/"
-                element={<HomePage />}
+                element={
+                <Suspense fallback={<Loading />}>
+                        <HomePage />
+                </Suspense>
+            }
             />
             <Route
                 path="/login"
-                element={<Login />}
+                element={
+                <Suspense fallback={<Loading />}>
+                    <Layout>
+                        <Login />
+                    </Layout>
+                </Suspense>
+            }
             />
             <Route
                 path={"/video"}
-                element={<VideoPage />}
-
+                element={
+                <Suspense fallback={<Loading />}>
+                    <Layout>
+                        <VideoPage />
+                    </Layout>
+                </Suspense>
+            }
             />
             <Route
                 path={"/articleDetail"}
-                element={<Articles articleList={[]} />}
+                element={
+                        <Suspense fallback={<Loading />}>
+                                <Articles articleList={[]} />
+                        </Suspense>}
 
             />
             <Route path="/articles/:articleId"
-                   element={<SingleArticle />}
+                   element={
+                           <Suspense fallback={<Loading />}>
+                                <SingleArticle />
+                           </Suspense>
+                   }
             />
-
             <Route
                 path={"/serviceTerms"}
-                element={<ServiceTerms />}
+                element={
+                        <Suspense fallback={<Loading />}>
+                            <Layout>
+                                <ServiceTerms />
+                            </Layout>
+                        </Suspense>
+                }
             />
-            <Route path="/generateContent" element={<GenerateContents />}
+            <Route path="/generateContent"
+                   element={
+                    <Suspense fallback={<Loading />}>
+                        <Layout>
+                            <GenerateContents />
+                        </Layout>
+                    </Suspense>
+                    }
             />
-            <Route path="/generateArticles" element={<GenerateArticles />}
+            <Route path="/generateArticles"
+                   element={
+                    <Suspense fallback={<Loading />}>
+                        <Layout>
+                            <GenerateArticles />
+                        </Layout>
+                    </Suspense>
+                    }
+            />
+            <Route path="/editArticles"
+                   element={
+                    <Suspense fallback={<Loading />}>
+                        <Layout>
+                            <EditArticles />
+                        </Layout>
+                    </Suspense>
+                    }
             />
             <Route
                 path={"/upload"}
-                element={<UploadVideo />}
+                element={
+                        <Suspense fallback={<Loading />}>
+                                <UploadVideo />
+                        </Suspense>
+                }
             />
         </ReactRoutes>
 

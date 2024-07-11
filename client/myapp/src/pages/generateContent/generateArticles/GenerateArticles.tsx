@@ -16,7 +16,6 @@ type  ArticleParams = {
 }
 
 const GenerateArticles=()=>{
-    let navigate = useNavigate();
     const quillRef = useRef<Quill | null>(null);
     const [, setRange] = useState();
     const [, setLastChange] = useState();
@@ -45,22 +44,9 @@ const GenerateArticles=()=>{
     }
 
 
-    const handleUserCheck= async ()=>{
-
-      const hasPassword = localStorage.getItem('password')
-
-        if(!hasPassword){
-            return navigate('/login')
-        }
-    }
 
 
-    useEffect(() => {
-        handleUserCheck()
-    }, []);
-
-
-    return <div className='container justify-center lg:max-w-screen-lg xl:max-w-screen-xl'>
+    return <div>
 
         <div>
             <div className={'flex items-center'}>
@@ -130,4 +116,4 @@ const GenerateArticles=()=>{
 }
 
 
-export {GenerateArticles}
+export default GenerateArticles

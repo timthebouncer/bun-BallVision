@@ -1,14 +1,22 @@
-import { useState } from 'react';
+import {useEffect, useState} from 'react';
 import { Upload } from 'antd';
 import type { UploadFile, UploadProps } from 'antd';
 import type { RcFile } from 'antd/es/upload';
 import * as React from "react";
 
+type  ArticleParams = {
+    title?: string;
+    intro?: string;
+    avatar: string;
+    [key: string]: any;
+}
+
 interface UploadImgProps {
+    newArticleParams: ArticleParams
     setNewArticleParams: (params: any) => void;
 }
 
-const UploadImg: React.FC<UploadImgProps> = ({ setNewArticleParams }) => {
+const UploadImg: React.FC<UploadImgProps> = ({newArticleParams, setNewArticleParams }) => {
     const [fileList, setFileList] = useState<UploadFile[]>([]);
 
     const onRemove = (file: UploadFile) => {
@@ -28,6 +36,7 @@ const UploadImg: React.FC<UploadImgProps> = ({ setNewArticleParams }) => {
                 const naturalWidth = img.naturalWidth;
                 e.widthHeight = `${naturalWidth} x ${naturalHeight}`;
                 e.url = reader.result as string;
+                console.log(e,'eee')
                 setNewArticleParams((pre: any) => ({ ...pre, avatar: e.url }));
                 setFileList(f => [...f, e]);
             };
@@ -43,6 +52,15 @@ const UploadImg: React.FC<UploadImgProps> = ({ setNewArticleParams }) => {
         fileList: fileList,
         onRemove: onRemove,
     };
+
+    useEffect(() => {
+        if(newArticleParams?.avatar){
+            setFileList(f => {
+                const copyList = f[0]
+                return [{...copyList, url: newArticleParams.avatar}]
+            });
+        }
+    }, [newArticleParams]);
 
     return (
         <div>

@@ -55,7 +55,7 @@ const Articles: FC<ArticlesProps>=({articleList})=>{
                 })
             }
 
-            <div className="hidden sm:block pagination">
+            <div className="hidden sm:flex justify-end mt-8">
                 <Pagination
                     // defaultCurrent={searchParams.pageNumber}
                     // defaultPageSize={searchParams.pageSize}
@@ -65,7 +65,6 @@ const Articles: FC<ArticlesProps>=({articleList})=>{
                     // }}
                 />
             </div>
-
         </div>
     </div>
 }

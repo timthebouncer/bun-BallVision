@@ -94,4 +94,4 @@ const VideoPage=()=>{
 
 }
 
-export {VideoPage}
+export default VideoPage

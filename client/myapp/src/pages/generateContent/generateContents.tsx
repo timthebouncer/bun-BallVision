@@ -1,6 +1,22 @@
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
+import {useEffect} from "react";
 
-const GenerateContents=(a)=>{
+const GenerateContents=()=>{
+    const navigate = useNavigate();
+
+    const handleUserCheck= async ()=>{
+
+        const hasPassword = localStorage.getItem('password')
+
+        if(!hasPassword){
+            return navigate('/login')
+        }
+    }
+
+
+    useEffect(() => {
+        handleUserCheck()
+    }, []);
 
     return (
         <div className={'text-center mt-8'}>
@@ -12,7 +28,7 @@ const GenerateContents=(a)=>{
             </Link>
             <Link
                 className={'px-8 py-4 mx-4 bg-[#fa0] text-white'}
-                to={'/generateArticles'}
+                to={'/editArticles'}
             >
                 修改文章
             </Link>
@@ -27,4 +43,4 @@ const GenerateContents=(a)=>{
 
 }
 
-export {GenerateContents}
+export default GenerateContents

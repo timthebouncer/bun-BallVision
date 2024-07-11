@@ -82,24 +82,9 @@
 .SideContainer {
   padding: 0.4em;
 }
-.pagination {
-  display: flex;
-  align-items: center;
-  justify-content: flex-end;
-  margin: 1rem 0;
-}
 
-.ant-pagination-prev {
-  background-color: #fff;
-}
-.ant-pagination-next {
-  background-color: #fff;
-}
-.ant-pagination-item {
-}
-.ant-pagination-item-active {
-  background-color: #fff !important;
-}
+
+
 .ant-input {
   background-color: #2d2436;
   color: #fff;

@@ -34,3 +34,14 @@ body {
   background-color: #F3F3F3;
 
 }
+.ant-pagination-prev {
+  background-color: #fff;
+}
+.ant-pagination-next {
+  background-color: #fff;
+}
+.ant-pagination-item {
+}
+.ant-pagination-item-active {
+  background-color: #fff !important;
+}
