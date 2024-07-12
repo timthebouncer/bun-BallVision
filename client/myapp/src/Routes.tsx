@@ -10,7 +10,6 @@ const Loading=()=>{
 const HomePage = lazy(()=> import('./pages/HomePage'))
 const Login = lazy(()=> import('./pages/login/LoginPage'))
 const VideoPage = lazy(()=> import('./pages/video/VideoPage'))
-const Articles = lazy(()=> import('./pages/articleList/Articles'))
 const SingleArticle = lazy(()=> import('./components/articleDetail/index'))
 const ServiceTerms = lazy(()=> import('./pages/ServiceTerms'))
 const GenerateContents = lazy(()=> import('./pages/generateContent/generateContents'))
