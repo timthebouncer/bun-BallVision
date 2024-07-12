@@ -1,14 +1,13 @@
 import { forwardRef, useEffect, useLayoutEffect, useRef } from 'react';
 import Quill from "quill";
 import "quill/dist/quill.snow.css";
-import {Op} from "quill/core";
 
 interface EditorProps {
     readOnly?: boolean;
     defaultValue?: any;
     onTextChange?: any;
     onSelectionChange?: any;
-    content?: string[] | Op[];
+    content?: string[];
 }
 
 const Delta = Quill.import('delta');
@@ -85,6 +84,8 @@ const Editor = forwardRef<Quill, EditorProps>(
 
             if (content) {
                 const delta = new Delta()
+                // eslint-disable-next-line @typescript-eslint/ban-ts-comment
+                // @ts-expect-error
                 delta.ops = content
                 quill.setContents(delta.ops);
             }
