@@ -50,14 +50,6 @@ const Routes=()=>{
                 </Suspense>
             }
             />
-            <Route
-                path={"/articleDetail"}
-                element={
-                        <Suspense fallback={<Loading />}>
-                                <Articles articleList={[]} />
-                        </Suspense>}
-
-            />
             <Route path="/articles/:articleId"
                    element={
                            <Suspense fallback={<Loading />}>

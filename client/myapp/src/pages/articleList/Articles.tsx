@@ -18,7 +18,7 @@ interface ArticlesProps {
 const Articles: FC<ArticlesProps>=({articleList, searchParams, setSearchParams, totalElement})=>{
 
 
-    const onUpdateArticleView=(id:string)=>{
+    const onUpdateArticleView=(id: number)=>{
         axiosInstance.put('/updateArticleView', {id})
     }
 
