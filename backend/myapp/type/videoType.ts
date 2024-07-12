@@ -15,3 +15,9 @@ type Keyword = {
     pageSize?: number;
     pageNumber?: number;
 }
+
+type ArticleSearch = {
+    category: string;
+    pageSize?: number
+    pageNumber?: number
+}

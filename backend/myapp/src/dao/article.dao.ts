@@ -1,4 +1,4 @@
-import {articles} from "../db/schema";
+import {articles, videos} from "../db/schema";
 import {asc, count, desc, eq, like, sql} from "drizzle-orm";
 import {config} from "../config";
 import {getBallVisionDb} from "../db";
@@ -9,16 +9,27 @@ import {deleteArticle} from "../service";
 
 
 export class ArticleDao {
-    async getArticleList() {
+    async getArticleList(query: ArticleSearch) {
+        const { category, pageSize = 10, pageNumber = 1 } = query
+
         const response: any = {};
 
         const { ballVisionDb } = getBallVisionDb({
             dbName: config.env.DATABASE_URL,
             authToken: config.env.DATABASE_AUTH_TOKEN!,
         });
-
-        response.list = await ballVisionDb.select().from(articles)
-        response.totalElement = await ballVisionDb.select({ count: count() }).from(articles).orderBy(desc(articles.createTime))
+        if(category){
+            response.list = await ballVisionDb.select().from(articles).where(like(articles.category, `%${category}%`)).orderBy(desc(articles.createTime))
+            const totalElement =
+                await ballVisionDb.select({ count: count() })
+                    .from(articles)
+                    .where(like(articles.title, `%${category}%`))
+                    .orderBy(desc(articles.createTime))
+            response.totalElement = totalElement[0].count
+        } else {
+            response.list = await ballVisionDb.select().from(articles)
+            response.totalElement = await ballVisionDb.select({ count: count() }).from(articles).orderBy(desc(articles.createTime))
+        }
         return response
     }
     async getSingleArticle(id: number) {

@@ -14,9 +14,15 @@ import {
 import {t} from "elysia";
 
 
-app.get('/api/getArticle', async () => {
-    const response = await getArticleList()
+app.get('/api/getArticle', async ({query}) => {
+    const response = await getArticleList(query)
     return response || null
+}, {
+    query: t.Object({
+        category:t.String(),
+        pageNumber: t.Optional(t.Numeric()),  // <----- Works
+        pageSize: t.Optional(t.Numeric()), // <----- Works
+    }),
 }).get('/api/getSingleArticle:id', async ({ params: { id } }) => {
     const response = await getSingleArticle(id)
     return response || null
@@ -25,8 +31,12 @@ app.get('/api/getArticle', async () => {
     return response || null
 }).post('/api/addArticle',({body}:{body: AddArticle})=>{
     addArticle(body);
-}).delete('/api/deleteArticle',({query}:{id:number})=>{
-    deleteArticle(query.id);
+}).delete('/api/deleteArticle',({query})=>{
+    deleteArticle(query);
+}, {
+    query: t.Object({
+        id: t.Numeric()
+    }),
 }).put('/api/updateArticleView',({body}: { body: UpdateArticleViewBody })=>{
         updateArticleView(body.id);
 }).put('/api/updateArticle',({body}: { body: UpdateArticleBody })=>{

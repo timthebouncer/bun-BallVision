@@ -26,9 +26,9 @@ export function addContact(params: AddContact) {
     dao.addContact(params)
 }
 
-export async function getArticleList() {
+export async function getArticleList(query: ArticleSearch) {
     const dao = new ArticleDao()
-    const response = await dao.getArticleList()
+    const response = await dao.getArticleList(query)
     return response
 }
 
@@ -49,9 +49,9 @@ export function addArticle(params: AddArticle) {
     dao.addArticle(params)
 }
 
-export function deleteArticle(id: number) {
+export function deleteArticle(query: {id: number}) {
     const dao = new ArticleDao()
-    dao.deleteArticle(id)
+    dao.deleteArticle(query.id)
 }
 
 export function updateArticleView(id: number) {
