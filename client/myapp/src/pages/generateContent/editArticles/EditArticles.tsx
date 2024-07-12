@@ -4,6 +4,7 @@ import axiosInstance from "../../../../utils/axiosInstance.ts";
 import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
 import {Button, Modal, Pagination} from "antd";
 import EditorModal from "../../../components/modal/editorModal/EditorModal.tsx";
+import {errorToaster, successToaster} from "../../../components/toaster/Toaster.tsx";
 
 
 
@@ -35,9 +36,15 @@ const EditArticles=()=>{
     };
 
     const handleOk = async () => {
-        const data = await axiosInstance.delete('/deleteArticle', {params: {id: isDeleteModalOpen.id}})
-        console.log(data,'ddd')
-        setIsDeleteModalOpen({isVisible: false, id: null});
+        const {status} = await axiosInstance.delete('/deleteArticle', {params: {id: isDeleteModalOpen.id}})
+
+        if(status === 200){
+            successToaster()
+            setIsDeleteModalOpen({isVisible: false, id: null});
+            onGetArticleList()
+        } else {
+            errorToaster()
+        }
     };
 
     const handleCancel = () => {
@@ -46,7 +53,13 @@ const EditArticles=()=>{
 
 
     const onGetArticleList= async ()=>{
-        const {data} = await axiosInstance.get(`/getArticle`)
+        const initState={
+            category: '',
+            pageSize: 10,
+            pageNumber: 1
+        }
+
+        const {data} = await axiosInstance.get(`/getArticle`, {params: {...initState}})
         setArticleList(data.list)
         setTotalElement(data.totalElement)
     }
