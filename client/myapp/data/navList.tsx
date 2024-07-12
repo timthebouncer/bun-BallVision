@@ -1,18 +1,8 @@
-type SubListItem = {
-  id: string;
-  name: string;
-}
 
-type NavListItem = {
-  id: string;
-  name: string;
-  subList?: SubListItem[];
-  url: string;
-}
 
 
 export const navList:NavListItem[]=[
-  { id: 'nav1',
+  { id: 'nba',
     name: 'NBA',
     subList: [
       { id: 'sub1', name: '最新資訊'},
@@ -20,7 +10,7 @@ export const navList:NavListItem[]=[
     ],
     url: ''
   },
-  { id: 'nav2',
+  { id: 'tba',
     name: '台籃',
     subList: [
       { id: 'sub1', name: '最新資訊'},
@@ -28,12 +18,12 @@ export const navList:NavListItem[]=[
     ],
     url: ''
   },
-  { id: 'nav3',
+  { id: 'video',
     name: '影片',
     subList: [],
     url: '/video'
   },
-  { id: 'nav4',
+  { id: 'shop',
     name: '購物',
     url: ''
   },

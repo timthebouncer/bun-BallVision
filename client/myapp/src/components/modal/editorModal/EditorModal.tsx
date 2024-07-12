@@ -13,30 +13,7 @@ type ArticleParams = {
     [key: string]: any;
 }
 
-type ShowEditorType = {
-    isVisible: boolean
-    content: string[]
-    type: string
-    avatar: string
-    title: string
-    intro: string
-    category: string
-}
 
-type ModalParamsType = {
-    showEditor: ShowEditorType
-    setShowEditor: (p: {
-        isVisible: boolean;
-        id: number
-        content: string[],
-        type: string,
-        avatar: string
-        title: string
-        intro: string
-        category: string
-    })=>void
-    onGetArticleList:()=>void
-}
 
 const EditorModal:FC<ModalParamsType>=({showEditor, setShowEditor, onGetArticleList})=>{
 

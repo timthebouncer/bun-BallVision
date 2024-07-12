@@ -6,26 +6,21 @@ import axiosInstance from "../../../utils/axiosInstance";
 import {FC} from "react";
 
 
-type Article ={
-    id: string
-    avatar: string
-    title: string
-    intro: string
-    content: string
-    views: number
-}
+
 interface ArticlesProps {
-    articleList: Article[];
+    articleList: ARTICLE[];
+    searchParams: ArticleSearch;
+    setSearchParams: (p:ArticleSearch)=>void;
+    totalElement: number;
 }
 
 
-const Articles: FC<ArticlesProps>=({articleList})=>{
+const Articles: FC<ArticlesProps>=({articleList, searchParams, setSearchParams, totalElement})=>{
 
 
     const onUpdateArticleView=(id:string)=>{
         axiosInstance.put('/updateArticleView', {id})
     }
-
 
 
 
@@ -57,12 +52,12 @@ const Articles: FC<ArticlesProps>=({articleList})=>{
 
             <div className="hidden sm:flex justify-end mt-8">
                 <Pagination
-                    // defaultCurrent={searchParams.pageNumber}
-                    // defaultPageSize={searchParams.pageSize}
-                    // total={totalElement}
-                    // onChange={(e)=>{
-                    //     setSearchParams({...searchParams, pageNumber: e})
-                    // }}
+                    defaultCurrent={searchParams.pageNumber}
+                    defaultPageSize={searchParams.pageSize}
+                    total={totalElement}
+                    onChange={(e)=>{
+                        setSearchParams({...searchParams, pageNumber: e})
+                    }}
                 />
             </div>
         </div>

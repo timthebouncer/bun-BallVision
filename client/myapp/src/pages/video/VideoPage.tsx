@@ -5,20 +5,6 @@ import {Pagination} from "antd";
 import Search from "antd/es/input/Search";
 
 
-type VIDEO = {
-    id: string;
-    title: string;
-    intro: string;
-    videoUrl: string;
-}
-
-type Keyword = {
-    keyword: string;
-    pageSize: number
-    pageNumber: number
-}
-
-
 const initState={
     keyword: '',
     pageSize: 5,

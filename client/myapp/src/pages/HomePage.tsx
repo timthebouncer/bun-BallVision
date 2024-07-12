@@ -5,34 +5,30 @@ import MenuComponent from "../components/Menu";
 import ballLogo from '../../public/ballLogo-round.png'
 import Footer from "../components/footer/Footer.tsx";
 import {navList} from "../../data/navList.tsx"
-import {Link} from "react-router-dom";
+import {Link, useNavigate} from "react-router-dom";
 import {CarouselCompo} from "../components/carousel/Carousel.tsx";
 import Articles from "./articleList/Articles";
 import axiosInstance from "../../utils/axiosInstance";
 
-type ARTICLE={
-	id: string
-	avatar: string
-	title: string
-	intro: string
-	content: string
-	views: number
+
+
+const initState={
+	category: 'nba',
+	pageSize: 5,
+	pageNumber: 1
 }
 
 
-
-
 function HomePage() {
-
-	const [activeNav, setActiveNav] = useState<string | null>(null);
-
+	const navigate = useNavigate();
+	const [searchParams, setSearchParams] = useState<ArticleSearch>(initState);
 	const [articleList, setArticleList] = useState<ARTICLE[]>([])
 	const [hotArticleList, setHotArticleList] = useState<ARTICLE[]>([])
-	const [, setTotalElement] = useState<number>(0)
+	const [totalElement, setTotalElement] = useState<number>(0)
 
 
 	const onGetArticleList= async ()=>{
-		const {data} = await axiosInstance.get(`/getArticle`)
+		const {data} = await axiosInstance.get(`/getArticle`, {params: {...searchParams}})
 		setArticleList(data.list)
 		setTotalElement(data.totalElement)
 	}
@@ -41,14 +37,24 @@ function HomePage() {
 		setHotArticleList(data.list)
 	}
 
-	const onUpdateArticleView=(id:string)=>{
+	const onUpdateArticleView=(id:number)=>{
 		axiosInstance.put('/updateArticleView', {id: id})
+	}
+
+	const handleCategory=(el:NavListItem)=>{
+		if(el.id === 'video'){
+			navigate('/video')
+		} else if (el.id === 'shop') {
+			console.log('shop')
+		} else {
+			setSearchParams({...searchParams, category: el.id})
+		}
 	}
 
 	useEffect(()=>{
 		onGetArticleList()
 		onHottestArticleList()
-	},[])
+	},[searchParams])
 
 
     return (
@@ -67,35 +73,19 @@ function HomePage() {
 					</div>
 				</div>
 			</nav>
-			<div className="hidden sm:flex justify-center items-center py-6 bg-[#190f23]" onMouseLeave={()=>{
-				setActiveNav(null)
-			}}>
+			<div className="hidden sm:flex justify-center items-center py-6 bg-[#190f23]">
 				{
 					navList.map(el=>{
 						return (
 							<div key={el.id}  className='relative'>
 								<div>
-									<Link to="/video" relative="path">
-										<Button
-											className={'button'}
-											onMouseEnter={()=>{
-												setActiveNav(el.id)
-											}}
-										>
-											{el.name}
-										</Button>
-									</Link>
+									<Button
+										className={'button'}
+										onClick={()=>handleCategory(el)}
+									>
+										{el.name}
+									</Button>
 								</div>
-								{
-									activeNav === el.id && (
-										<div className='absolute top-14 -left-1 z-20'>
-											{(el.subList || []).map((sub) => {
-												return <Button key={sub.id} className="subButton">
-													{sub.name}
-												</Button>
-											})}
-										</div>
-								)}
 							</div>
 						)
 					})
@@ -109,9 +99,12 @@ function HomePage() {
 								<CarouselCompo articleList={articleList} />
 							</div>
 						}
-
-
-						<Articles articleList={articleList} />
+						<Articles
+							articleList={articleList}
+							searchParams={searchParams}
+							setSearchParams={setSearchParams}
+							totalElement={totalElement}
+						/>
 					</div>
 					<div className={'hidden xl:block bg-white w-2/6 py-6 px-6 ml-4'}>
 						<div>

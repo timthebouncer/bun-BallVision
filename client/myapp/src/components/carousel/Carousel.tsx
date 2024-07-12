@@ -5,14 +5,9 @@ import { Button } from "antd";
 import { LeftOutlined, RightOutlined } from "@ant-design/icons";
 import {FC} from "react";
 
-type Article={
-    id:string;
-    avatar:string;
-    title:string;
-    intro:string;
-}
+
 interface ArticlesProps {
-    articleList: Article[];
+    articleList: ARTICLE[];
 }
 
 const CarouselCompo: FC<ArticlesProps> = ({ articleList }) => {

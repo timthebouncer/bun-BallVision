@@ -1,15 +1,10 @@
-import { Button, Drawer, Menu } from 'antd';
+import { Button, Drawer } from 'antd';
 import MenuFoldOutlined from '@ant-design/icons/lib/icons/MenuFoldOutlined';
 import { useState } from 'react';
 import ballLogo from '/ballLogo-round.png';
 
-interface MenuItem {
-	key: string;
-	label: string;
-	children?: MenuItem[];
-}
 
-const items: MenuItem[] = [
+const items = [
 	{
 		key: '1',
 		label: 'NBA',
@@ -42,16 +37,7 @@ const items: MenuItem[] = [
 
 const MenuComponent = () => {
 	const [open, setOpen] = useState(false);
-	const [stateOpenKeys, setStateOpenKeys] = useState<string[]>([]);
 
-	const onOpenChange = (openKeys: string[]) => {
-		const latestOpenKey = openKeys.find((key) => stateOpenKeys.indexOf(key) === -1);
-		if (!latestOpenKey) {
-			setStateOpenKeys([]);
-		} else {
-			setStateOpenKeys([latestOpenKey]);
-		}
-	};
 
 	const showDrawer = () => {
 		setOpen(true);
@@ -59,7 +45,6 @@ const MenuComponent = () => {
 
 	const onClose = () => {
 		setOpen(false);
-		setStateOpenKeys([]);
 	};
 
 	return (
@@ -77,7 +62,7 @@ const MenuComponent = () => {
 				title={
 					<div style={{ color: '#fff' }}>
 						<div className="logo-wrapper">
-							<a href="https://vitejs.dev">
+							<a href="/">
 								<img src={ballLogo} className="logo" alt="BBall Vision Logo" />
 							</a>
 							<h2>BBall_Vision</h2>
@@ -87,18 +72,19 @@ const MenuComponent = () => {
 				placement="left"
 				width={300}
 				onClose={onClose}
-				visible={open}
+				open={open}
 			>
-				<Menu mode="inline" openKeys={stateOpenKeys} onOpenChange={onOpenChange} theme="dark">
+				<div className={'flex flex-col'}>
 					{items.map((item) => (
-						<Menu.SubMenu key={item.key} title={item.label}>
-							{item.children &&
-							item.children.map((child) => (
-								<Menu.Item key={child.key}>{child.label}</Menu.Item>
-							))}
-						</Menu.SubMenu>
+						<Button
+							key={item.key}
+							className={'mb-4'}
+						>
+							{item.label}
+						</Button>
 					))}
-				</Menu>
+				</div>
+
 			</Drawer>
 		</div>
 	);

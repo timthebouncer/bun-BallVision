@@ -5,15 +5,7 @@ import {DeleteOutlined, EditOutlined} from "@ant-design/icons";
 import {Button, Modal, Pagination} from "antd";
 import EditorModal from "../../../components/modal/editorModal/EditorModal.tsx";
 
-type ARTICLE={
-    id: number
-    avatar: string
-    title: string
-    intro: string
-    content: string[]
-    views: number
-    category: string
-}
+
 
 type ModalTypeParams = {
     isVisible: boolean

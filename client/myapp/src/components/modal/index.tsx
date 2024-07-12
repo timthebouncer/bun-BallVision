@@ -3,13 +3,7 @@ import { ChangeEvent, useState } from 'react';
 import { Button, Input, Modal } from 'antd';
 import TextArea from 'antd/es/input/TextArea';
 
-type PropsType = {
-    isModalOpen: boolean;
-    modalCallback: modalCallback;
-    title: string;
-};
 
-type modalCallback = (action: 'submit' | 'cancel', data: any) => void;
 
 const CustomModal: React.FC<PropsType> = ({ isModalOpen, modalCallback, title }) => {
     const [loading, setLoading] = useState(false);
