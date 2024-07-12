@@ -48,7 +48,7 @@ const EditorModal:FC<ModalParamsType>=({showEditor, setShowEditor, onGetArticleL
                 intro: newArticleParams.intro,
                 avatar: newArticleParams.avatar,
                 category: newArticleParams.category,
-                content: newArticleParams.content
+                content: content
             })
             if(status === 200){
                 successToaster()
