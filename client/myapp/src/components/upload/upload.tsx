@@ -3,6 +3,7 @@ import { Upload } from 'antd';
 import type { UploadFile, UploadProps } from 'antd';
 import type { RcFile } from 'antd/es/upload';
 import * as React from "react";
+import {dealImage} from "../../../utils/zipImage";
 
 type  ArticleParams = {
     title?: string;
@@ -24,6 +25,10 @@ const UploadImg: React.FC<UploadImgProps> = ({newArticleParams, setNewArticlePar
         setFileList(newFileList);
     };
 
+    function useImg(base64:string) {
+        setNewArticleParams((pre: any) => ({ ...pre, avatar: base64 }));
+    }
+
     const onData = async (file: RcFile) => {
         const reader = new FileReader();
         reader.readAsDataURL(file);
@@ -37,7 +42,7 @@ const UploadImg: React.FC<UploadImgProps> = ({newArticleParams, setNewArticlePar
                 e.widthHeight = `${naturalWidth} x ${naturalHeight}`;
                 e.url = reader.result as string;
                 console.log(e,'eee')
-                setNewArticleParams((pre: any) => ({ ...pre, avatar: e.url }));
+                dealImage(e.url, 700, useImg)
                 setFileList(f => [...f, e]);
             };
         };

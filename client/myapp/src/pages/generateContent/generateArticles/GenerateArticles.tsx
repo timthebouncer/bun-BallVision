@@ -7,6 +7,7 @@ import {UploadImg} from "../../../components/upload/upload";
 import axiosInstance from "../../../../utils/axiosInstance.ts";
 import { useNavigate  } from "react-router-dom";
 import {errorToaster, successToaster} from "../../../components/toaster/Toaster";
+import {dealImage} from "../../../../utils/zipImage";
 
 const Delta = Quill.import('delta');
 
@@ -40,6 +41,16 @@ const GenerateArticles=()=>{
             // console.log(JSON.parse(JSON.stringify(delta.ops, null, 2)));
             content = JSON.parse(JSON.stringify(delta.ops, null, 2))
         }
+
+        content.forEach(item=>{
+            if(item.insert.image){
+                const useImg=(base64)=>{
+                    item.insert.image = base64
+                }
+                dealImage(item.insert.image, 700, useImg)
+            }
+        })
+
 
 
 
