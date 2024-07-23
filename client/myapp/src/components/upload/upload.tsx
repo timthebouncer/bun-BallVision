@@ -41,7 +41,7 @@ const UploadImg: React.FC<UploadImgProps> = ({newArticleParams, setNewArticlePar
                 const naturalWidth = img.naturalWidth;
                 e.widthHeight = `${naturalWidth} x ${naturalHeight}`;
                 e.url = reader.result as string;
-                console.log(e,'eee')
+
                 dealImage(e.url, 700, useImg)
                 setFileList(f => [...f, e]);
             };

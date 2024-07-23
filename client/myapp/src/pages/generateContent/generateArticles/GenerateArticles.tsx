@@ -17,7 +17,20 @@ type  ArticleParams = {
     avatar?: string;
     [key: string]: any;
 }
+interface ImageInsert {
+    image: string;
+}
+interface TextInsert {
+    insert: string;
+}
+interface ImageInsertWrapper {
+    insert: ImageInsert;
+}
+type Insert = TextInsert | ImageInsertWrapper;
 
+function isImageInsertWrapper(insert: Insert): insert is ImageInsertWrapper {
+    return (insert as ImageInsertWrapper).insert.image !== undefined;
+}
 const GenerateArticles=()=>{
     const navigate = useNavigate();
     const quillRef = useRef<Quill | null>(null);
@@ -33,7 +46,7 @@ const GenerateArticles=()=>{
     const onSubmit= async ()=>{
 
 
-        let content:[] = []
+        let content:Insert[] = []
 
         if(quillRef.current){
             quillRef.current.update()
@@ -43,16 +56,13 @@ const GenerateArticles=()=>{
         }
 
         content.forEach(item=>{
-            if(item.insert.image){
-                const useImg=(base64)=>{
-                    item.insert.image = base64
-                }
-                dealImage(item.insert.image, 700, useImg)
+            if (isImageInsertWrapper(item)) {
+                const useImg = (base64: string) => {
+                    item.insert.image = base64;
+                };
+                dealImage(item.insert.image, 700, useImg);
             }
         })
-
-
-
 
         const {status} = await axiosInstance.post('/addArticle', {...newArticleParams, content})
         if(status === 200){

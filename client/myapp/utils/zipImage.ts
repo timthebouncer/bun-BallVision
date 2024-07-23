@@ -1,16 +1,29 @@
-import {e} from "vite/dist/node/types.d-aGj9QkWt";
+export const dealImage = (
+    base64: string | undefined,
+    w: number,
+    callback?: (base64: string) => void
+): void => {
+    if (!base64) {
+        console.error('Base64 string is undefined.');
+        return;
+    }
 
-export const dealImage=(base64: string|undefined, w: number, callback?:()=>string)=>{
-    var newImage = new Image();
-    var quality = 0.6;    //压缩系数0-1之间
+    let newImage = new Image();
+    let quality = 0.6; // Compression ratio between 0 and 1
     newImage.src = base64;
-    newImage.setAttribute("crossOrigin", 'Anonymous');	//url为外域时需要
-    var imgWidth, imgHeight;
+    newImage.setAttribute("crossOrigin", 'Anonymous'); // Needed for cross-origin images
+
     newImage.onload = function () {
-        imgWidth = this.width;
-        imgHeight = this.height;
-        var canvas = document.createElement("canvas");
-        var ctx = canvas.getContext("2d");
+        let imgWidth = newImage.width;
+        let imgHeight = newImage.height;
+        let canvas = document.createElement("canvas");
+        let ctx = canvas.getContext("2d");
+
+        if (!ctx) {
+            console.error('Canvas context is null.');
+            return;
+        }
+
         if (Math.max(imgWidth, imgHeight) > w) {
             if (imgWidth > imgHeight) {
                 canvas.width = w;
@@ -22,22 +35,28 @@ export const dealImage=(base64: string|undefined, w: number, callback?:()=>strin
         } else {
             canvas.width = imgWidth;
             canvas.height = imgHeight;
-            quality = 0.6;
         }
-        ctx.clearRect(0, 0, canvas.width, canvas.height);
-        ctx.drawImage(this, 0, 0, canvas.width, canvas.height);
-        var base64 = canvas.toDataURL("image/jpeg", quality); //压缩语句
-        // 如想确保图片压缩到自己想要的尺寸,如要求在50-150kb之间，请加以下语句，quality初始值根据情况自定
-        // while (base64.length / 1024 > 150) {
-        // 	quality -= 0.01;
-        // 	base64 = canvas.toDataURL("image/jpeg", quality);
-        // }
-        // 防止最后一次压缩低于最低尺寸，只要quality递减合理，无需考虑
-        // while (base64.length / 1024 < 50) {
-        // 	quality += 0.001;
-        // 	base64 = canvas.toDataURL("image/jpeg", quality);
-        // }
-        callback(base64);//必须通过回调函数返回，否则无法及时拿到该值
-    }
-}
 
+        ctx.clearRect(0, 0, canvas.width, canvas.height);
+        ctx.drawImage(newImage, 0, 0, canvas.width, canvas.height);
+        let compressedBase64 = canvas.toDataURL("image/jpeg", quality); // Compression statement
+
+        // Optional further compression to target size range (uncomment and adjust as needed)
+        // while (compressedBase64.length / 1024 > 150) {
+        //     quality -= 0.01;
+        //     compressedBase64 = canvas.toDataURL("image/jpeg", quality);
+        // }
+        // while (compressedBase64.length / 1024 < 50) {
+        //     quality += 0.001;
+        //     compressedBase64 = canvas.toDataURL("image/jpeg", quality);
+        // }
+
+        if (callback) {
+            callback(compressedBase64);
+        } // Return the compressed image through the callback
+    };
+
+    newImage.onerror = function () {
+        console.error('Error loading image.');
+    };
+};
