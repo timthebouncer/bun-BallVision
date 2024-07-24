@@ -17,16 +17,7 @@ type  ArticleParams = {
     avatar?: string;
     [key: string]: any;
 }
-interface ImageInsert {
-    image: string;
-}
-interface TextInsert {
-    insert: string;
-}
-interface ImageInsertWrapper {
-    insert: ImageInsert;
-}
-type Insert = TextInsert | ImageInsertWrapper;
+
 
 function isImageInsertWrapper(insert: Insert): insert is ImageInsertWrapper {
     return (insert as ImageInsertWrapper).insert.image !== undefined;
@@ -55,19 +46,27 @@ const GenerateArticles=()=>{
             content = JSON.parse(JSON.stringify(delta.ops, null, 2))
         }
 
-        content.forEach(item=>{
-            if (isImageInsertWrapper(item)) {
-                const useImg = (base64: string) => {
-                    item.insert.image = base64;
-                };
-                dealImage(item.insert.image, 700, useImg);
-            }
-        })
+        const imageProcessingPromises = content.map(item => {
+            return new Promise<void>((resolve) => {
+                if (isImageInsertWrapper(item)) {
+                    const useImg = (base64: string) => {
+                        item.insert.image = base64; // 更新图像数据
+                        resolve(); // 处理完成，调用 resolve
+                    };
+                    dealImage(item.insert.image, 700, useImg); // 处理图像压缩
+                } else {
+                    resolve(); // 如果不是图像插入，则直接 resolve
+                }
+            });
+        });
+
+        await Promise.all(imageProcessingPromises);
+
 
         const {status} = await axiosInstance.post('/addArticle', {...newArticleParams, content})
         if(status === 200){
             successToaster()
-            navigate(-1)
+            navigate('/generateContent')
         } else {
             errorToaster()
         }

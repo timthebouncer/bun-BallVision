@@ -72,3 +72,26 @@ type NavListItem = {
     subList?: SubListItem[];
     url: string;
 }
+
+interface ImageInsert {
+    image: string;
+}
+interface TextInsert {
+    insert: string;
+}
+interface ImageInsertWrapper {
+    insert: ImageInsert;
+}
+type Insert = TextInsert | ImageInsertWrapper;
+
+
+type EditorParamsType = {
+    isVisible: boolean
+    id: number
+    content: string[]
+    type: string
+    avatar: string
+    title: string
+    intro: string
+    category: string
+}

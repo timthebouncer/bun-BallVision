@@ -13,16 +13,7 @@ type ModalTypeParams = {
     id: number | null
 }
 
-type EditorParamsType = {
-    isVisible: boolean
-    id: number
-    content: string[]
-    type: string
-    avatar: string
-    title: string
-    intro: string
-    category: string
-}
+
 
 const EditArticles=()=>{
     const [articleList, setArticleList] = useState<ARTICLE[]>([])

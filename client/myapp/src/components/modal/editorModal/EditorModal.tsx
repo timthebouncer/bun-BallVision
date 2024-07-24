@@ -5,6 +5,7 @@ import {ChangeEvent, FC, useEffect, useRef, useState} from "react";
 import Quill from "quill";
 import axiosInstance from "../../../../utils/axiosInstance.ts";
 import {errorToaster, successToaster} from "../../toaster/Toaster";
+import {dealImage} from "../../../../utils/zipImage";
 
 type ArticleParams = {
     title?: string;
@@ -14,6 +15,9 @@ type ArticleParams = {
 }
 
 
+function isImageInsertWrapper(insert: Insert): insert is ImageInsertWrapper {
+    return (insert as ImageInsertWrapper).insert.image !== undefined;
+}
 
 const EditorModal:FC<ModalParamsType>=({showEditor, setShowEditor, onGetArticleList})=>{
 
@@ -34,13 +38,30 @@ const EditorModal:FC<ModalParamsType>=({showEditor, setShowEditor, onGetArticleL
     const onSubmit= async ()=>{
 
 
-        let content:[] = []
+        let content:Insert[] = []
 
         if(quillRef.current){
             quillRef.current.update()
             const delta = await quillRef.current.getContents()
             content = JSON.parse(JSON.stringify(delta.ops, null, 2))
         }
+
+        const imageProcessingPromises = content.map(item => {
+            return new Promise<void>((resolve) => {
+                if (isImageInsertWrapper(item)) {
+                    const useImg = (base64: string) => {
+                        item.insert.image = base64; // 更新图像数据
+                        resolve(); // 处理完成，调用 resolve
+                    };
+                    dealImage(item.insert.image, 700, useImg); // 处理图像压缩
+                } else {
+                    resolve(); // 如果不是图像插入，则直接 resolve
+                }
+            });
+        });
+
+        await Promise.all(imageProcessingPromises);
+
         if(showEditor.type === 'edit'){
             const {status} = await axiosInstance.put('/updateArticle', {
                 id: newArticleParams.id,
