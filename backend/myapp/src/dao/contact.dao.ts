@@ -1,5 +1,4 @@
 import {contact} from "../db/schema";
-import {db} from "../constants";
 import {getBallVisionDb} from "../db";
 import {config} from "../config";
 

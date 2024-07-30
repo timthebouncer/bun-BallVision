@@ -1,5 +1,5 @@
 import Elysia from "elysia";
-import {initDatabase} from "../db/db";
+// import {initDatabase} from "../db/db";
 
 
 export const app = new Elysia()
