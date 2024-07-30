@@ -7,6 +7,7 @@ import {UploadImg} from "../../../components/upload/upload";
 import axiosInstance from "../../../../utils/axiosInstance.ts";
 import { useNavigate  } from "react-router-dom";
 import {errorToaster, successToaster} from "../../../components/toaster/Toaster";
+import {dealImage} from "../../../../utils/zipImage";
 
 const Delta = Quill.import('delta');
 
@@ -17,6 +18,10 @@ type  ArticleParams = {
     [key: string]: any;
 }
 
+
+function isImageInsertWrapper(insert: Insert): insert is ImageInsertWrapper {
+    return (insert as ImageInsertWrapper).insert.image !== undefined;
+}
 const GenerateArticles=()=>{
     const navigate = useNavigate();
     const quillRef = useRef<Quill | null>(null);
@@ -32,7 +37,7 @@ const GenerateArticles=()=>{
     const onSubmit= async ()=>{
 
 
-        let content:[] = []
+        let content:Insert[] = []
 
         if(quillRef.current){
             quillRef.current.update()
@@ -41,12 +46,27 @@ const GenerateArticles=()=>{
             content = JSON.parse(JSON.stringify(delta.ops, null, 2))
         }
 
+        const imageProcessingPromises = content.map(item => {
+            return new Promise<void>((resolve) => {
+                if (isImageInsertWrapper(item)) {
+                    const useImg = (base64: string) => {
+                        item.insert.image = base64; // 更新图像数据
+                        resolve(); // 处理完成，调用 resolve
+                    };
+                    dealImage(item.insert.image, 700, useImg); // 处理图像压缩
+                } else {
+                    resolve(); // 如果不是图像插入，则直接 resolve
+                }
+            });
+        });
+
+        await Promise.all(imageProcessingPromises);
 
 
         const {status} = await axiosInstance.post('/addArticle', {...newArticleParams, content})
         if(status === 200){
             successToaster()
-            navigate(-1)
+            navigate('/generateContent')
         } else {
             errorToaster()
         }
