@@ -5,4 +5,4 @@ import {initDatabase} from "../db/db";
 export const app = new Elysia()
 
 
-export const db = initDatabase()
+// export const db = initDatabase()
