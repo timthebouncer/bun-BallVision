@@ -29,7 +29,7 @@ const Articles: FC<ArticlesProps>=({articleList, searchParams, setSearchParams, 
             {
                 articleList.map(data=>{
                     return <div key={data.id} className='px-2 py-2 mb-2 bg-white'>
-                        <Link to={`/articles/${data.id}`} className='flex' onClick={()=>onUpdateArticleView(data.id)}>
+                        <Link to={`/articles/${data.id}`} className='flex items-center' onClick={()=>onUpdateArticleView(data.id)}>
                             <div className={'hidden md:block photo-wrapper'}>
                                 <img src={data.avatar} alt="" width={170} />
                             </div>

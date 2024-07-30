@@ -45,7 +45,7 @@ function HomePage() {
 		if(el.id === 'video'){
 			navigate('/video')
 		} else if (el.id === 'shop') {
-			console.log('shop')
+			window.open('https://www.hb-sport.com/')
 		} else {
 			setSearchParams({...searchParams, category: el.id})
 		}

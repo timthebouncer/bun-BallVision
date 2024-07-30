@@ -27,7 +27,7 @@ export class ArticleDao {
                     .orderBy(desc(articles.createTime))
             response.totalElement = totalElement[0].count
         } else {
-            response.list = await ballVisionDb.select().from(articles)
+            response.list = await ballVisionDb.select().from(articles).limit(pageSize).offset((pageNumber - 1) * pageSize)
             response.totalElement = await ballVisionDb.select({ count: count() }).from(articles).orderBy(desc(articles.createTime))
         }
         return response
