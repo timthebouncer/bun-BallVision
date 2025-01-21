@@ -69,7 +69,7 @@ function HomePage() {
 						<a href="/">
 							<img src={ballLogo} className="logo" alt="Vite logo" />
 						</a>
-						<h2 className='text-white'>BBall_Vision</h2>
+						<h2 className='text-white'>BBall_Vision😊😊😊</h2>
 					</div>
 				</div>
 			</nav>
