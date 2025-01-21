@@ -37,12 +37,16 @@ bun drizzle-kit generate --config=drizzle.config.ts
 
 `cd /var/www/bun-BallVision/backend/myapp/src`
 
+不使用pm2:
 `netstat -tulpn | grep :3000` # 啟用前先檢測是否已啟用，有就殺掉
 
 `kill xxxx` # 殺掉port
 
 `bun run index.ts &` # 後臺啟用
 
+使用pm2:
+在myApp執行以下指令
+`pm2 start --interpreter ~/.bun/bin/bun ./src/index.ts` # 後臺啟用
 
 ### 前台更新
 
